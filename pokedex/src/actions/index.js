@@ -1,6 +1,6 @@
-import { CLICK_UPDATE_VALUE } from './actionTypes';
+import { CLICK_UPDATE_VALUE } from './actionsTypes';
 
-const clickButton = value => ({
+export const clickButton = value => ({
     type: CLICK_UPDATE_VALUE,
     newValue: value
   });
