@@ -9,7 +9,7 @@ function App(props) {
   const handleChange = (event) => {
     setInputValue(event.target.value);
   }
-  const { clickButton, newValue } = props; // nao está definido
+  const { clickButton, newValue } = props;
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
       <input type='text' onChange={ handleChange } value={inputValue} />
