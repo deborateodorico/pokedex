@@ -8,7 +8,7 @@ export const clickReducer = (state = initialState, action) => {
     case CLICK_UPDATE_VALUE:
       return {
         ...state,
-        newValue: action.newValue
+        newValue: action.payload.newValue
       };
     default:
       return state;
