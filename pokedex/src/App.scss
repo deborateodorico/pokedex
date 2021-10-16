@@ -1,0 +1,11 @@
+$color: rgb(197, 193, 196);
+$color-button: rgb(204, 159, 189);
+
+body {
+  background-color: $color;
+  div {
+    button {
+      background-color: $color-button;
+    }
+  }
+}
