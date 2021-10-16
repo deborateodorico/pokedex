@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { clickButton } from './actions';
-import './App.css';
+import './App.scss';
 
 function App(props) {
   const [inputValue, setInputValue] = useState('');
