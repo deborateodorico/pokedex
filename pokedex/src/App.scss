@@ -1,5 +1,5 @@
-$color: rgb(197, 193, 196);
-$color-button: rgb(204, 159, 189);
+@import 'sass/variables';
+@import 'sass/paragraph';
 
 body {
   background-color: $color;
