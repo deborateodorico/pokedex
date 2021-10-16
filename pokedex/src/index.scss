@@ -1,0 +1,11 @@
+@import 'sass/variables';
+@import 'sass/paragraph';
+
+body {
+  background-color: $color;
+  div {
+    button {
+      background-color: $color-button;
+    }
+  }
+}
