@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { clickButton } from './actions';
+import Pokedex from './components/Pokedex';
 import './index.scss';
 
 function App(props) {
@@ -17,6 +18,7 @@ function App(props) {
         Click me!
       </button>
       <p>{newValue}</p>
+      <Pokedex />
     </div>
   );
 }
