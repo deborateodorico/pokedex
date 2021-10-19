@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 
 export default function Pokedex() {
 
-  const POKEMON_API_ADDRESS = 'http://pokedex.jhonnymichel.com/pokemon';
   const [pokemons, setPokemons] = useState([]);
   
   useEffect(() => {
     const fetchApiPokemon = async () => {
-      const apiPokemonResponse = await fetch(POKEMON_API_ADDRESS);
+      const apiPokemonResponse = await fetch(process.env.REACT_APP_POKEMON_API_ADDRESS);
       const pokemonData = await apiPokemonResponse.json();
-      setPokemons (data.results);
+      setPokemons (pokemonData.results);
     }
     fetchApiPokemon();
   }, []);
