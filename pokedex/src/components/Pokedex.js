@@ -7,9 +7,9 @@ export default function Pokedex() {
   
   useEffect(() => {
     const fetchApiPokemon = async () => {
-      const apiPokemon = await fetch(POKEMON_API_ADDRESS);
-      const json = await apiPokemon.json();
-      setPokemons (json.results);
+      const apiPokemonResponse = await fetch(POKEMON_API_ADDRESS);
+      const pokemonData = await apiPokemonResponse.json();
+      setPokemons (data.results);
     }
     fetchApiPokemon();
   }, []);
@@ -22,10 +22,10 @@ export default function Pokedex() {
             <div key={pokemon.id} className="pokemon">
               <img src={pokemon.picture} alt={pokemon.name} />
               <p>#{pokemon.id} {pokemon.name}</p>
-             </div>
+            </div>
           );
         })}
-    </section>
+      </section>
     </div>
 	);
 }
