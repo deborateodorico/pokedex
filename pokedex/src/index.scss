@@ -1,8 +1,9 @@
 @import 'sass/variables';
 @import 'sass/paragraph';
+@import 'sass/pokemon';
 
 body {
-  background-color: $color;
+  background-color: $color-body;
   div {
     button {
       background-color: $color-button;
