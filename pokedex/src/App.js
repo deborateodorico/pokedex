@@ -33,7 +33,7 @@ function App(props) {
     const checkboxWeigthsValue = event.target.value;
 
     if(checkboxWeigthsValue === checkboxWeigths) {
-      setCheckboxWeigths('')
+      setCheckboxWeigths('');
     } else {
       setCheckboxWeigths(event.target.value);
     }
@@ -83,7 +83,7 @@ function App(props) {
             );
           })}
         </section>
-      </div>
+    </div>
       {pokemons.length === 0 && <Pokedex />} 
     </div>
   );
