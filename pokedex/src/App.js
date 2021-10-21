@@ -13,19 +13,19 @@ function App(props) {
 
 
   const fetchApiPokemon = async () => {
-    let apiPokemonResponse = null;
-    
-    if (!checkboxWeigths && !checkboxHeights) {
-      apiPokemonResponse = await fetch(`${process.env.REACT_APP_POKEMON_API_ADDRESS}`);
-    } else if (checkboxWeigths && checkboxHeights) {
-      apiPokemonResponse = await fetch(`${process.env.REACT_APP_POKEMON_API_ADDRESS}?weights=${checkboxWeigths}&height=${checkboxHeights}`);
-    } else if (checkboxWeigths) {
-      apiPokemonResponse = await fetch(`${process.env.REACT_APP_POKEMON_API_ADDRESS}?weights=${checkboxWeigths}`);
-    } else if (checkboxHeights) {
-      apiPokemonResponse = await fetch(`${process.env.REACT_APP_POKEMON_API_ADDRESS}?height=${checkboxHeights}`);
+    let apiWeigths = `&weights=${checkboxWeigths}`;
+    let apiHeigths = `&height=${checkboxHeights}`;
+    let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
+     
+    if (checkboxWeigths) {
+      apiPokemonUrl += apiWeigths;
+    } 
+    if (checkboxHeights) {
+      apiPokemonUrl += apiHeigths;
     }
-
-    const pokemonData = await apiPokemonResponse.json();
+   
+    const response = await fetch(apiPokemonUrl)
+    const pokemonData = await response.json();
     setPokemons (pokemonData.results);
   }
   
