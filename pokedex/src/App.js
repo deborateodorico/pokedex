@@ -7,7 +7,6 @@ import InputCheckbox from './components/InputCheckbox';
 import './index.scss';
 
 function App(props) {
-
   const [pokemons, setPokemons] = useState([]);
   const [checkboxWeigths, setCheckboxWeigths] = useState('');
   const [checkboxHeights, setCheckboxHeights] = useState('');
@@ -33,7 +32,7 @@ function App(props) {
     setPokemons (pokemonData.results);
   }
 
-  const hancleChangeCheckboxWeigths = (event) => {
+  const handleChangeCheckboxWeigths = (event) => {
     const checkboxWeigthsValue = event.target.value;
 
     if(checkboxWeigthsValue === checkboxWeigths) {
@@ -43,7 +42,7 @@ function App(props) {
     }
   }
 
-  const hancleChangeCheckboxHeights = (event) => {
+  const handleChangeCheckboxHeights = (event) => {
     const checkboxHeigthsValue = event.target.value;
     if(checkboxHeigthsValue === checkboxHeights) {
       setCheckboxHeights('');
@@ -60,8 +59,8 @@ function App(props) {
       <InputCheckbox
         weigths={checkboxWeigths}
         heights={checkboxHeights}
-        checkboxWeigths={hancleChangeCheckboxWeigths}
-        checkboxHeights={hancleChangeCheckboxHeights}
+        checkboxWeigths={handleChangeCheckboxWeigths}
+        checkboxHeights={handleChangeCheckboxHeights}
         />
      
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
