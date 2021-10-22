@@ -56,19 +56,49 @@ function App(props) {
       <div>
         <div>
           <p>weights</p>
-          1<input type="checkbox" name="pokemon-weigths" value="1" checked={checkboxWeigths === "1"} onChange={hancleChangeCheckboxWeigths}/>
-          2<input type="checkbox" name="pokemon-weigths" value="2" checked={checkboxWeigths === "2"} onChange={hancleChangeCheckboxWeigths}/>
-          3<input type="checkbox" name="pokemon-weigths" value="3" checked={checkboxWeigths === "3"} onChange={hancleChangeCheckboxWeigths}/>
-          4<input type="checkbox" name="pokemon-weigths" value="4" checked={checkboxWeigths === "4"} onChange={hancleChangeCheckboxWeigths}/>
-          5<input type="checkbox" name="pokemon-weigths" value="5" checked={checkboxWeigths === "5"} onChange={hancleChangeCheckboxWeigths}/>
+          <label>
+            1
+            <input type="checkbox" name="pokemon-weigths" value="1" checked={checkboxWeigths === "1"} onChange={hancleChangeCheckboxWeigths}/>
+          </label>
+          <label>
+            2
+            <input type="checkbox" name="pokemon-weigths" value="2" checked={checkboxWeigths === "2"} onChange={hancleChangeCheckboxWeigths}/>
+          </label>
+          <label>
+            3
+            <input type="checkbox" name="pokemon-weigths" value="3" checked={checkboxWeigths === "3"} onChange={hancleChangeCheckboxWeigths}/>
+          </label>
+          <label>
+            4
+            <input type="checkbox" name="pokemon-weigths" value="4" checked={checkboxWeigths === "4"} onChange={hancleChangeCheckboxWeigths}/>
+          </label>
+          <label>
+            5
+            <input type="checkbox" name="pokemon-weigths" value="5" checked={checkboxWeigths === "5"} onChange={hancleChangeCheckboxWeigths}/>
+          </label>
         </div>
         <div>
           <p>heights</p>
-          1<input type="checkbox" name="pokemon-heights" value="1" checked={checkboxHeights === "1"} onChange={hancleChangeCheckboxHeights}/>
-          2<input type="checkbox" name="pokemon-heights" value="2" checked={checkboxHeights === "2"} onChange={hancleChangeCheckboxHeights}/>
-          3<input type="checkbox" name="pokemon-heights" value="3" checked={checkboxHeights === "3"} onChange={hancleChangeCheckboxHeights}/>
-          4<input type="checkbox" name="pokemon-heights" value="4" checked={checkboxHeights === "4"} onChange={hancleChangeCheckboxHeights}/>
-          5<input type="checkbox" name="pokemon-heights" value="5" checked={checkboxHeights === "5"} onChange={hancleChangeCheckboxHeights}/>
+          <label>
+            1
+            <input type="checkbox" name="pokemon-heights" value="1" checked={checkboxHeights === "1"} onChange={hancleChangeCheckboxHeights}/>
+          </label>
+          <label>
+            2
+            <input type="checkbox" name="pokemon-heights" value="2" checked={checkboxHeights === "2"} onChange={hancleChangeCheckboxHeights}/>
+          </label>
+          <label>
+            3
+            <input type="checkbox" name="pokemon-heights" value="3" checked={checkboxHeights === "3"} onChange={hancleChangeCheckboxHeights}/>
+          </label>
+          <label>
+            4
+            <input type="checkbox" name="pokemon-heights" value="4" checked={checkboxHeights === "4"} onChange={hancleChangeCheckboxHeights}/>
+          </label>
+          <label>
+            5
+            <input type="checkbox" name="pokemon-heights" value="5" checked={checkboxHeights === "5"} onChange={hancleChangeCheckboxHeights}/>
+          </label>
         </div>
       </div>
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
