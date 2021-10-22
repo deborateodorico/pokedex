@@ -1,17 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react';
 
-export default function Pokedex() {
-
-  const [pokemons, setPokemons] = useState([]);
-  
-  useEffect(() => {
-    const fetchApiPokemon = async () => {
-      const apiPokemonResponse = await fetch(process.env.REACT_APP_POKEMON_API_ADDRESS);
-      const pokemonData = await apiPokemonResponse.json();
-      setPokemons (pokemonData.results);
-    }
-    fetchApiPokemon();
-  }, []);
+export default function Pokedex({pokemons}) {
 
 	return (
     <div>

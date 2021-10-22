@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { clickButton } from './actions';
@@ -11,6 +11,9 @@ function App(props) {
   const [checkboxWeigths, setCheckboxWeigths] = useState('');
   const [checkboxHeights, setCheckboxHeights] = useState('');
 
+  useEffect(() => {
+    fetchApiPokemon()
+  }, []);
 
   const fetchApiPokemon = async () => {
     let apiWeigths = `&weights=${checkboxWeigths}`;
@@ -28,7 +31,7 @@ function App(props) {
     const pokemonData = await response.json();
     setPokemons (pokemonData.results);
   }
-  
+
   const hancleChangeCheckboxWeigths = (event) => {
     const checkboxWeigthsValue = event.target.value;
 
@@ -102,19 +105,7 @@ function App(props) {
         </div>
       </div>
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
-      <div>
-        <section className="pokemon-list">
-          {pokemons.map((pokemon) => {
-            return  (
-              <div key={pokemon.id} className="pokemon">
-                <img src={pokemon.picture} alt={pokemon.name} />
-                <p>#{pokemon.id} {pokemon.name}</p>
-              </div>
-            );
-          })}
-        </section>
-    </div>
-      {pokemons.length === 0 && <Pokedex />} 
+      <Pokedex pokemons={pokemons} />
     </div>
   );
 }
