@@ -10,9 +10,11 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 
 function App(props) {
-  const [checkboxWeigths, setCheckboxWeigths] = useState('');
-  const [checkboxHeights, setCheckboxHeights] = useState('');
-  const [searchInput, setSearchInput] = useState('');
+  const [formData, setFormData] = useState({
+    search: '',
+    height: '',
+    weigth: '', 
+  })
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
     isLoading: false,
@@ -25,18 +27,18 @@ function App(props) {
   }, []);
  
   const fetchApiPokemon = async () => {
-    let apiWeigths = `&weights=${checkboxWeigths}`;
-    let apiHeigths = `&height=${checkboxHeights}`;
-    let apiSearch = `&search=${searchInput}`
+    let apiWeigths = `&weights=${formData.weigth}`;
+    let apiHeigths = `&height=${formData.height}`;
+    let apiSearch = `&search=${formData.search}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
-    if (checkboxWeigths) {
+    if (formData.weigth) {
       apiPokemonUrl += apiWeigths;
     } 
-    if (checkboxHeights) {
+    if (formData.heigth) {
       apiPokemonUrl += apiHeigths;
     }
-    if(searchInput) {
+    if(formData.search) {
       apiPokemonUrl += apiSearch;
     }
    
@@ -68,26 +70,40 @@ function App(props) {
   }
 
   const searchInputvalue = (event) => {
-    const input = event.target.value;
-    setSearchInput(input);
+    setFormData({
+      ...formData,
+      search: event.target.value,
+    })
   }
 
   const handleChangeCheckboxWeigths = (event) => {
     const checkboxWeigthsValue = event.target.value;
 
-    if(checkboxWeigthsValue === checkboxWeigths) {
-      setCheckboxWeigths('');
+    if(checkboxWeigthsValue === formData.weigth) {
+      setFormData({
+        ...formData,
+        weigth: '',
+      })
     } else {
-      setCheckboxWeigths(event.target.value);
+      setFormData({
+        ...formData,
+        weigth: event.target.value,
+      })
     }
   }
 
   const handleChangeCheckboxHeights = (event) => {
     const checkboxHeigthsValue = event.target.value;
-    if(checkboxHeigthsValue === checkboxHeights) {
-      setCheckboxHeights('');
+    if(checkboxHeigthsValue === formData.height) {
+      setFormData({
+        ...formData,
+        height: '',
+      })
     } else {
-      setCheckboxHeights(event.target.value);
+      setFormData({
+        ...formData,
+        height: event.target.value,
+      })
     }
     
   }
@@ -102,8 +118,8 @@ function App(props) {
         <input type="text" name="input-search" onChange={searchInputvalue} placeholder="search pokemon"/>
       </label>
       <InputCheckbox
-        weigths={checkboxWeigths}
-        heights={checkboxHeights}
+        weigths={formData.weigth}
+        heights={formData.height}
         checkboxWeigths={handleChangeCheckboxWeigths}
         checkboxHeights={handleChangeCheckboxHeights}
         />
