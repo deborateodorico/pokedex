@@ -40,8 +40,10 @@ function App(props) {
       setNoResults(false)
       const response = await fetch(apiPokemonUrl);
       setLoading(false);
-      setNoResults(true);
       const pokemonData = await response.json();
+      if (pokemonData.results.length === 0) {
+        setNoResults(true);
+      }
       setPokemons (pokemonData.results);
     } catch(error) {
       setError(true);
@@ -83,7 +85,7 @@ function App(props) {
      
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
       {error && <ApiError />}
-      {noResults.length === 0 && <NoResults />}
+      { noResults && <NoResults />}
       {loading && <Loading />}
       {!error && !loading && <Pokedex pokemons={pokemons} />}
     </div>
