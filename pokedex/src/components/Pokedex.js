@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Pokedex({pokemons}) {
-
 	return (
     <div>
       <section className="pokemon-list">

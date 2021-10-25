@@ -7,6 +7,7 @@ import InputCheckbox from './components/InputCheckbox';
 import './index.scss';
 import Loading from './components/Loading';
 import ApiError from './components/ApiError';
+import NoResults from './components/NoResults';
 
 function App(props) {
   const [pokemons, setPokemons] = useState([]);
@@ -14,6 +15,7 @@ function App(props) {
   const [checkboxHeights, setCheckboxHeights] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [noResults, setNoResults] = useState(false);
 
 
   useEffect(() => {
@@ -35,15 +37,17 @@ function App(props) {
     try{
       setError(false);
       setLoading(true);
+      setNoResults(false)
       const response = await fetch(apiPokemonUrl);
       setLoading(false);
+      setNoResults(true);
       const pokemonData = await response.json();
       setPokemons (pokemonData.results);
     } catch(error) {
       setError(true);
       setLoading(false);
+      setNoResults(false);
     }
-    
   }
 
   const handleChangeCheckboxWeigths = (event) => {
@@ -79,6 +83,7 @@ function App(props) {
      
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
       {error && <ApiError />}
+      {noResults.length === 0 && <NoResults />}
       {loading && <Loading />}
       {!error && !loading && <Pokedex pokemons={pokemons} />}
     </div>
