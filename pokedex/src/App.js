@@ -12,12 +12,9 @@ import NoResults from './components/NoResults';
 function App(props) {
   const [checkboxWeigths, setCheckboxWeigths] = useState('');
   const [checkboxHeights, setCheckboxHeights] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [noResults, setNoResults] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [pokemonRequestState, setPokemonRequestState] = useState({
-    data:[],
+    data: null,
     isLoading: false,
     error: false,
   })
@@ -44,23 +41,29 @@ function App(props) {
     }
    
     try{
-      setError(false);
-      setLoading(true);
-      setNoResults(false)
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        isLoading: true,
+        error: false,
+      })
       const response = await fetch(apiPokemonUrl);
-      setLoading(false);
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        isLoading: false,
+      })
       const pokemonData = await response.json();
       if (pokemonData.results.length === 0) {
-        setNoResults(true);
       }
       setPokemonRequestState({
         ...pokemonRequestState,
         data: pokemonData.results
       })
     } catch(error) {
-      setError(true);
-      setLoading(false);
-      setNoResults(false);
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        error: true,
+        isLoading: false,
+      })
     }
   }
 
@@ -106,10 +109,10 @@ function App(props) {
         />
      
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
-      {error && <ApiError />}
-      { noResults && <NoResults />}
-      {loading && <Loading />}
-      {!error && !loading && <Pokedex pokemons={pokemonRequestState.data} />}
+      {pokemonRequestState.error && <ApiError />}
+      {pokemonRequestState.data?.length === 0 && <NoResults />}
+      {pokemonRequestState.isLoading && <Loading />}
+      {!pokemonRequestState.error && !pokemonRequestState.isLoading && <Pokedex pokemons={pokemonRequestState.data} />}
     </div>
   );
 }

@@ -4,7 +4,7 @@ export default function Pokedex({pokemons}) {
 	return (
     <div>
       <section className="pokemon-list">
-        {pokemons.map((pokemon) => {
+        {pokemons?.map((pokemon) => {
           return  (
             <div key={pokemon.id} className="pokemon">
               <img src={pokemon.picture} alt={pokemon.name} />
