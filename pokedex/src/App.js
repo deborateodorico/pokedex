@@ -16,6 +16,7 @@ function App(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [noResults, setNoResults] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
 
 
   useEffect(() => {
@@ -25,6 +26,7 @@ function App(props) {
   const fetchApiPokemon = async () => {
     let apiWeigths = `&weights=${checkboxWeigths}`;
     let apiHeigths = `&height=${checkboxHeights}`;
+    let apiSearch = `&search=${searchInput}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (checkboxWeigths) {
@@ -32,6 +34,9 @@ function App(props) {
     } 
     if (checkboxHeights) {
       apiPokemonUrl += apiHeigths;
+    }
+    if(searchInput) {
+      apiPokemonUrl += apiSearch;
     }
    
     try{
@@ -52,6 +57,12 @@ function App(props) {
     }
   }
 
+  const searchInputvalue = (event) => {
+    const input = event.target.value;
+    console.log(input);
+    setSearchInput(input);
+  }
+
   const handleChangeCheckboxWeigths = (event) => {
     const checkboxWeigthsValue = event.target.value;
 
@@ -66,8 +77,10 @@ function App(props) {
     const checkboxHeigthsValue = event.target.value;
     if(checkboxHeigthsValue === checkboxHeights) {
       setCheckboxHeights('');
+    } else {
+      setCheckboxHeights(event.target.value);
     }
-    setCheckboxHeights(event.target.value);
+    
   }
 
   const hadleSubmitButton = () => {
@@ -76,6 +89,9 @@ function App(props) {
     
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
+      <label>
+        <input type="text" name="input-search" onChange={searchInputvalue} placeholder="search pokemon"/>
+      </label>
       <InputCheckbox
         weigths={checkboxWeigths}
         heights={checkboxHeights}
