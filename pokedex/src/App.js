@@ -10,13 +10,17 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 
 function App(props) {
-  const [pokemons, setPokemons] = useState([]);
   const [checkboxWeigths, setCheckboxWeigths] = useState('');
   const [checkboxHeights, setCheckboxHeights] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+  const [pokemonRequestState, setPokemonRequestState] = useState({
+    data:[],
+    isLoading: false,
+    error: false,
+  })
 
 
   useEffect(() => {
@@ -49,7 +53,10 @@ function App(props) {
       if (pokemonData.results.length === 0) {
         setNoResults(true);
       }
-      setPokemons (pokemonData.results);
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        data: pokemonData.results
+      })
     } catch(error) {
       setError(true);
       setLoading(false);
@@ -59,7 +66,6 @@ function App(props) {
 
   const searchInputvalue = (event) => {
     const input = event.target.value;
-    console.log(input);
     setSearchInput(input);
   }
 
@@ -103,7 +109,7 @@ function App(props) {
       {error && <ApiError />}
       { noResults && <NoResults />}
       {loading && <Loading />}
-      {!error && !loading && <Pokedex pokemons={pokemons} />}
+      {!error && !loading && <Pokedex pokemons={pokemonRequestState.data} />}
     </div>
   );
 }
