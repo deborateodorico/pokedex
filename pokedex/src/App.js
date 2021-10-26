@@ -54,8 +54,6 @@ function App(props) {
         isLoading: false,
       })
       const pokemonData = await response.json();
-      if (pokemonData.results.length === 0) {
-      }
       setPokemonRequestState({
         ...pokemonRequestState,
         data: pokemonData.results
