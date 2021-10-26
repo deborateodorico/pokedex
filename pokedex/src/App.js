@@ -5,49 +5,105 @@ import { clickButton } from './actions';
 import Pokedex from './components/Pokedex';
 import InputCheckbox from './components/InputCheckbox';
 import './index.scss';
+import Loading from './components/Loading';
+import ApiError from './components/ApiError';
+import NoResults from './components/NoResults';
 
 function App(props) {
-  const [pokemons, setPokemons] = useState([]);
-  const [checkboxWeigths, setCheckboxWeigths] = useState('');
-  const [checkboxHeights, setCheckboxHeights] = useState('');
+  const [formData, setFormData] = useState({
+    search: '',
+    height: '',
+    weigth: '', 
+  })
+  const [pokemonRequestState, setPokemonRequestState] = useState({
+    data: null,
+    isLoading: false,
+    error: false,
+  })
+
 
   useEffect(() => {
     fetchApiPokemon()
   }, []);
-
+ 
   const fetchApiPokemon = async () => {
-    let apiWeigths = `&weights=${checkboxWeigths}`;
-    let apiHeigths = `&height=${checkboxHeights}`;
+    let apiWeigths = `&weights=${formData.weigth}`;
+    let apiHeigths = `&height=${formData.height}`;
+    let apiSearch = `&search=${formData.search}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
-    if (checkboxWeigths) {
+    if (formData.weigth) {
       apiPokemonUrl += apiWeigths;
     } 
-    if (checkboxHeights) {
+    if (formData.heigth) {
       apiPokemonUrl += apiHeigths;
     }
+    if(formData.search) {
+      apiPokemonUrl += apiSearch;
+    }
    
-    const response = await fetch(apiPokemonUrl)
-    const pokemonData = await response.json();
-    setPokemons (pokemonData.results);
+    try{
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        isLoading: true,
+        error: false,
+      })
+      const response = await fetch(apiPokemonUrl);
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        isLoading: false,
+      })
+      const pokemonData = await response.json();
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        data: pokemonData.results
+      })
+    } catch(error) {
+      setPokemonRequestState({
+        ...pokemonRequestState,
+        error: true,
+        isLoading: false,
+      })
+    }
+  }
+
+  const searchInputvalue = (event) => {
+    setFormData({
+      ...formData,
+      search: event.target.value,
+    })
   }
 
   const handleChangeCheckboxWeigths = (event) => {
     const checkboxWeigthsValue = event.target.value;
 
-    if(checkboxWeigthsValue === checkboxWeigths) {
-      setCheckboxWeigths('');
+    if(checkboxWeigthsValue === formData.weigth) {
+      setFormData({
+        ...formData,
+        weigth: '',
+      })
     } else {
-      setCheckboxWeigths(event.target.value);
+      setFormData({
+        ...formData,
+        weigth: event.target.value,
+      })
     }
   }
 
   const handleChangeCheckboxHeights = (event) => {
     const checkboxHeigthsValue = event.target.value;
-    if(checkboxHeigthsValue === checkboxHeights) {
-      setCheckboxHeights('');
+    if(checkboxHeigthsValue === formData.height) {
+      setFormData({
+        ...formData,
+        height: '',
+      })
+    } else {
+      setFormData({
+        ...formData,
+        height: event.target.value,
+      })
     }
-    setCheckboxHeights(event.target.value);
+    
   }
 
   const hadleSubmitButton = () => {
@@ -56,15 +112,21 @@ function App(props) {
     
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
+      <label>
+        <input type="text" name="input-search" onChange={searchInputvalue} placeholder="search pokemon"/>
+      </label>
       <InputCheckbox
-        weigths={checkboxWeigths}
-        heights={checkboxHeights}
+        weigths={formData.weigth}
+        heights={formData.height}
         checkboxWeigths={handleChangeCheckboxWeigths}
         checkboxHeights={handleChangeCheckboxHeights}
         />
      
       <button type="submit" onClick={hadleSubmitButton}>Submit</button>
-      <Pokedex pokemons={pokemons} />
+      {pokemonRequestState.error && <ApiError />}
+      {pokemonRequestState.data?.length === 0 && <NoResults />}
+      {pokemonRequestState.isLoading && <Loading />}
+      {!pokemonRequestState.error && !pokemonRequestState.isLoading && <Pokedex pokemons={pokemonRequestState.data} />}
     </div>
   );
 }
