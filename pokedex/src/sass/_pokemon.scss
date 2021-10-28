@@ -64,9 +64,18 @@
 }
 
 .pokemon-type {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 10px;
-  line-height: 12px;
+
+  .pokemon-type-paragraph {
+    display: inline-block;
+    margin-right: 2px;
+    margin-left: 2px;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 0 2px;
+  }
 }
