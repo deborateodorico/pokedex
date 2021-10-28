@@ -2,10 +2,15 @@ import React from 'react';
 
 export default function InputCheckbox({pokemon}) {
   return (
-    <div>
-      <div key={pokemon.id} className="pokemon">
-        <img src={pokemon.picture} alt={pokemon.name} />
-        <p>#{pokemon.id} {pokemon.name}</p>
+    <div key={pokemon.id} className="pokemon">
+      <div className="pokemon-infos">
+        <p className="pokemon-id">#{pokemon.id}</p>
+        <img src={pokemon.picture} alt={pokemon.name}/>
+        <p className="pokemon-name">{pokemon.name}</p>
+      </div>
+      
+      <div className="pokemon-type-wrapper">
+        <p className="pokemon-type">{pokemon.type}</p>
       </div>
     </div>
   )

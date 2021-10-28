@@ -1,6 +1,9 @@
 @import 'sass/variables';
-@import 'sass/paragraph';
 @import 'sass/pokemon';
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $color-body;

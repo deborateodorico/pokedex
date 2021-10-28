@@ -35,7 +35,7 @@ function App(props) {
     if (formData.weigth) {
       apiPokemonUrl += apiWeigths;
     } 
-    if (formData.heigth) {
+    if (formData.height) {
       apiPokemonUrl += apiHeigths;
     }
     if(formData.search) {
