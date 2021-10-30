@@ -122,7 +122,7 @@ function App(props) {
         checkboxHeights={handleChangeCheckboxHeights}
         />
      
-      <button type="submit" onClick={hadleSubmitButton}>Submit</button>
+      <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}

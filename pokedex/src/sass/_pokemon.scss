@@ -10,11 +10,10 @@
   margin: 0%;
   overflow: hidden;
   background-color: white;
-  border: 1px solid #EF8148;
+  color: #2B3140;
 
   .pokemon-infos {
     padding: 8px 12px 12px;
-    background: linear-gradient(135deg, #EF8148 0%, rgba(239, 129, 72, 0.12) 100%);
     border-radius: 0 0 16px 0;
   }
 
@@ -26,6 +25,9 @@
     line-height: 24px;
     padding: 0%;
     margin: 0%;
+    text-transform: capitalize;
+    justify-content: center;
+    text-align: center;
   }
 
   img {
@@ -77,5 +79,6 @@
     border: 1px solid black;
     border-radius: 4px;
     padding: 0 2px;
+    text-transform: capitalize;
   }
 }
