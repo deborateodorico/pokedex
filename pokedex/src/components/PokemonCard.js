@@ -1,4 +1,7 @@
 import React from 'react';
+import Plus from '../icons/Plus.png';
+import Heart from '../icons/Heart.png';
+
 
 export default function PokemonCard({pokemon}) {
   let background = ""; 
@@ -66,6 +69,8 @@ export default function PokemonCard({pokemon}) {
   return (
     <div key={pokemon.id} className="pokemon" style={{borderPokemon}}>
       <div className="pokemon-infos" style={{background}}>
+        <img src={Plus} alt="plus-img" className="plus-icon" />
+        <img src={Heart} alt="heart-img" className="heart-icon" />
         <p className="pokemon-id">#{("0000" + pokemon.id).slice(-4)}</p>
         <img src={pokemon.picture} alt={pokemon.name}/>
         <p className="pokemon-name">{pokemon.name}</p>

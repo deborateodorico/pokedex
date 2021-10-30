@@ -1,5 +1,6 @@
 
 .pokemon {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,6 +16,27 @@
   .pokemon-infos {
     padding: 8px 12px 12px;
     border-radius: 0 0 16px 0;
+
+    .plus-icon {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      color: #2B3140;
+      right: 45px;
+      top: 13px;
+      bottom: 145px;
+    }
+
+    .heart-icon {
+      position: absolute;
+      width: 20px;
+      height: 18.35;
+      color: #2B3140;
+      right: 14px;
+      top: 11px;
+      bottom: 142.65px;
+    }
+
   }
 
   .pokemon-name {
@@ -81,4 +103,16 @@
     padding: 0 2px;
     text-transform: capitalize;
   }
+}
+
+.input-search {
+  background: #FFFFFF;
+  border: 1px solid #D1D7E5;
+  box-sizing: border-box;
+  border-radius: 8px;
+  position: absolute;
+  width: 432px;
+  height: 48px;
+  right: 40px;
+  top: 96px;
 }

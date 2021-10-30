@@ -113,7 +113,7 @@ function App(props) {
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
       <label>
-        <input type="text" name="input-search" onChange={searchInputvalue} placeholder="search pokemon"/>
+        <input type="text" className="input-search" name="input-search" onChange={searchInputvalue} placeholder="Search..."/>
       </label>
       <InputCheckbox
         weigths={formData.weigth}
