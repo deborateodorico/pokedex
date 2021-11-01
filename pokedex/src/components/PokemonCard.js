@@ -13,7 +13,6 @@ export default function PokemonCard({pokemon}) {
         <img src={pokemon.picture} alt={pokemon.name}/>
         <p className="pokemon-name">{pokemon.name}</p>
       </div>
-      
       <div className="pokemon-type-wrapper">
         <div className="pokemon-type">{pokemon.type.map((item) => {
           return <p className="pokemon-type-paragraph" style={{border: colors[item].borderPokemon}}>{item}</p>

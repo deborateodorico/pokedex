@@ -21,7 +21,6 @@ function App(props) {
     error: false,
   })
 
-
   useEffect(() => {
     fetchApiPokemon()
   }, []);
@@ -103,7 +102,6 @@ function App(props) {
         height: event.target.value,
       })
     }
-    
   }
 
   const hadleSubmitButton = () => {
@@ -121,7 +119,6 @@ function App(props) {
         checkboxWeigths={handleChangeCheckboxWeigths}
         checkboxHeights={handleChangeCheckboxHeights}
         />
-     
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
