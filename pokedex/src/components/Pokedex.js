@@ -6,7 +6,7 @@ export default function Pokedex({pokemons}) {
     <section className="pokemon-list">
       {pokemons?.map((pokemon) => {
         return  (
-          <PokemonCard pokemon={pokemon}/>
+          <PokemonCard key={pokemon.id} pokemon={pokemon}/>
         );
       })}
     </section>

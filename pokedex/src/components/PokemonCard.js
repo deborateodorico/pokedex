@@ -5,7 +5,7 @@ import colors from './colorsDictionary';
 
 export default function PokemonCard({pokemon}) {
   return (
-    <div key={pokemon.id} className="pokemon" style={{border: colors[pokemon.type[0]].borderPokemon}}>
+    <div className="pokemon" style={{border: colors[pokemon.type[0]].borderPokemon}}>
       <div className="pokemon-infos" style={{background: colors[pokemon.type[0]].background }}>
         <img src={Plus} alt="plus-img" className="plus-icon" />
         <img src={Heart} alt="heart-img" className="heart-icon" />
@@ -15,7 +15,7 @@ export default function PokemonCard({pokemon}) {
       </div>
       <div className="pokemon-type-wrapper">
         <div className="pokemon-type">{pokemon.type.map((item) => {
-          return <p className="pokemon-type-paragraph" style={{border: colors[item].borderPokemon}}>{item}</p>
+          return <p key={pokemon.id} className="pokemon-type-paragraph" style={{border: colors[item].borderPokemon}}>{item}</p>
         })}</div>
       </div>
     </div>

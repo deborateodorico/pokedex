@@ -6,6 +6,9 @@
 }
 
 .pokemon {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: bold;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -63,9 +66,6 @@
   }
 
   .pokemon-name {
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: bold;
     font-size: 16px;
     line-height: 24px;
     padding: 0%;
@@ -80,9 +80,6 @@
   }
 
   .pokemon-id {
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: bold;
     font-size: 10px;
     line-height: 12px;
     position: static;
@@ -101,34 +98,16 @@
 .pokemon-type-wrapper {
   background-color: white;
   width: 100%;
-}
-
-.pokemon-type {
   padding-left: 8px;
-
-  .pokemon-type-paragraph {
-    display: inline-block;
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 10px;
-    line-height: 12px;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 0 2px;
-    text-transform: capitalize;
-    margin-right: 4px;
-  }
 }
 
-.input-search {
-  background: #FFFFFF;
-  border: 1px solid #D1D7E5;
-  box-sizing: border-box;
-  border-radius: 8px;
-  position: absolute;
-  width: 432px;
-  height: 48px;
-  right: 40px;
-  top: 96px;
+.pokemon-type-paragraph {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 12px;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 0 2px;
+  text-transform: capitalize;
+  margin-right: 4px;
 }
