@@ -1,9 +1,13 @@
-.pokemon-list {
+.container, .pokemon-list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
   max-width: 1440px;
+}
+
+.pokemon-list {
+  flex-wrap: wrap;
 }
 
 .pokemon {
@@ -23,22 +27,6 @@
   flex-shrink: 1;
   flex-basis: calc(16.6% - 12px);
   margin: 6px;
-
-  @media screen and (max-width: $media-query-l) {
-    flex-basis: calc(20% - 12px);
-  }
-
-  @media screen and (max-width: $media-query-m) {
-    flex-basis: calc(25% - 12px);
-  }
-
-  @media screen and (max-width: $media-query-s) {
-    flex-basis: calc(33.3% - 12px);
-  }
-
-  @media screen and (max-width: $media-query-xs) {
-    flex-basis: calc(50% - 12px);
-  }
 
   &__infos {
     padding: 8px 12px 12px;
