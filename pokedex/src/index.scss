@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
 @import 'sass/variables';
-@import 'sass/paragraph';
 @import 'sass/pokemon';
+@import 'sass/inputSearch';
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+@import '../node_modules/bootstrap/scss/grid';
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $color-body;

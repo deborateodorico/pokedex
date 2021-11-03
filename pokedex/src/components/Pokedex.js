@@ -1,18 +1,18 @@
 import React from 'react';
+import PokemonCard from './PokemonCard';
 
 export default function Pokedex({pokemons}) {
 	return (
-    <div>
-      <section className="pokemon-list">
+    <div className="container pokemon-list">
+      <div className="row gy-2 gx-2">
         {pokemons?.map((pokemon) => {
           return  (
-            <div key={pokemon.id} className="pokemon">
-              <img src={pokemon.picture} alt={pokemon.name} />
-              <p>#{pokemon.id} {pokemon.name}</p>
+            <div className="col-lg-2 col-md-3 col-6">
+              <PokemonCard key={pokemon.id} pokemon={pokemon}/>
             </div>
           );
         })}
-      </section>
+      </div>
     </div>
 	);
 }

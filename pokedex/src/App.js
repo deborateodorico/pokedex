@@ -21,7 +21,6 @@ function App(props) {
     error: false,
   })
 
-
   useEffect(() => {
     fetchApiPokemon()
   }, []);
@@ -35,7 +34,7 @@ function App(props) {
     if (formData.weigth) {
       apiPokemonUrl += apiWeigths;
     } 
-    if (formData.heigth) {
+    if (formData.height) {
       apiPokemonUrl += apiHeigths;
     }
     if(formData.search) {
@@ -103,7 +102,6 @@ function App(props) {
         height: event.target.value,
       })
     }
-    
   }
 
   const hadleSubmitButton = () => {
@@ -113,7 +111,7 @@ function App(props) {
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
       <label>
-        <input type="text" name="input-search" onChange={searchInputvalue} placeholder="search pokemon"/>
+        <input type="text" className="input-search" name="input-search" onChange={searchInputvalue} placeholder="Search..."/>
       </label>
       <InputCheckbox
         weigths={formData.weigth}
@@ -121,8 +119,7 @@ function App(props) {
         checkboxWeigths={handleChangeCheckboxWeigths}
         checkboxHeights={handleChangeCheckboxHeights}
         />
-     
-      <button type="submit" onClick={hadleSubmitButton}>Submit</button>
+      <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}
