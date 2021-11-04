@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import ErrorApiTypes from './ErrorApiTypes';
 import LoadingApiTypes from './LoadingApiTypes';
+import InputCheckboxApiTypes from './InputCheckboxApiType';
 
 export default function Types(){
 
   const [formData, setFormData] = useState({
     types: [],
+    selectedTypes: [],
   })
   const [TypesRequestState, setTypesRequestState] = useState({
     isLoading: false,
@@ -42,18 +44,27 @@ export default function Types(){
     }
   }
 
+  const handleClickSelectedTypes = (event) => {
+    const selectedTypessValue = event.target.value;
+    if (selectedTypessValue === formData.selectedTypes){
+      setFormData({
+        ...formData,
+        selectedTypes: [],
+      })
+    } else {
+      setFormData((prevState) => {
+        return {
+          ...prevState,
+          selectedTypes: [...prevState.selectedTypes, event.target.value]
+        }
+      })
+    }
+  }
   return (
     <div>
-        {formData.types.map((type) => {
-          return (
-            <label>
-            {type.name}
-            <input type="checkbox" name="type" className="Input-types"/>
-          </label>
-          )
-        })}
+      <InputCheckboxApiTypes formData={formData} onSelectType={handleClickSelectedTypes}/>
       {TypesRequestState.isLoading && <LoadingApiTypes />}
       {TypesRequestState.error && !TypesRequestState.isLoading && <ErrorApiTypes fetchApiType={fetchApiType} />}
-      </div>
+    </div>
   )
 }
