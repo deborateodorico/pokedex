@@ -41,6 +41,7 @@ export default function Types(){
         })
     }
   }
+
   return (
     <div>
         {formData.types.map((type) => {
@@ -51,8 +52,8 @@ export default function Types(){
           </label>
           )
         })}
-      {TypesRequestState.error && <ErrorApiTypes />}
       {TypesRequestState.isLoading && <LoadingApiTypes />}
+      {TypesRequestState.error && !TypesRequestState.isLoading && <ErrorApiTypes fetchApiType={fetchApiType} />}
       </div>
   )
 }
