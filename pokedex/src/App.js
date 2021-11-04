@@ -136,7 +136,7 @@ function App(props) {
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       <div>
         {formData.types.map((type) => {
-          return <p key={type.name}>{type.name}</p>
+          return <button type="button" key={type.name}>{type.name}</button>
         })}
       </div>
       {pokemonRequestState.error && <ApiError />}
