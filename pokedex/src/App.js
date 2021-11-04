@@ -8,6 +8,7 @@ import './index.scss';
 import Loading from './components/Loading';
 import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
+import Types from './components/Types';
 
 function App(props) {
   const [formData, setFormData] = useState({
@@ -24,7 +25,6 @@ function App(props) {
 
   useEffect(() => {
     fetchApiPokemon()
-    fetchapiType()
   }, []);
  
   const fetchApiPokemon = async () => {
@@ -66,26 +66,6 @@ function App(props) {
         isLoading: false,
       })
     }
-  }
-
-  const fetchapiType = async () => {
-    const apiTypeUrl = process.env.REACT_APP_TYPE_API_ADRESS;
-    try{
-      const response = await fetch(apiTypeUrl);
-    const typeData = await response.json();
-    console.log(typeData);
-    setFormData({
-      ...formData,
-      types: typeData.results,
-    })
-    } catch(error){
-        setPokemonRequestState({
-          ...pokemonRequestState,
-          error: true,
-          isLoading: false,
-        })
-    }
-    
   }
 
   const searchInputvalue = (event) => {
@@ -141,21 +121,12 @@ function App(props) {
         checkboxWeigths={handleChangeCheckboxWeigths}
         checkboxHeights={handleChangeCheckboxHeights}
         />
+        <Types />
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
-      <div>
-        {formData.types.map((type) => {
-          return (
-            <label>
-            {type.name}
-            <input type="checkbox" name="type"/>
-          </label>
-          )
-        })}
-      </div>
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}
-      {/* {!pokemonRequestState.error && !pokemonRequestState.isLoading && <Pokedex pokemons={pokemonRequestState.data} />} */}
+      {!pokemonRequestState.error && !pokemonRequestState.isLoading && <Pokedex pokemons={pokemonRequestState.data} />}
     </div>
   );
 }
