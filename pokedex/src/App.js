@@ -70,14 +70,22 @@ function App(props) {
 
   const fetchapiType = async () => {
     const apiTypeUrl = process.env.REACT_APP_TYPE_API_ADRESS;
-
-    const response = await fetch(apiTypeUrl);
+    try{
+      const response = await fetch(apiTypeUrl);
     const typeData = await response.json();
     console.log(typeData);
     setFormData({
       ...formData,
       types: typeData.results,
     })
+    } catch(error){
+        setPokemonRequestState({
+          ...pokemonRequestState,
+          error: true,
+          isLoading: false,
+        })
+    }
+    
   }
 
   const searchInputvalue = (event) => {
@@ -136,7 +144,12 @@ function App(props) {
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       <div>
         {formData.types.map((type) => {
-          return <button type="button" key={type.name}>{type.name}</button>
+          return (
+            <label>
+            {type.name}
+            <input type="checkbox" name="type"/>
+          </label>
+          )
         })}
       </div>
       {pokemonRequestState.error && <ApiError />}
