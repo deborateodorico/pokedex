@@ -3,8 +3,7 @@ import ErrorApiTypes from './ErrorApiTypes';
 import LoadingApiTypes from './LoadingApiTypes';
 import InputCheckboxApiTypes from './InputCheckboxApiType';
 
-export default function Types(){
-
+export default function Types({ onTypeChange }){
   const [formData, setFormData] = useState({
     types: [],
     selectedTypes: [],
@@ -52,6 +51,8 @@ export default function Types(){
         const indexDoValorParaRemover = formData.selectedTypes.indexOf(valorParaRemover)
         
         prevState.selectedTypes.splice(indexDoValorParaRemover, 1)
+
+        onTypeChange(prevState.selectedTypes)
   
         return {
           ...prevState,
@@ -60,11 +61,12 @@ export default function Types(){
       })
     } else {
       setFormData((prevState) => {
+        onTypeChange([...prevState.selectedTypes, event.target.value])
         return {
           ...prevState,
           selectedTypes: [...prevState.selectedTypes, event.target.value]
         }
-      })
+      })                    
     }
   }
   return (

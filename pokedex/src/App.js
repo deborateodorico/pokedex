@@ -15,7 +15,7 @@ function App(props) {
     search: '',
     height: '',
     weigth: '', 
-    types: [],
+    type: [],
   })
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
@@ -28,9 +28,13 @@ function App(props) {
   }, []);
  
   const fetchApiPokemon = async () => {
+    let apiTypes = '';
     let apiWeigths = `&weights=${formData.weigth}`;
     let apiHeigths = `&height=${formData.height}`;
-    let apiSearch = `&search=${formData.search}`
+    let apiSearch = `&search=${formData.search}`;
+    formData.type.forEach((item) => {
+      apiTypes += `&type=${item}`;
+    });
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weigth) {
@@ -41,6 +45,9 @@ function App(props) {
     }
     if(formData.search) {
       apiPokemonUrl += apiSearch;
+    }
+    if(formData.type) {
+      apiPokemonUrl += apiTypes;
     }
    
     try{
@@ -106,6 +113,13 @@ function App(props) {
     }
   }
 
+  const handleTypeChange = (newTypes) => {
+    setFormData({
+      ...formData,
+      type: newTypes,
+    })
+  }
+
   const hadleSubmitButton = () => {
     fetchApiPokemon();
   }
@@ -121,7 +135,7 @@ function App(props) {
         checkboxWeigths={handleChangeCheckboxWeigths}
         checkboxHeights={handleChangeCheckboxHeights}
         />
-      <Types />
+      <Types onTypeChange={handleTypeChange} />
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
