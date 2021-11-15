@@ -46,10 +46,17 @@ export default function Types(){
 
   const handleClickSelectedTypes = (event) => {
     const selectedTypessValue = event.target.value;
-    if (selectedTypessValue === formData.selectedTypes){
-      setFormData({
-        ...formData,
-        selectedTypes: [],
+    if (formData.selectedTypes.includes(selectedTypessValue)){
+      setFormData((prevState) => {
+        const valorParaRemover = selectedTypessValue;
+        const indexDoValorParaRemover = formData.selectedTypes.indexOf(valorParaRemover)
+        
+        prevState.selectedTypes.splice(indexDoValorParaRemover, 1)
+  
+        return {
+          ...prevState,
+          selectedTypes: prevState.selectedTypes
+        }
       })
     } else {
       setFormData((prevState) => {
