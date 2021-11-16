@@ -26,15 +26,21 @@ function App(props) {
   useEffect(() => {
     fetchApiPokemon()
   }, []);
+
+  const getUrl = (values, str) => {
+    let string = '';
+    values.forEach((value) => {
+      string += `&${str}=${value}`;
+    })
+    return string;
+}
  
   const fetchApiPokemon = async () => {
-    let apiTypes = '';
+    
     let apiWeigths = `&weights=${formData.weigth}`;
     let apiHeigths = `&height=${formData.height}`;
     let apiSearch = `&search=${formData.search}`;
-    formData.type.forEach((item) => {
-      apiTypes += `&type=${item}`;
-    });
+    let apiTypes = getUrl(formData.type, 'type');
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weigth) {
