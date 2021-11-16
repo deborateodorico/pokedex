@@ -13,8 +13,8 @@ import Types from './components/Types';
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
-    height: '',
-    weigth: '', 
+    height: [],
+    weight: [], 
     type: [],
   })
   const [pokemonRequestState, setPokemonRequestState] = useState({
@@ -33,18 +33,18 @@ function App(props) {
       string += `&${str}=${value}`;
     })
     return string;
-}
+  }
  
   const fetchApiPokemon = async () => {
     
-    let apiWeigths = `&weights=${formData.weigth}`;
-    let apiHeigths = `&height=${formData.height}`;
+    let apiWeights = getUrl(formData.weight, 'weight')
+    let apiHeigths = getUrl(formData.height, 'height')
     let apiSearch = `&search=${formData.search}`;
     let apiTypes = getUrl(formData.type, 'type');
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
-    if (formData.weigth) {
-      apiPokemonUrl += apiWeigths;
+    if (formData.weight) {
+      apiPokemonUrl += apiWeights;
     } 
     if (formData.height) {
       apiPokemonUrl += apiHeigths;
@@ -88,35 +88,72 @@ function App(props) {
     })
   }
 
-  const handleChangeCheckboxWeigths = (event) => {
-    const checkboxWeigthsValue = event.target.value;
+  const handleChangeCheckboxHeights = (event) => {
+    const checkboxHeigthsValue = event.target.value;
+    if (formData.height.includes(checkboxHeigthsValue)){
+      setFormData((prevState) => {
+        const removeCheckboxValue = checkboxHeigthsValue;
+        const indexFromValueToRemove = formData.height.indexOf(removeCheckboxValue)
+        
+        prevState.height.splice(indexFromValueToRemove, 1)
 
-    if(checkboxWeigthsValue === formData.weigth) {
-      setFormData({
-        ...formData,
-        weigth: '',
+        handleHeightChange(prevState.height)
+  
+        return {
+          ...prevState,
+          height: prevState.height,
+        }
       })
     } else {
-      setFormData({
-        ...formData,
-        weigth: event.target.value,
-      })
+      setFormData((prevState) => {
+        handleHeightChange([...prevState.height, event.target.value])
+        return {
+          ...prevState,
+          height: [...prevState.height, event.target.value],
+        }
+      })                    
     }
   }
 
-  const handleChangeCheckboxHeights = (event) => {
-    const checkboxHeigthsValue = event.target.value;
-    if(checkboxHeigthsValue === formData.height) {
-      setFormData({
-        ...formData,
-        height: '',
+  const handleHeightChange = (newHeight) => {
+    setFormData({
+      ...formData,
+      height: newHeight,
+    })
+  }
+
+  const handleChangeCheckboxWeights = (event) => {
+    const checkboxWeightsValue = event.target.value;
+    if (formData.weight.includes(checkboxWeightsValue)){
+      setFormData((prevState) => {
+        const removeCheckboxValue = checkboxWeightsValue;
+        const indexFromValueToRemove = formData.weight.indexOf(removeCheckboxValue)
+        
+        prevState.weight.splice(indexFromValueToRemove, 1)
+
+        handleWeightChange(prevState.weight)
+  
+        return {
+          ...prevState,
+          weight: prevState.weight,
+        }
       })
     } else {
-      setFormData({
-        ...formData,
-        height: event.target.value,
-      })
+      setFormData((prevState) => {
+        handleWeightChange([...prevState.weight, event.target.value])
+        return {
+          ...prevState,
+          weight: [...prevState.weight, event.target.value],
+        }
+      })                    
     }
+  }
+
+  const handleWeightChange = (newWeight) => {
+    setFormData({
+      ...formData,
+      weight: newWeight,
+    })
   }
 
   const handleTypeChange = (newTypes) => {
@@ -136,9 +173,9 @@ function App(props) {
         <input type="text" className="input-search" name="input-search" onChange={searchInputvalue} placeholder="Search..."/>
       </label>
       <InputCheckbox
-        weigths={formData.weigth}
+        weights={formData.weight}
         heights={formData.height}
-        checkboxWeigths={handleChangeCheckboxWeigths}
+        checkboxWeights={handleChangeCheckboxWeights}
         checkboxHeights={handleChangeCheckboxHeights}
         />
       <Types onTypeChange={handleTypeChange} />
