@@ -10,6 +10,14 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Types from './components/Types';
 
+const getUrlParameter = (values, param) => {
+  let applyFilterOnUrl = '';
+  values.forEach((value) => {
+    applyFilterOnUrl += `&${param}=${value}`;
+  })
+  return applyFilterOnUrl;
+}
+
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
@@ -26,21 +34,13 @@ function App(props) {
   useEffect(() => {
     fetchApiPokemon()
   }, []);
-
-  const getUrl = (values, str) => {
-    let string = '';
-    values.forEach((value) => {
-      string += `&${str}=${value}`;
-    })
-    return string;
-  }
  
   const fetchApiPokemon = async () => {
     
-    let apiWeights = getUrl(formData.weight, 'weight')
-    let apiHeigths = getUrl(formData.height, 'height')
+    let apiWeights = getUrlParameter(formData.weight, 'weight')
+    let apiHeigths = getUrlParameter(formData.height, 'height')
     let apiSearch = `&search=${formData.search}`;
-    let apiTypes = getUrl(formData.type, 'type');
+    let apiTypes = getUrlParameter(formData.type, 'type');
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weight) {
@@ -88,7 +88,7 @@ function App(props) {
     })
   }
 
-  const handleCheckboxsFilters = (event, filter, func) => {
+  const handleCheckboxsFilters = (event, filter) => {
     const checkboxValue = event.target.value;
     if (formData[filter].includes(checkboxValue)){
       setFormData((prevState) => {
@@ -96,8 +96,6 @@ function App(props) {
         const indexFromValueToRemove = formData[filter].indexOf(removeCheckboxValue)
         
         prevState[filter].splice(indexFromValueToRemove, 1)
-
-        func(prevState[filter])
   
         return {
           ...prevState,
@@ -106,7 +104,6 @@ function App(props) {
       })
     } else {
       setFormData((prevState) => {
-        func([...prevState[filter], event.target.value])
         return {
           ...prevState,
           [filter]: [...prevState[filter], event.target.value],
@@ -116,25 +113,11 @@ function App(props) {
   }
 
   const handleChangeCheckboxHeights = (event) => {
-    handleCheckboxsFilters(event, 'height', handleHeightChange);
-  }
-
-  const handleHeightChange = (newHeight) => {
-    setFormData({
-      ...formData,
-      height: newHeight,
-    })
+    handleCheckboxsFilters(event, 'height');
   }
 
   const handleChangeCheckboxWeights = (event) => {
-    handleCheckboxsFilters(event, 'weight', handleWeightChange)
-  }
-
-  const handleWeightChange = (newWeight) => {
-    setFormData({
-      ...formData,
-      weight: newWeight,
-    })
+    handleCheckboxsFilters(event, 'weight')
   }
 
   const handleTypeChange = (newTypes) => {
@@ -156,8 +139,8 @@ function App(props) {
       <InputCheckbox
         weights={formData.weight}
         heights={formData.height}
-        checkboxWeights={handleChangeCheckboxWeights}
-        checkboxHeights={handleChangeCheckboxHeights}
+        onCheckboxWeightsChange={handleChangeCheckboxWeights}
+        onCheckboxHeightsChange={handleChangeCheckboxHeights}
         />
       <Types onTypeChange={handleTypeChange} />
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
