@@ -88,31 +88,35 @@ function App(props) {
     })
   }
 
-  const handleChangeCheckboxHeights = (event) => {
-    const checkboxHeigthsValue = event.target.value;
-    if (formData.height.includes(checkboxHeigthsValue)){
+  const handleCheckboxsFilters = (event, filter, func) => {
+    const checkboxValue = event.target.value;
+    if (formData[filter].includes(checkboxValue)){
       setFormData((prevState) => {
-        const removeCheckboxValue = checkboxHeigthsValue;
-        const indexFromValueToRemove = formData.height.indexOf(removeCheckboxValue)
+        const removeCheckboxValue = checkboxValue;
+        const indexFromValueToRemove = formData[filter].indexOf(removeCheckboxValue)
         
-        prevState.height.splice(indexFromValueToRemove, 1)
+        prevState[filter].splice(indexFromValueToRemove, 1)
 
-        handleHeightChange(prevState.height)
+        func(prevState[filter])
   
         return {
           ...prevState,
-          height: prevState.height,
+          [filter]: prevState[filter],
         }
       })
     } else {
       setFormData((prevState) => {
-        handleHeightChange([...prevState.height, event.target.value])
+        func([...prevState[filter], event.target.value])
         return {
           ...prevState,
-          height: [...prevState.height, event.target.value],
+          [filter]: [...prevState[filter], event.target.value],
         }
       })                    
     }
+  }
+
+  const handleChangeCheckboxHeights = (event) => {
+    handleCheckboxsFilters(event, 'height', handleHeightChange);
   }
 
   const handleHeightChange = (newHeight) => {
@@ -123,30 +127,7 @@ function App(props) {
   }
 
   const handleChangeCheckboxWeights = (event) => {
-    const checkboxWeightsValue = event.target.value;
-    if (formData.weight.includes(checkboxWeightsValue)){
-      setFormData((prevState) => {
-        const removeCheckboxValue = checkboxWeightsValue;
-        const indexFromValueToRemove = formData.weight.indexOf(removeCheckboxValue)
-        
-        prevState.weight.splice(indexFromValueToRemove, 1)
-
-        handleWeightChange(prevState.weight)
-  
-        return {
-          ...prevState,
-          weight: prevState.weight,
-        }
-      })
-    } else {
-      setFormData((prevState) => {
-        handleWeightChange([...prevState.weight, event.target.value])
-        return {
-          ...prevState,
-          weight: [...prevState.weight, event.target.value],
-        }
-      })                    
-    }
+    handleCheckboxsFilters(event, 'weight', handleWeightChange)
   }
 
   const handleWeightChange = (newWeight) => {
