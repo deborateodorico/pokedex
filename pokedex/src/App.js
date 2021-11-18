@@ -11,11 +11,11 @@ import NoResults from './components/NoResults';
 import Types from './components/Types';
 
 const getUrlParameter = (values, param) => {
-  let applyFilterOnUrl = '';
+  let queryParams = '';
   values.forEach((value) => {
-    applyFilterOnUrl += `&${param}=${value}`;
+    queryParams += `&${param}=${value}`;
   })
-  return applyFilterOnUrl;
+  return queryParams;
 }
 
 function App(props) {
