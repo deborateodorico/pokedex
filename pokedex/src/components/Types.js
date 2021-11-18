@@ -47,10 +47,9 @@ export default function Types({ onTypeChange }){
     const selectedTypessValue = event.target.value;
     if (formData.selectedTypes.includes(selectedTypessValue)){
       setFormData((prevState) => {
-        const valorParaRemover = selectedTypessValue;
-        const indexDoValorParaRemover = formData.selectedTypes.indexOf(valorParaRemover)
+        const indexFromValueToRemove = formData.selectedTypes.indexOf(selectedTypessValue)
         
-        prevState.selectedTypes.splice(indexDoValorParaRemover, 1)
+        prevState.selectedTypes.splice(indexFromValueToRemove, 1)
 
         onTypeChange(prevState.selectedTypes)
   
