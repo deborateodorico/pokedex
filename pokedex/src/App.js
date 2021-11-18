@@ -8,12 +8,22 @@ import './index.scss';
 import Loading from './components/Loading';
 import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
+import Types from './components/Types';
+
+const getUrlParameter = (values, param) => {
+  let queryParams = '';
+  values.forEach((value) => {
+    queryParams += `&${param}=${value}`;
+  })
+  return queryParams;
+}
 
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
-    height: '',
-    weigth: '', 
+    height: [],
+    weight: [], 
+    type: [],
   })
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
@@ -26,19 +36,24 @@ function App(props) {
   }, []);
  
   const fetchApiPokemon = async () => {
-    let apiWeigths = `&weights=${formData.weigth}`;
-    let apiHeigths = `&height=${formData.height}`;
-    let apiSearch = `&search=${formData.search}`
+    
+    let apiWeights = getUrlParameter(formData.weight, 'weight')
+    let apiHeigths = getUrlParameter(formData.height, 'height')
+    let apiSearch = `&search=${formData.search}`;
+    let apiTypes = getUrlParameter(formData.type, 'type');
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
-    if (formData.weigth) {
-      apiPokemonUrl += apiWeigths;
+    if (formData.weight) {
+      apiPokemonUrl += apiWeights;
     } 
     if (formData.height) {
       apiPokemonUrl += apiHeigths;
     }
     if(formData.search) {
       apiPokemonUrl += apiSearch;
+    }
+    if(formData.type) {
+      apiPokemonUrl += apiTypes;
     }
    
     try{
@@ -73,35 +88,43 @@ function App(props) {
     })
   }
 
-  const handleChangeCheckboxWeigths = (event) => {
-    const checkboxWeigthsValue = event.target.value;
-
-    if(checkboxWeigthsValue === formData.weigth) {
-      setFormData({
-        ...formData,
-        weigth: '',
+  const handleCheckboxsFilters = (event, filter) => {
+    const checkboxValue = event.target.value;
+    if (formData[filter].includes(checkboxValue)){
+      setFormData((prevState) => {
+        const removeCheckboxValue = checkboxValue;
+        const indexFromValueToRemove = formData[filter].indexOf(removeCheckboxValue)
+        
+        prevState[filter].splice(indexFromValueToRemove, 1)
+  
+        return {
+          ...prevState,
+          [filter]: prevState[filter],
+        }
       })
     } else {
-      setFormData({
-        ...formData,
-        weigth: event.target.value,
-      })
+      setFormData((prevState) => {
+        return {
+          ...prevState,
+          [filter]: [...prevState[filter], event.target.value],
+        }
+      })                    
     }
   }
 
   const handleChangeCheckboxHeights = (event) => {
-    const checkboxHeigthsValue = event.target.value;
-    if(checkboxHeigthsValue === formData.height) {
-      setFormData({
-        ...formData,
-        height: '',
-      })
-    } else {
-      setFormData({
-        ...formData,
-        height: event.target.value,
-      })
-    }
+    handleCheckboxsFilters(event, 'height');
+  }
+
+  const handleChangeCheckboxWeights = (event) => {
+    handleCheckboxsFilters(event, 'weight')
+  }
+
+  const handleTypeChange = (newTypes) => {
+    setFormData({
+      ...formData,
+      type: newTypes,
+    })
   }
 
   const hadleSubmitButton = () => {
@@ -114,11 +137,12 @@ function App(props) {
         <input type="text" className="input-search" name="input-search" onChange={searchInputvalue} placeholder="Search..."/>
       </label>
       <InputCheckbox
-        weigths={formData.weigth}
+        weights={formData.weight}
         heights={formData.height}
-        checkboxWeigths={handleChangeCheckboxWeigths}
-        checkboxHeights={handleChangeCheckboxHeights}
+        onCheckboxWeightsChange={handleChangeCheckboxWeights}
+        onCheckboxHeightsChange={handleChangeCheckboxHeights}
         />
+      <Types onTypeChange={handleTypeChange} />
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
