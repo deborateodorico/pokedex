@@ -117,7 +117,7 @@ function App(props) {
   }
 
   const handleChangeCheckboxWeights = (event) => {
-    handleCheckboxsFilters(event, 'weight')
+    handleCheckboxsFilters(event, 'weight');
   }
 
   const handleTypeChange = (newTypes) => {
@@ -127,6 +127,9 @@ function App(props) {
     })
   }
 
+  const handleClickSelectedTypes = (event) => {
+    handleCheckboxsFilters(event, 'type');
+  }
   const hadleSubmitButton = () => {
     fetchApiPokemon();
   }
@@ -152,7 +155,7 @@ function App(props) {
         onCheckboxWeightsChange={handleChangeCheckboxWeights}
         onCheckboxHeightsChange={handleChangeCheckboxHeights}
         />
-      <Types onTypeChange={handleTypeChange} />
+      <Types onTypeChange={handleTypeChange} selectedTypes={formData.type} onSelectType={handleClickSelectedTypes}/>
       <button type="submit" onClick={handleToClearAllFiltersButton}>clear filters</button>
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
       {pokemonRequestState.error && <ApiError />}
