@@ -25,6 +25,7 @@ function App(props) {
     height: [],
     weight: [], 
     type: [],
+    limit: '',
   })
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
@@ -35,6 +36,10 @@ function App(props) {
   useEffect(() => {
     fetchApiPokemon()
   }, []);
+
+  useEffect(() => {
+    fetchApiPokemon()
+  }, [formData.limit]);
  
   const fetchApiPokemon = async () => {
     
@@ -42,6 +47,7 @@ function App(props) {
     let apiHeigths = getUrlParameter(formData.height, 'height')
     let apiSearch = `&search=${formData.search}`;
     let apiTypes = getUrlParameter(formData.type, 'type');
+    let apiLimit = `limit=${formData.limit}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weight) {
@@ -55,6 +61,9 @@ function App(props) {
     }
     if(formData.type) {
       apiPokemonUrl += apiTypes;
+    }
+    if(formData.limit) {
+      apiPokemonUrl += apiLimit;
     }
    
     try{
@@ -144,22 +153,35 @@ function App(props) {
       type: [],
     });
   }
+
+  const handleSelectField = (event) => {
+    let selectorSelect = event.target.value;
+    setFormData({
+      ...formData,
+      limit: selectorSelect,
+    })
+  }
+  
     
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
-      <label>
-        <input type="text" className="input-search" name="input-search" value={formData.search} onChange={searchInputvalue} placeholder="Search..."/>
-      </label>
-      <InputCheckbox
-        weights={formData.weight}
-        heights={formData.height}
-        onCheckboxWeightsChange={handleChangeCheckboxWeights}
-        onCheckboxHeightsChange={handleChangeCheckboxHeights}
-        />
-      <Types onTypeChange={handleTypeChange} selectedTypes={formData.type} onSelectType={handleClickSelectedTypes}/>
-      <Pagination />
-      <button type="submit" onClick={handleToClearAllFiltersButton}>clear filters</button>
-      <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
+      <div>
+        <label>
+          <input type="text" className="input-search" name="input-search" value={formData.search} onChange={searchInputvalue} placeholder="Search..."/>
+        </label>
+        <InputCheckbox
+          weights={formData.weight}
+          heights={formData.height}
+          onCheckboxWeightsChange={handleChangeCheckboxWeights}
+          onCheckboxHeightsChange={handleChangeCheckboxHeights}
+          />
+        <Types onTypeChange={handleTypeChange} selectedTypes={formData.type} onSelectType={handleClickSelectedTypes}/>
+        
+        <button type="submit" onClick={handleToClearAllFiltersButton}>clear filters</button>
+        <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
+      </div>
+
+      <Pagination onLimitChange={handleSelectField} limit={formData.limit} />
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}
