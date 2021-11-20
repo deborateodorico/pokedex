@@ -9,6 +9,7 @@ import Loading from './components/Loading';
 import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Types from './components/Types';
+import Pagination from './components/Pagination';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -156,15 +157,9 @@ function App(props) {
         onCheckboxHeightsChange={handleChangeCheckboxHeights}
         />
       <Types onTypeChange={handleTypeChange} selectedTypes={formData.type} onSelectType={handleClickSelectedTypes}/>
-      <select name="paginates" id="paginates-select">
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
+      <Pagination />
       <button type="submit" onClick={handleToClearAllFiltersButton}>clear filters</button>
       <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
-      
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}
