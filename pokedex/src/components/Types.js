@@ -3,10 +3,9 @@ import ErrorApiTypes from './ErrorApiTypes';
 import LoadingApiTypes from './LoadingApiTypes';
 import InputCheckboxApiTypes from './InputCheckboxApiType';
 
-export default function Types({ onTypeChange }){
+export default function Types({onSelectType, selectedTypes}){
   const [formData, setFormData] = useState({
     types: [],
-    selectedTypes: [],
   })
   const [TypesRequestState, setTypesRequestState] = useState({
     isLoading: false,
@@ -43,34 +42,9 @@ export default function Types({ onTypeChange }){
     }
   }
 
-  const handleClickSelectedTypes = (event) => {
-    const selectedTypessValue = event.target.value;
-    if (formData.selectedTypes.includes(selectedTypessValue)){
-      setFormData((prevState) => {
-        const indexFromValueToRemove = formData.selectedTypes.indexOf(selectedTypessValue)
-        
-        prevState.selectedTypes.splice(indexFromValueToRemove, 1)
-
-        onTypeChange(prevState.selectedTypes)
-  
-        return {
-          ...prevState,
-          selectedTypes: prevState.selectedTypes
-        }
-      })
-    } else {
-      setFormData((prevState) => {
-        onTypeChange([...prevState.selectedTypes, event.target.value])
-        return {
-          ...prevState,
-          selectedTypes: [...prevState.selectedTypes, event.target.value]
-        }
-      })                    
-    }
-  }
   return (
     <div>
-      <InputCheckboxApiTypes formData={formData} onSelectType={handleClickSelectedTypes}/>
+      <InputCheckboxApiTypes formData={formData} onSelectType={onSelectType} selectedTypes={selectedTypes} />
       {TypesRequestState.isLoading && <LoadingApiTypes />}
       {TypesRequestState.error && !TypesRequestState.isLoading && <ErrorApiTypes fetchApiType={fetchApiType} />}
     </div>
