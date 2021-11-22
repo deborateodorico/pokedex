@@ -25,8 +25,10 @@ function App(props) {
     height: [],
     weight: [], 
     type: [],
-    limit: '',
+    limit: '10',
+    offset: '',
   })
+
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
     isLoading: false,
@@ -39,7 +41,7 @@ function App(props) {
 
   useEffect(() => {
     fetchApiPokemon()
-  }, [formData.limit]);
+  }, [formData.limit, formData.offset]);
  
   const fetchApiPokemon = async () => {
     
@@ -47,7 +49,8 @@ function App(props) {
     let apiHeigths = getUrlParameter(formData.height, 'height')
     let apiSearch = `&search=${formData.search}`;
     let apiTypes = getUrlParameter(formData.type, 'type');
-    let apiLimit = `limit=${formData.limit}`
+    let apiLimit = `&limit=${formData.limit}`
+    let apiOffset = `&offset=${formData.offset}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weight) {
@@ -64,6 +67,9 @@ function App(props) {
     }
     if(formData.limit) {
       apiPokemonUrl += apiLimit;
+    }
+    if(formData.offset) {
+      apiPokemonUrl += apiOffset;
     }
    
     try{
@@ -161,13 +167,38 @@ function App(props) {
       limit: selectorSelect,
     })
   }
-  
-    
+  const handleDisableButton = () => {
+   if(!formData.offset) {
+     return true;
+   }
+  }
+
+  const handlePreviousButton = () => {
+    setFormData({
+      ...formData,
+      offset: Number(formData.offset) - Number(formData.limit),
+    })
+  }
+
+  const handleNextButton = () => {
+    setFormData({
+      ...formData,
+      offset: Number(formData.offset) + Number(formData.limit),
+    })
+  }
+
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
       <div>
         <label>
-          <input type="text" className="input-search" name="input-search" value={formData.search} onChange={searchInputvalue} placeholder="Search..."/>
+          <input
+            type="text" 
+            className="input-search" 
+            name="input-search" 
+            value={formData.search}
+            onChange={searchInputvalue} 
+            placeholder="Search..." 
+          />
         </label>
         <InputCheckbox
           weights={formData.weight}
@@ -175,13 +206,34 @@ function App(props) {
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           />
-        <Types onTypeChange={handleTypeChange} selectedTypes={formData.type} onSelectType={handleClickSelectedTypes}/>
+        <Types 
+          onTypeChange={handleTypeChange} 
+          selectedTypes={formData.type} 
+          onSelectType={handleClickSelectedTypes} 
+        />
         
-        <button type="submit" onClick={handleToClearAllFiltersButton}>clear filters</button>
-        <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
+        <button 
+          type="submit" 
+          onClick={handleToClearAllFiltersButton}
+        >
+          clear filters
+        </button>
+        <button 
+          className="button-search"
+          type="submit" 
+          onClick={hadleSubmitButton}
+        >
+          Submit
+        </button>
       </div>
-
-      <Pagination onLimitChange={handleSelectField} limit={formData.limit} />
+      <Pagination
+        onLimitChange={handleSelectField} 
+        limit={formData.limit} 
+        previousButton={handlePreviousButton} 
+        nextButton={handleNextButton} 
+        enableOrDisableButtons={pokemonRequestState.isLoading}
+        onChangePreviousButton={handleDisableButton}
+      />
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}
