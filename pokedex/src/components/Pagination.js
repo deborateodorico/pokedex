@@ -1,6 +1,14 @@
 import React from 'react';
 
-export default function Pagination({onLimitChange, limit, previousButton, nextButton, enableOrDisableButtons, onChangePreviousButton}) {
+export default function Pagination({
+  onLimitChange, 
+  limit, 
+  previousButton, 
+  nextButton, 
+  enableOrDisableButtons, 
+  onChangePreviousButton
+}) 
+{
   return(
     <>
       <select name="paginates" id="paginates-select" value={limit} onChange={onLimitChange}>
@@ -12,6 +20,6 @@ export default function Pagination({onLimitChange, limit, previousButton, nextBu
       </select>
       <button type="button" onClick={previousButton} disabled={onChangePreviousButton() || enableOrDisableButtons}>Previous Page</button>
       <button type="button" onClick={nextButton} disabled={enableOrDisableButtons}>Next Page</button>
-  </>
+    </>
   )
 }

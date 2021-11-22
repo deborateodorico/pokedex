@@ -25,8 +25,8 @@ function App(props) {
     height: [],
     weight: [], 
     type: [],
-    limit: '10',
-    offset: '',
+    limit: 10,
+    offset: 0,
   })
 
   const [pokemonRequestState, setPokemonRequestState] = useState({
@@ -45,12 +45,12 @@ function App(props) {
  
   const fetchApiPokemon = async () => {
     
-    let apiWeights = getUrlParameter(formData.weight, 'weight')
-    let apiHeigths = getUrlParameter(formData.height, 'height')
-    let apiSearch = `&search=${formData.search}`;
-    let apiTypes = getUrlParameter(formData.type, 'type');
-    let apiLimit = `&limit=${formData.limit}`
-    let apiOffset = `&offset=${formData.offset}`
+    const apiWeights = getUrlParameter(formData.weight, 'weight')
+    const apiHeigths = getUrlParameter(formData.height, 'height')
+    const apiSearch = `&search=${formData.search}`;
+    const apiTypes = getUrlParameter(formData.type, 'type');
+    const apiLimit = `&limit=${formData.limit}`
+    const apiOffset = `&offset=${formData.offset}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weight) {
@@ -161,29 +161,27 @@ function App(props) {
   }
 
   const handleSelectField = (event) => {
-    let selectorSelect = event.target.value;
+    const newLimitValue = event.target.value;
     setFormData({
       ...formData,
-      limit: selectorSelect,
+      limit: newLimitValue,
     })
   }
   const handleDisableButton = () => {
-   if(!formData.offset) {
-     return true;
-   }
+   return !formData.offset;
   }
 
   const handlePreviousButton = () => {
     setFormData({
       ...formData,
-      offset: Number(formData.offset) - Number(formData.limit),
+      offset: formData.offset - formData.limit,
     })
   }
 
   const handleNextButton = () => {
     setFormData({
       ...formData,
-      offset: Number(formData.offset) + Number(formData.limit),
+      offset: formData.offset + formData.limit,
     })
   }
 
