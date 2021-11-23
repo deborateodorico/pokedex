@@ -9,6 +9,7 @@ import Loading from './components/Loading';
 import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Types from './components/Types';
+import Pagination from './components/Pagination';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -24,7 +25,10 @@ function App(props) {
     height: [],
     weight: [], 
     type: [],
+    limit: 10,
+    offset: 0,
   })
+
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
     isLoading: false,
@@ -34,13 +38,19 @@ function App(props) {
   useEffect(() => {
     fetchApiPokemon()
   }, []);
+
+  useEffect(() => {
+    fetchApiPokemon()
+  }, [formData.limit, formData.offset]);
  
   const fetchApiPokemon = async () => {
     
-    let apiWeights = getUrlParameter(formData.weight, 'weight')
-    let apiHeigths = getUrlParameter(formData.height, 'height')
-    let apiSearch = `&search=${formData.search}`;
-    let apiTypes = getUrlParameter(formData.type, 'type');
+    const apiWeights = getUrlParameter(formData.weight, 'weight')
+    const apiHeigths = getUrlParameter(formData.height, 'height')
+    const apiSearch = `&search=${formData.search}`;
+    const apiTypes = getUrlParameter(formData.type, 'type');
+    const apiLimit = `&limit=${formData.limit}`
+    const apiOffset = `&offset=${formData.offset}`
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
      
     if (formData.weight) {
@@ -54,6 +64,12 @@ function App(props) {
     }
     if(formData.type) {
       apiPokemonUrl += apiTypes;
+    }
+    if(formData.limit) {
+      apiPokemonUrl += apiLimit;
+    }
+    if(formData.offset) {
+      apiPokemonUrl += apiOffset;
     }
    
     try{
@@ -143,21 +159,79 @@ function App(props) {
       type: [],
     });
   }
-    
+
+  const handleSelectField = (event) => {
+    const newLimitValue = event.target.value;
+    setFormData({
+      ...formData,
+      limit: newLimitValue,
+    })
+  }
+  const handleDisableButton = () => {
+   return !formData.offset;
+  }
+
+  const handlePreviousButton = () => {
+    setFormData({
+      ...formData,
+      offset: formData.offset - formData.limit,
+    })
+  }
+
+  const handleNextButton = () => {
+    setFormData({
+      ...formData,
+      offset: formData.offset + formData.limit,
+    })
+  }
+
   return (
     <div className="App" style={{ paddingTop: '10px' }}>
-      <label>
-        <input type="text" className="input-search" name="input-search" value={formData.search} onChange={searchInputvalue} placeholder="Search..."/>
-      </label>
-      <InputCheckbox
-        weights={formData.weight}
-        heights={formData.height}
-        onCheckboxWeightsChange={handleChangeCheckboxWeights}
-        onCheckboxHeightsChange={handleChangeCheckboxHeights}
+      <div>
+        <label>
+          <input
+            type="text" 
+            className="input-search" 
+            name="input-search" 
+            value={formData.search}
+            onChange={searchInputvalue} 
+            placeholder="Search..." 
+          />
+        </label>
+        <InputCheckbox
+          weights={formData.weight}
+          heights={formData.height}
+          onCheckboxWeightsChange={handleChangeCheckboxWeights}
+          onCheckboxHeightsChange={handleChangeCheckboxHeights}
+          />
+        <Types 
+          onTypeChange={handleTypeChange} 
+          selectedTypes={formData.type} 
+          onSelectType={handleClickSelectedTypes} 
         />
-      <Types onTypeChange={handleTypeChange} selectedTypes={formData.type} onSelectType={handleClickSelectedTypes}/>
-      <button type="submit" onClick={handleToClearAllFiltersButton}>clear filters</button>
-      <button className="button-search" type="submit" onClick={hadleSubmitButton}>Submit</button>
+        
+        <button 
+          type="submit" 
+          onClick={handleToClearAllFiltersButton}
+        >
+          clear filters
+        </button>
+        <button 
+          className="button-search"
+          type="submit" 
+          onClick={hadleSubmitButton}
+        >
+          Submit
+        </button>
+      </div>
+      <Pagination
+        onLimitChange={handleSelectField} 
+        limit={formData.limit} 
+        previousButton={handlePreviousButton} 
+        nextButton={handleNextButton} 
+        enableOrDisableButtons={pokemonRequestState.isLoading}
+        onChangePreviousButton={handleDisableButton}
+      />
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}
