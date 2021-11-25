@@ -231,14 +231,14 @@ function App(props) {
           />
 
           <button type='submit' onClick={handleToClearAllFiltersButton}>
-            clear filters
+            Reset
           </button>
           <button
             className='button-search'
             type='submit'
             onClick={HandleOnClickFunctions}
           >
-            Submit
+            Apply
           </button>
           <button type='submit' onClick={handleCloseModal}>
             Back
