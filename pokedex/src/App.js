@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { clickButton } from './actions';
 import Pokedex from './components/Pokedex';
 import './index.scss';
 import Loading from './components/Loading';
