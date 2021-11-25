@@ -191,8 +191,14 @@ function App(props) {
   const handleClickFiltersButton = () => {
     setModalIsOpen(true);
   };
-  const handleClickBackButton = () => {
+
+  const handleCloseModal = () => {
     setModalIsOpen(false);
+  };
+
+  const HandleOnClickFunctions = () => {
+    handleCloseModal();
+    hadleSubmitButton();
   };
 
   return (
@@ -230,11 +236,11 @@ function App(props) {
           <button
             className='button-search'
             type='submit'
-            onClick={hadleSubmitButton}
+            onClick={HandleOnClickFunctions}
           >
             Submit
           </button>
-          <button type='submit' onClick={handleClickBackButton}>
+          <button type='submit' onClick={handleCloseModal}>
             Back
           </button>
         </div>
