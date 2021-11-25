@@ -195,7 +195,7 @@ function App(props) {
     setModalIsOpen(false);
   };
 
-  const HandleOnClickFunctions = () => {
+  const handleClickApplyButton = () => {
     handleCloseModal();
     hadleSubmitButton();
   };
@@ -209,8 +209,8 @@ function App(props) {
         <Filters
           modalIsOpen={modalIsOpen}
           search={formData.search}
-          weights={formData.weight}
-          heights={formData.height}
+          selectedWeights={formData.weight}
+          selectedHeights={formData.height}
           selectedTypes={formData.type}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
@@ -218,15 +218,15 @@ function App(props) {
           searchInputvalue={searchInputvalue}
           onSelectType={handleClickSelectedTypes}
           onClearAllFilters={handleToClearAllFiltersButton}
-          onClickFunctions={HandleOnClickFunctions}
+          onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
         />
       </Modal>
       <Pagination
         onLimitChange={handleSelectField}
         limit={formData.limit}
-        previousButton={handlePreviousButton}
-        nextButton={handleNextButton}
+        onClickPreviousButton={handlePreviousButton}
+        onClickNextButton={handleNextButton}
         enableOrDisableButtons={pokemonRequestState.isLoading}
         onChangePreviousButton={handleDisableButton}
       />
