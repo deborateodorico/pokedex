@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { clickButton } from './actions';
 import Pokedex from './components/Pokedex';
-import InputCheckbox from './components/InputCheckbox';
 import './index.scss';
 import Loading from './components/Loading';
 import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
-import Types from './components/Types';
 import Pagination from './components/Pagination';
+import Filters from './components/Filters';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -207,43 +206,21 @@ function App(props) {
         Filters
       </button>
       <Modal isOpen={modalIsOpen}>
-        <div>
-          <label>
-            <input
-              type='text'
-              className='input-search'
-              name='input-search'
-              value={formData.search}
-              onChange={searchInputvalue}
-              placeholder='Search...'
-            />
-          </label>
-          <InputCheckbox
-            weights={formData.weight}
-            heights={formData.height}
-            onCheckboxWeightsChange={handleChangeCheckboxWeights}
-            onCheckboxHeightsChange={handleChangeCheckboxHeights}
-          />
-          <Types
-            onTypeChange={handleTypeChange}
-            selectedTypes={formData.type}
-            onSelectType={handleClickSelectedTypes}
-          />
-
-          <button type='submit' onClick={handleToClearAllFiltersButton}>
-            Reset
-          </button>
-          <button
-            className='button-search'
-            type='submit'
-            onClick={HandleOnClickFunctions}
-          >
-            Apply
-          </button>
-          <button type='submit' onClick={handleCloseModal}>
-            Back
-          </button>
-        </div>
+        <Filters
+          modalIsOpen={modalIsOpen}
+          search={formData.search}
+          weights={formData.weight}
+          heights={formData.height}
+          selectedTypes={formData.type}
+          onCheckboxWeightsChange={handleChangeCheckboxWeights}
+          onCheckboxHeightsChange={handleChangeCheckboxHeights}
+          onTypeChange={handleTypeChange}
+          searchInputvalue={searchInputvalue}
+          onSelectType={handleClickSelectedTypes}
+          onClearAllFilters={handleToClearAllFiltersButton}
+          onClickFunctions={HandleOnClickFunctions}
+          onCloseModal={handleCloseModal}
+        />
       </Modal>
       <Pagination
         onLimitChange={handleSelectField}
