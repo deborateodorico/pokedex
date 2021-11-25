@@ -216,8 +216,8 @@ function App(props) {
         <Filters
           modalIsOpen={modalIsOpen}
           search={formData.search}
-          weightsSelect={formData.weight}
-          heightsSelect={formData.height}
+          selectedWeights={formData.weight}
+          selectedHeights={formData.height}
           selectedTypes={formData.type}
           moves={formData.move}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}

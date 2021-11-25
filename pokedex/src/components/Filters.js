@@ -6,8 +6,8 @@ import Moves from './Moves';
 export default function Filters({
   searchInputvalue,
   search,
-  weightsSelect,
-  heightsSelect,
+  selectedWeights,
+  selectedHeights,
   onCheckboxWeightsChange,
   onCheckboxHeightsChange,
   onTypeChange,
@@ -32,8 +32,8 @@ export default function Filters({
         />
       </label>
       <InputCheckbox
-        weights={weightsSelect}
-        heights={heightsSelect}
+        weights={selectedWeights}
+        heights={selectedHeights}
         onCheckboxWeightsChange={onCheckboxWeightsChange}
         onCheckboxHeightsChange={onCheckboxHeightsChange}
       />
