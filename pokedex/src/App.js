@@ -27,6 +27,7 @@ function App(props) {
     type: [],
     limit: 10,
     offset: 0,
+    move: [],
   });
 
   const [pokemonRequestState, setPokemonRequestState] = useState({
@@ -52,6 +53,7 @@ function App(props) {
     const apiTypes = getUrlParameter(formData.type, 'type');
     const apiLimit = `&limit=${formData.limit}`;
     const apiOffset = `&offset=${formData.offset}`;
+    const apiMoves = `&move=${formData.move}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
     if (formData.weight) {
@@ -71,6 +73,9 @@ function App(props) {
     }
     if (formData.offset) {
       apiPokemonUrl += apiOffset;
+    }
+    if (formData.move.lenght) {
+      apiPokemonUrl += apiMoves;
     }
 
     try {
@@ -148,6 +153,10 @@ function App(props) {
   const handleClickSelectedTypes = (event) => {
     handleCheckboxsFilters(event, 'type');
   };
+
+  const handleChangeCheckboxMoves = (event) => {
+    handleCheckboxsFilters(event, 'move');
+  };
   const hadleSubmitButton = () => {
     fetchApiPokemon();
   };
@@ -159,6 +168,7 @@ function App(props) {
       height: [],
       weight: [],
       type: [],
+      move: [],
     });
   };
 
@@ -195,7 +205,7 @@ function App(props) {
     setModalIsOpen(false);
   };
 
-  const HandleOnClickFunctions = () => {
+  const handleClickApplyButton = () => {
     handleCloseModal();
     hadleSubmitButton();
   };
@@ -209,24 +219,26 @@ function App(props) {
         <Filters
           modalIsOpen={modalIsOpen}
           search={formData.search}
-          weights={formData.weight}
-          heights={formData.height}
+          weightsSelect={formData.weight}
+          heightsSelect={formData.height}
           selectedTypes={formData.type}
+          moves={formData.move}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
           searchInputvalue={searchInputvalue}
           onSelectType={handleClickSelectedTypes}
           onClearAllFilters={handleToClearAllFiltersButton}
-          onClickFunctions={HandleOnClickFunctions}
+          onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
+          onCheckboxMovesChange={handleChangeCheckboxMoves}
         />
       </Modal>
       <Pagination
         onLimitChange={handleSelectField}
         limit={formData.limit}
-        previousButton={handlePreviousButton}
-        nextButton={handleNextButton}
+        onClickPreviousButton={handlePreviousButton}
+        onClickNextButton={handleNextButton}
         enableOrDisableButtons={pokemonRequestState.isLoading}
         onChangePreviousButton={handleDisableButton}
       />
@@ -240,11 +252,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (store) => ({
-  newValue: store.click.newValue,
-});
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ clickButton }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

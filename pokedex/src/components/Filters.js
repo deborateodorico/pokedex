@@ -1,24 +1,27 @@
 import React from 'react';
 import InputCheckbox from './InputCheckbox';
 import Types from './Types';
+import Moves from './Moves';
 
-export default function Modal({
+export default function Filters({
   searchInputvalue,
   search,
-  weights,
-  heights,
+  weightsSelect,
+  heightsSelect,
   onCheckboxWeightsChange,
   onCheckboxHeightsChange,
   onTypeChange,
   selectedTypes,
   onSelectType,
   onClearAllFilters,
-  onClickFunctions,
+  onClickApplyButton,
   onCloseModal,
+  moves,
+  onCheckboxMovesChange,
 }) {
   return (
     <div>
-      <label>
+      <label htmlFor='input-search'>
         <input
           type='text'
           className='input-search'
@@ -29,8 +32,8 @@ export default function Modal({
         />
       </label>
       <InputCheckbox
-        weights={weights}
-        heights={heights}
+        weights={weightsSelect}
+        heights={heightsSelect}
         onCheckboxWeightsChange={onCheckboxWeightsChange}
         onCheckboxHeightsChange={onCheckboxHeightsChange}
       />
@@ -39,13 +42,14 @@ export default function Modal({
         selectedTypes={selectedTypes}
         onSelectType={onSelectType}
       />
+      <Moves moves={moves} onCheckboxMovesChange={onCheckboxMovesChange} />
       <button type='submit' onClick={onClearAllFilters}>
         Reset
       </button>
       <button
         className='button-search'
         type='submit'
-        onClick={onClickFunctions}
+        onClick={onClickApplyButton}
       >
         Apply
       </button>
