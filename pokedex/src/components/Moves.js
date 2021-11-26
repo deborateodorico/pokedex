@@ -48,6 +48,11 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
       {MovesRequestState.error && !MovesRequestState.isLoading && (
         <ErrorApiMoves fetchApiType={fetchApiMove} />
       )}
+      <InputCheckboxApiMoves
+        moves={moves}
+        onCheckboxMovesChange={onCheckboxMovesChange}
+        formData={formData.moves}
+      />
     </div>
   );
 }
