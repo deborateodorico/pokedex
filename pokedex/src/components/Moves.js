@@ -6,6 +6,7 @@ import InputCheckboxApiMoves from './InputCheckboxApiMoves';
 export default function Moves({ moves, onCheckboxMovesChange }) {
   const [formData, setFormData] = useState({
     moves: [],
+    search: '',
   });
   const [MovesRequestState, setMovesRequestState] = useState({
     isLoading: false,
@@ -16,8 +17,16 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
     fetchApiMove();
   }, []);
 
+  const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADRESS;
+
+  const handleSearchChange = (event) => {
+    setFormData({
+      ...formData,
+      search: event.target.value,
+    });
+  };
+
   const fetchApiMove = async () => {
-    const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADRESS;
     try {
       setMovesRequestState({
         ...MovesRequestState,
@@ -33,7 +42,6 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
         ...formData,
         moves: MoveData.results,
       });
-      console.log(MoveData);
     } catch (error) {
       setMovesRequestState({
         ...MovesRequestState,
@@ -52,6 +60,8 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
         moves={moves}
         onCheckboxMovesChange={onCheckboxMovesChange}
         formData={formData.moves}
+        search={formData.search}
+        onSearchValue={handleSearchChange}
       />
     </div>
   );
