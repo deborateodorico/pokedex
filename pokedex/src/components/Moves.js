@@ -57,9 +57,9 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
         <ErrorApiMoves fetchApiType={fetchApiMove} />
       )}
       <InputCheckboxApiMoves
-        moves={moves}
+        selectedMoves={moves}
         onCheckboxMovesChange={onCheckboxMovesChange}
-        formData={formData.moves}
+        moves={formData.moves}
         search={formData.search}
         onSearchValue={handleSearchChange}
       />

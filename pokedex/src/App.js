@@ -71,7 +71,7 @@ function App(props) {
     if (formData.offset) {
       apiPokemonUrl += apiOffset;
     }
-    if (formData.move.lenght) {
+    if (formData.move.length) {
       apiPokemonUrl += apiMoves;
     }
 
