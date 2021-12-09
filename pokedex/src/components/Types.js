@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ErrorApiTypes from './ErrorApiTypes';
 import LoadingApiTypes from './LoadingApiTypes';
-import InputCheckboxApiTypes from './InputCheckboxApiType';
+import SearchForTypes from './SearchForTypes';
 
 export default function Types({ onSelectType, selectedTypes }) {
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ export default function Types({ onSelectType, selectedTypes }) {
 
   return (
     <div>
-      <InputCheckboxApiTypes
+      <SearchForTypes
         formData={formData}
         onSelectType={onSelectType}
         selectedTypes={selectedTypes}

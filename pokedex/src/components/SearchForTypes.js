@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InputCheckboxApiTypes({
+export default function SearchForTypes({
   formData,
   onSelectType,
   selectedTypes,

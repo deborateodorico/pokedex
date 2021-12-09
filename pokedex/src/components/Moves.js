@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import LoadingApiMoves from './LoadingApiMoves';
 import ErrorApiMoves from './ErrorApiMoves';
-import InputCheckboxApiMoves from './InputCheckboxApiMoves';
+import SearchForMoves from './SearchForMoves';
 
 export default function Moves({ moves, onCheckboxMovesChange }) {
   const [formData, setFormData] = useState({
     moves: [],
     search: '',
   });
-  const [MovesRequestState, setMovesRequestState] = useState({
+  const [movesRequestState, setMovesRequestState] = useState({
     isLoading: false,
     error: false,
   });
@@ -29,22 +29,22 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
   const fetchApiMove = async () => {
     try {
       setMovesRequestState({
-        ...MovesRequestState,
+        ...movesRequestState,
         isLoading: true,
       });
       const response = await fetch(apiMoveUrl);
       setMovesRequestState({
-        ...MovesRequestState,
+        ...movesRequestState,
         isLoading: false,
       });
-      const MoveData = await response.json();
+      const moveData = await response.json();
       setFormData({
         ...formData,
-        moves: MoveData.results,
+        moves: moveData.results,
       });
     } catch (error) {
       setMovesRequestState({
-        ...MovesRequestState,
+        ...movesRequestState,
         error: true,
         isLoading: false,
       });
@@ -52,11 +52,11 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
   };
   return (
     <div>
-      {MovesRequestState.isLoading && <LoadingApiMoves />}
-      {MovesRequestState.error && !MovesRequestState.isLoading && (
+      {movesRequestState.isLoading && <LoadingApiMoves />}
+      {movesRequestState.error && !movesRequestState.isLoading && (
         <ErrorApiMoves fetchApiType={fetchApiMove} />
       )}
-      <InputCheckboxApiMoves
+      <SearchForMoves
         selectedMoves={moves}
         onCheckboxMovesChange={onCheckboxMovesChange}
         moves={formData.moves}

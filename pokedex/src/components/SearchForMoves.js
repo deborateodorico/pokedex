@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InputCheckboxApiMoves({
+export default function SearchForMoves({
   moves,
   onCheckboxMovesChange,
   selectedMoves,
@@ -17,7 +17,6 @@ export default function InputCheckboxApiMoves({
       <p>Moves</p>
       <input
         type='text'
-        className='input-sea'
         name='input-search'
         placeholder='Search moves...'
         onChange={onSearchValue}
@@ -32,7 +31,7 @@ export default function InputCheckboxApiMoves({
                   type='checkbox'
                   name='move'
                   value={move.name}
-                  className='Input-moves'
+                  className='input-moves'
                   checked={selectedMoves.includes(move.name)}
                   onChange={onCheckboxMovesChange}
                 />
