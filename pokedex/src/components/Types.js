@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ErrorApiTypes from './ErrorApiTypes';
-import LoadingApiTypes from './LoadingApiTypes';
+import Error from './Error';
+import Loading from './Loading';
 import SearchForTypes from './SearchForTypes';
 
 export default function Types({ onSelectType, selectedTypes }) {
@@ -49,9 +49,9 @@ export default function Types({ onSelectType, selectedTypes }) {
         onSelectType={onSelectType}
         selectedTypes={selectedTypes}
       />
-      {TypesRequestState.isLoading && <LoadingApiTypes />}
+      {TypesRequestState.isLoading && <Loading />}
       {TypesRequestState.error && !TypesRequestState.isLoading && (
-        <ErrorApiTypes fetchApiType={fetchApiType} />
+        <Error fetch={fetchApiType} />
       )}
     </div>
   );

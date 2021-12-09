@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import LoadingApiMoves from './LoadingApiMoves';
-import ErrorApiMoves from './ErrorApiMoves';
+import Loading from './Loading';
+import Error from './Error';
 import SearchForMoves from './SearchForMoves';
 
 export default function Moves({ moves, onCheckboxMovesChange }) {
@@ -52,9 +52,9 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
   };
   return (
     <div>
-      {movesRequestState.isLoading && <LoadingApiMoves />}
+      {movesRequestState.isLoading && <Loading />}
       {movesRequestState.error && !movesRequestState.isLoading && (
-        <ErrorApiMoves fetchApiType={fetchApiMove} />
+        <Error fetch={fetchApiMove} />
       )}
       <SearchForMoves
         selectedMoves={moves}

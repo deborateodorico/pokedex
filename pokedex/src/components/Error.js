@@ -1,8 +1,8 @@
 import React from 'react';
 
-function ErrorApiMoves({ fetchApiMove }) {
+function Error({ fetch }) {
   const handleClick = (event) => {
-    fetchApiMove();
+    fetch();
   };
   return (
     <div>
@@ -18,4 +18,4 @@ function ErrorApiMoves({ fetchApiMove }) {
   );
 }
 
-export default ErrorApiMoves;
+export default Error;
