@@ -25,6 +25,7 @@ function App(props) {
     limit: 10,
     offset: 0,
     move: [],
+    ability: [],
   });
 
   const [pokemonRequestState, setPokemonRequestState] = useState({
@@ -51,6 +52,7 @@ function App(props) {
     const apiLimit = `&limit=${formData.limit}`;
     const apiOffset = `&offset=${formData.offset}`;
     const apiMoves = `&move=${formData.move}`;
+    const apiAbilitys = `&ability=${formData.ability}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
     if (formData.weight) {
@@ -73,6 +75,9 @@ function App(props) {
     }
     if (formData.move.length) {
       apiPokemonUrl += apiMoves;
+    }
+    if (formData.ability.length) {
+      apiPokemonUrl += apiAbilitys;
     }
 
     try {
@@ -154,6 +159,10 @@ function App(props) {
   const handleChangeCheckboxMoves = (event) => {
     handleCheckboxFilters(event, 'move');
   };
+
+  const handleChangeCheckboxAbilitys = (event) => {
+    handleCheckboxFilters(event, 'ability');
+  };
   const hadleSubmitButton = () => {
     fetchApiPokemon();
   };
@@ -166,6 +175,7 @@ function App(props) {
       weight: [],
       type: [],
       move: [],
+      ability: [],
     });
   };
 
@@ -220,6 +230,7 @@ function App(props) {
           selectedHeights={formData.height}
           selectedTypes={formData.type}
           moves={formData.move}
+          abilitys={formData.ability}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
@@ -229,6 +240,7 @@ function App(props) {
           onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
           onCheckboxMovesChange={handleChangeCheckboxMoves}
+          onCheckboxAbilitysChange={handleChangeCheckboxAbilitys}
         />
       </Modal>
       <Pagination
