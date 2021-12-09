@@ -1,6 +1,7 @@
 import React from 'react';
 import InputCheckbox from './InputCheckbox';
 import Types from './Types';
+import Moves from './Moves';
 
 export default function Filters({
   searchInputvalue,
@@ -15,10 +16,12 @@ export default function Filters({
   onClearAllFilters,
   onClickApplyButton,
   onCloseModal,
+  moves,
+  onCheckboxMovesChange,
 }) {
   return (
     <div>
-      <label>
+      <label htmlFor='input-search'>
         <input
           type='text'
           className='input-search'
@@ -39,6 +42,7 @@ export default function Filters({
         selectedTypes={selectedTypes}
         onSelectType={onSelectType}
       />
+      <Moves moves={moves} onCheckboxMovesChange={onCheckboxMovesChange} />
       <button type='submit' onClick={onClearAllFilters}>
         Reset
       </button>

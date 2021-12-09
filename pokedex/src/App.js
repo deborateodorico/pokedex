@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { clickButton } from './actions';
 import Pokedex from './components/Pokedex';
 import './index.scss';
 import Loading from './components/Loading';
@@ -27,6 +24,7 @@ function App(props) {
     type: [],
     limit: 10,
     offset: 0,
+    move: [],
   });
 
   const [pokemonRequestState, setPokemonRequestState] = useState({
@@ -52,6 +50,7 @@ function App(props) {
     const apiTypes = getUrlParameter(formData.type, 'type');
     const apiLimit = `&limit=${formData.limit}`;
     const apiOffset = `&offset=${formData.offset}`;
+    const apiMoves = `&move=${formData.move}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
     if (formData.weight) {
@@ -71,6 +70,9 @@ function App(props) {
     }
     if (formData.offset) {
       apiPokemonUrl += apiOffset;
+    }
+    if (formData.move.length) {
+      apiPokemonUrl += apiMoves;
     }
 
     try {
@@ -105,7 +107,7 @@ function App(props) {
     });
   };
 
-  const handleCheckboxsFilters = (event, filter) => {
+  const handleCheckboxFilters = (event, filter) => {
     const checkboxValue = event.target.value;
     if (formData[filter].includes(checkboxValue)) {
       setFormData((prevState) => {
@@ -131,11 +133,11 @@ function App(props) {
   };
 
   const handleChangeCheckboxHeights = (event) => {
-    handleCheckboxsFilters(event, 'height');
+    handleCheckboxFilters(event, 'height');
   };
 
   const handleChangeCheckboxWeights = (event) => {
-    handleCheckboxsFilters(event, 'weight');
+    handleCheckboxFilters(event, 'weight');
   };
 
   const handleTypeChange = (newTypes) => {
@@ -146,7 +148,11 @@ function App(props) {
   };
 
   const handleClickSelectedTypes = (event) => {
-    handleCheckboxsFilters(event, 'type');
+    handleCheckboxFilters(event, 'type');
+  };
+
+  const handleChangeCheckboxMoves = (event) => {
+    handleCheckboxFilters(event, 'move');
   };
   const hadleSubmitButton = () => {
     fetchApiPokemon();
@@ -159,6 +165,7 @@ function App(props) {
       height: [],
       weight: [],
       type: [],
+      move: [],
     });
   };
 
@@ -212,6 +219,7 @@ function App(props) {
           selectedWeights={formData.weight}
           selectedHeights={formData.height}
           selectedTypes={formData.type}
+          moves={formData.move}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
@@ -220,6 +228,7 @@ function App(props) {
           onClearAllFilters={handleToClearAllFiltersButton}
           onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
+          onCheckboxMovesChange={handleChangeCheckboxMoves}
         />
       </Modal>
       <Pagination
@@ -240,11 +249,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (store) => ({
-  newValue: store.click.newValue,
-});
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ clickButton }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
