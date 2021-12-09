@@ -107,7 +107,7 @@ function App(props) {
     });
   };
 
-  const handleCheckboxsFilters = (event, filter) => {
+  const handleCheckboxFilters = (event, filter) => {
     const checkboxValue = event.target.value;
     if (formData[filter].includes(checkboxValue)) {
       setFormData((prevState) => {
@@ -133,11 +133,11 @@ function App(props) {
   };
 
   const handleChangeCheckboxHeights = (event) => {
-    handleCheckboxsFilters(event, 'height');
+    handleCheckboxFilters(event, 'height');
   };
 
   const handleChangeCheckboxWeights = (event) => {
-    handleCheckboxsFilters(event, 'weight');
+    handleCheckboxFilters(event, 'weight');
   };
 
   const handleTypeChange = (newTypes) => {
@@ -148,11 +148,11 @@ function App(props) {
   };
 
   const handleClickSelectedTypes = (event) => {
-    handleCheckboxsFilters(event, 'type');
+    handleCheckboxFilters(event, 'type');
   };
 
   const handleChangeCheckboxMoves = (event) => {
-    handleCheckboxsFilters(event, 'move');
+    handleCheckboxFilters(event, 'move');
   };
   const hadleSubmitButton = () => {
     fetchApiPokemon();

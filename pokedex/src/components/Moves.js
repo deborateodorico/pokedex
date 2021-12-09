@@ -17,7 +17,7 @@ export default function Moves({ moves, onCheckboxMovesChange }) {
     fetchApiMove();
   }, []);
 
-  const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADRESS;
+  const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADDRESS;
 
   const handleSearchChange = (event) => {
     setFormData({

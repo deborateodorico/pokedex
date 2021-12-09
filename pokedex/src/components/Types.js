@@ -17,7 +17,7 @@ export default function Types({ onSelectType, selectedTypes }) {
   }, []);
 
   const fetchApiType = async () => {
-    const apiTypeUrl = process.env.REACT_APP_TYPE_API_ADRESS;
+    const apiTypeUrl = process.env.REACT_APP_TYPE_API_ADDRESS;
     try {
       setTypesRequestState({
         ...TypesRequestState,
