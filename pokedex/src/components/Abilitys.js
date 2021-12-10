@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Loading from './Loading';
-import Error from './Error';
+import React, { useState } from 'react';
 import SearchForAbilitys from './SearchForAbilitys';
+import FetchFilter from './FetchFilter';
 
 export default function Abilitys({ abilitys, onCheckboxAbilitysChange }) {
   const [formData, setFormData] = useState({
-    abilitys: [],
     search: '',
   });
-  const [abilitysRequestState, setAbilitysRequestState] = useState({
-    isLoading: false,
-    error: false,
-  });
-
-  useEffect(() => {
-    fetchApiAbilitys();
-  }, []);
-
-  const apiAbilityUrl = process.env.REACT_APP_ABILITY_API_ADDRESS;
 
   const handleSearchChange = (event) => {
     setFormData({
@@ -26,40 +14,15 @@ export default function Abilitys({ abilitys, onCheckboxAbilitysChange }) {
     });
   };
 
-  const fetchApiAbilitys = async () => {
-    try {
-      setAbilitysRequestState({
-        ...abilitysRequestState,
-        isLoading: true,
-      });
-      const response = await fetch(apiAbilityUrl);
-      setAbilitysRequestState({
-        ...abilitysRequestState,
-        isLoading: false,
-      });
-      const abilityData = await response.json();
-      setFormData({
-        ...formData,
-        abilitys: abilityData.results,
-      });
-    } catch (error) {
-      setAbilitysRequestState({
-        ...abilitysRequestState,
-        error: true,
-        isLoading: false,
-      });
-    }
-  };
+  const apiAbilityUrl = process.env.REACT_APP_ABILITY_API_ADDRESS;
+
   return (
     <div>
-      {abilitysRequestState.isLoading && <Loading />}
-      {abilitysRequestState.error && !abilitysRequestState.isLoading && (
-        <Error fetch={apiAbilityUrl} />
-      )}
+      <FetchFilter apiFilter={apiAbilityUrl} />
       <SearchForAbilitys
         selectedAbilitys={abilitys}
         onCheckboxAbilitysChange={onCheckboxAbilitysChange}
-        abilitys={formData.abilitys}
+        abilitys={abilitys}
         search={formData.search}
         onSearchValue={handleSearchChange}
       />

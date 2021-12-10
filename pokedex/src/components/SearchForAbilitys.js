@@ -7,7 +7,6 @@ export default function SearchForAbilitys({
   onSearchValue,
   search,
 }) {
-  console.log(abilitys);
   const filteredAbilitys = abilitys.filter((item) => {
     const includesSearch = item.name.includes(search);
     return includesSearch;
