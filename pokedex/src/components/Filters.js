@@ -3,7 +3,6 @@ import InputCheckbox from './InputCheckbox';
 import Types from './Types';
 import Moves from './Moves';
 import Abilitys from './Abilitys';
-// import MoveAndAbility from './MoveAndAbility';
 
 export default function Filters({
   searchInputvalue,
@@ -46,16 +45,10 @@ export default function Filters({
         selectedTypes={selectedTypes}
         onSelectType={onSelectType}
       />
-      <Moves moves={moves} onCheckboxMovesChange={onCheckboxMovesChange} />
-      {/* <MoveAndAbility
-        moves={moves}
-        onCheckboxMovesChange={onCheckboxMovesChange}
-        abilitys={abilitys}
-        onCheckboxAbilitysChange={onCheckboxAbilitysChange}
-      /> */}
+      <Moves selectedFilters={moves} onCheckboxChange={onCheckboxMovesChange} />
       <Abilitys
-        abilitys={abilitys}
-        onCheckboxAbilitysChange={onCheckboxAbilitysChange}
+        selectedFilters={abilitys}
+        onCheckboxChange={onCheckboxAbilitysChange}
       />
       <button type='submit' onClick={onClearAllFilters}>
         Reset

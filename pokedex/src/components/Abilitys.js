@@ -1,30 +1,15 @@
-import React, { useState } from 'react';
-import SearchForAbilitys from './SearchForAbilitys';
+import React from 'react';
 import FetchFilter from './FetchFilter';
 
-export default function Abilitys({ abilitys, onCheckboxAbilitysChange }) {
-  const [formData, setFormData] = useState({
-    search: '',
-  });
-
-  const handleSearchChange = (event) => {
-    setFormData({
-      ...formData,
-      search: event.target.value,
-    });
-  };
-
+export default function Abilitys({ selectedFilters, onCheckboxChange }) {
   const apiAbilityUrl = process.env.REACT_APP_ABILITY_API_ADDRESS;
 
   return (
     <div>
-      <FetchFilter apiFilter={apiAbilityUrl} />
-      <SearchForAbilitys
-        selectedAbilitys={abilitys}
-        onCheckboxAbilitysChange={onCheckboxAbilitysChange}
-        abilitys={abilitys}
-        search={formData.search}
-        onSearchValue={handleSearchChange}
+      <FetchFilter
+        apiFilter={apiAbilityUrl}
+        selectedFilters={selectedFilters}
+        onCheckboxChange={onCheckboxChange}
       />
     </div>
   );

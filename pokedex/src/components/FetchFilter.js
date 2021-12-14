@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Loading from './Loading';
 import Error from './Error';
+import SearchFilters from './SearchFilters';
 
-export default function FetchFilter({ apiFilter }) {
+export default function FetchFilter({
+  apiFilter,
+  selectedFilters,
+  onCheckboxChange,
+}) {
   const [formData, setFormData] = useState({
     filter: [],
   });
+
+  const [searchData, setSearchData] = useState({
+    search: '',
+  });
+
+  const handleSearchChange = (event) => {
+    setSearchData({
+      ...formData,
+      search: event.target.value,
+    });
+  };
 
   const [filterRequestState, setFilterRequestState] = useState({
     isLoading: false,
@@ -40,6 +56,7 @@ export default function FetchFilter({ apiFilter }) {
       });
     }
   };
+  console.log(formData.filter);
 
   return (
     <div>
@@ -47,6 +64,13 @@ export default function FetchFilter({ apiFilter }) {
       {filterRequestState.error && !filterRequestState.isLoading && (
         <Error fetch={apiFilter} />
       )}
+      <SearchFilters
+        filters={formData.filter}
+        search={searchData.search}
+        onSearchValue={handleSearchChange}
+        selectedFilters={selectedFilters}
+        onCheckboxChange={onCheckboxChange}
+      />
     </div>
   );
 }
