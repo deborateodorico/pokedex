@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SearchFilters({
   filters,
   onCheckboxChange,
   selectedFilters,
-  onSearchValue,
-  search,
+  filterName,
 }) {
+  const [searchData, setSearchData] = useState({
+    search: '',
+  });
+
+  const handleSearchChange = (event) => {
+    setSearchData({
+      ...searchData,
+      search: event.target.value,
+    });
+  };
   const filteredFilters = filters.filter((item) => {
-    const includesSearch = item.name.includes(search);
+    const includesSearch = item.name.includes(searchData.search);
     return includesSearch;
   });
 
   return (
     <>
-      <p>Moves</p>
+      <p>{filterName}</p>
       <input
         type='text'
         name='input-search'
         placeholder='Search filter...'
-        onChange={onSearchValue}
+        onChange={handleSearchChange}
       />
       <div className='filter-container'>
         {filteredFilters.map((item) => {

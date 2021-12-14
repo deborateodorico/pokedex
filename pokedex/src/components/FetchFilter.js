@@ -7,21 +7,11 @@ export default function FetchFilter({
   apiFilter,
   selectedFilters,
   onCheckboxChange,
+  filterName,
 }) {
   const [formData, setFormData] = useState({
     filter: [],
   });
-
-  const [searchData, setSearchData] = useState({
-    search: '',
-  });
-
-  const handleSearchChange = (event) => {
-    setSearchData({
-      ...formData,
-      search: event.target.value,
-    });
-  };
 
   const [filterRequestState, setFilterRequestState] = useState({
     isLoading: false,
@@ -56,7 +46,6 @@ export default function FetchFilter({
       });
     }
   };
-  console.log(formData.filter);
 
   return (
     <div>
@@ -66,10 +55,9 @@ export default function FetchFilter({
       )}
       <SearchFilters
         filters={formData.filter}
-        search={searchData.search}
-        onSearchValue={handleSearchChange}
         selectedFilters={selectedFilters}
         onCheckboxChange={onCheckboxChange}
+        filterName={filterName}
       />
     </div>
   );

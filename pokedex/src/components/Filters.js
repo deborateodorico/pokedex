@@ -2,7 +2,7 @@ import React from 'react';
 import InputCheckbox from './InputCheckbox';
 import Types from './Types';
 import Moves from './Moves';
-import Abilitys from './Abilitys';
+import Abilities from './Abilities';
 
 export default function Filters({
   searchInputvalue,
@@ -20,7 +20,7 @@ export default function Filters({
   moves,
   onCheckboxMovesChange,
   onCheckboxAbilitysChange,
-  abilitys,
+  abilities,
 }) {
   return (
     <div>
@@ -46,8 +46,8 @@ export default function Filters({
         onSelectType={onSelectType}
       />
       <Moves selectedFilters={moves} onCheckboxChange={onCheckboxMovesChange} />
-      <Abilitys
-        selectedFilters={abilitys}
+      <Abilities
+        selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
       />
       <button type='submit' onClick={onClearAllFilters}>

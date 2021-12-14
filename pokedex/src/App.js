@@ -230,7 +230,7 @@ function App(props) {
           selectedHeights={formData.height}
           selectedTypes={formData.type}
           moves={formData.move}
-          abilitys={formData.ability}
+          abilities={formData.ability}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
