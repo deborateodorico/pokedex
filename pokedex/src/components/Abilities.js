@@ -1,14 +1,14 @@
 import React from 'react';
 import FetchFilter from './FetchFilter';
 
-export default function Moves({ selectedFilters, onCheckboxChange }) {
-  const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADDRESS;
-  const paragraphName = 'Moves';
+export default function Abilities({ selectedFilters, onCheckboxChange }) {
+  const apiAbilityUrl = process.env.REACT_APP_ABILITY_API_ADDRESS;
+  const paragraphName = 'Abilities';
 
   return (
     <div>
       <FetchFilter
-        apiFilter={apiMoveUrl}
+        apiFilter={apiAbilityUrl}
         selectedFilters={selectedFilters}
         onCheckboxChange={onCheckboxChange}
         filterName={paragraphName}
