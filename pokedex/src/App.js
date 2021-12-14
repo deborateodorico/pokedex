@@ -7,6 +7,11 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Pagination from './components/Pagination';
 import Filters from './components/Filters';
+import VectorFilters from './icons/VectorFilters.png';
+import Union from './icons/Union.png';
+import VectorTeams from './icons/VectorTeams.png';
+import Heart from './icons/Heart.png';
+import VectorPerfil from './icons/VectorTeams.png';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -219,7 +224,31 @@ function App(props) {
 
   return (
     <div className='App' style={{ paddingTop: '10px' }}>
+      <div className='header-container'>
+        <p className='pokedex-paragraph'>
+          <img src={Union} alt='union-icon' />
+          Pokedex
+        </p>
+        <p className='pokedex-teams'>
+          <img src={VectorTeams} alt='teams-icon' />
+          Teams
+        </p>
+        <p className='pokedex-heart'>
+          <img src={Heart} alt='heart-icon' />
+          Teams
+        </p>
+        <p className='pokedex-perfil'>
+          <img
+            src={VectorPerfil}
+            alt='perfil-icon'
+            className='perfil-paragraph'
+          />
+          Sign in
+        </p>
+      </div>
+
       <button type='submit' onClick={handleClickFiltersButton}>
+        <img src={VectorFilters} alt='filters-icon' />
         Filters
       </button>
       <Modal isOpen={modalIsOpen}>
