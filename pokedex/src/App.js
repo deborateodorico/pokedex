@@ -10,8 +10,8 @@ import Filters from './components/Filters';
 import VectorFilters from './icons/VectorFilters.png';
 import Union from './icons/Union.png';
 import VectorTeams from './icons/VectorTeams.png';
-import Heart from './icons/Heart.png';
-import VectorPerfil from './icons/VectorTeams.png';
+import user from './icons/user.png';
+import favorite from './icons/favorite.png';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -225,30 +225,34 @@ function App(props) {
   return (
     <div className='App' style={{ paddingTop: '10px' }}>
       <div className='header-container'>
-        <p className='pokedex-paragraph'>
-          <img src={Union} alt='union-icon' />
-          Pokedex
-        </p>
-        <p className='pokedex-teams'>
-          <img src={VectorTeams} alt='teams-icon' />
-          Teams
-        </p>
-        <p className='pokedex-heart'>
-          <img src={Heart} alt='heart-icon' />
-          Teams
-        </p>
-        <p className='pokedex-perfil'>
-          <img
-            src={VectorPerfil}
-            alt='perfil-icon'
-            className='perfil-paragraph'
-          />
-          Sign in
-        </p>
+        <div className='div-union-icon'>
+          <img src={Union} alt='union-icon' className='union-img' />
+          <p className='pokedex-paragraph'>Pokedex</p>
+        </div>
+        <div className='div-team-icon'>
+          <img src={VectorTeams} alt='teams-icon' className='team-img' />
+          <p className='pokedex-teams'>Teams</p>
+        </div>
+        <div className='div-favorite-icon'>
+          <img src={favorite} alt='heart-icon' className='favorite-img' />
+          <p className='pokedex-heart'>Favorite</p>
+        </div>
+        <div className='div-user-icon'>
+          <img src={user} alt='perfil-icon' className='user-img' />
+          <p className='pokedex-perfil'>Sign in</p>
+        </div>
       </div>
-
-      <button type='submit' onClick={handleClickFiltersButton}>
-        <img src={VectorFilters} alt='filters-icon' />
+      <b>
+        <p className='section-paragraph'>Pokedex</p>
+      </b>
+      <button
+        type='submit'
+        onClick={handleClickFiltersButton}
+        className='filters-button'
+      >
+        <div>
+          <img src={VectorFilters} alt='filters-icon' />
+        </div>
         Filters
       </button>
       <Modal isOpen={modalIsOpen}>

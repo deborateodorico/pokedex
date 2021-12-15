@@ -5,11 +5,34 @@
 .header-container {
   display: flex;
   border-bottom: 1px solid rgb(214, 214, 214);
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: bold;
+  color: #2b3140;
+  font-size: 14px;
+  align-items: center;
+}
+.div-union-icon {
+  display: flex;
+  margin-right: 15px;
+}
+.div-team-icon {
+  display: flex;
+  margin-right: 15px;
+}
+.div-favorite-icon {
+  display: flex;
+}
+.div-user-icon {
+  display: flex;
+  margin-left: 1250px;
+  align-items: center;
 }
 
 .pokedex-paragraph {
-  display: flex;
-  margin-right: 54px;
+  color: #3156c6;
+  text-decoration: underline;
+  justify-content: center;
 }
 
 .pokedex-teams {
@@ -19,11 +42,52 @@
 
 .pokedex-heart {
   display: flex;
-  margin-left: 34px;
 }
 
 .pokedex-perfil {
   display: flex;
-  margin-left: 1300px;
-  width: 100%;
+}
+
+.section-paragraph {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: bold;
+  width: 48px;
+  height: 24px;
+  left: 32px;
+  top: 0px;
+  font-size: 20px;
+  line-height: 24px;
+  color: #2b3140;
+  padding-top: 15px;
+}
+
+.filters-button {
+  display: inline-block;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: bold;
+  color: #2b3140;
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 4px;
+  width: 79px;
+  height: 38px;
+  left: 32px;
+  top: 8px;
+  font-size: 12px;
+  padding: 4px 4px;
+  margin: 7px;
+  padding-left: 3px;
+}
+.union-img {
+  margin: 14px;
+}
+.team-img {
+  margin: 12px;
+}
+.favorite-img {
+  margin: 12px;
+}
+.user-img {
+  margin: 18px;
 }
