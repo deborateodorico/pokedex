@@ -223,11 +223,11 @@ function App(props) {
   };
 
   return (
-    <div className='App' style={{ paddingTop: '10px' }}>
+    <div className='app' style={{ paddingTop: '10px' }}>
       <div className='header-container'>
         <div className='div-union-icon'>
           <img src={Union} alt='union-icon' className='union-img' />
-          <p className='pokedex-paragraph'>Pokedex</p>
+          <p className='pokedex-union'>Pokedex</p>
         </div>
         <div className='div-team-icon'>
           <img src={VectorTeams} alt='teams-icon' className='team-img' />
@@ -245,16 +245,23 @@ function App(props) {
       <b>
         <p className='section-paragraph'>Pokedex</p>
       </b>
-      <button
-        type='submit'
-        onClick={handleClickFiltersButton}
-        className='filters-button'
-      >
-        <div>
-          <img src={VectorFilters} alt='filters-icon' />
-        </div>
-        Filters
-      </button>
+      <div className='div-filters-button-container'>
+        <button
+          type='submit'
+          onClick={handleClickFiltersButton}
+          className='filters-button'
+        >
+          <div className='div-filters-button'>
+            <img
+              src={VectorFilters}
+              alt='filters-icon'
+              className='filters-img'
+            />
+          </div>
+          Filters
+        </button>
+      </div>
+
       <Modal isOpen={modalIsOpen}>
         <Filters
           modalIsOpen={modalIsOpen}

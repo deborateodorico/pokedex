@@ -8,18 +8,15 @@
 @import '../node_modules/bootstrap/scss/grid';
 @import 'sass/inputFilters';
 @import 'sass/inputPokedexParagraph';
+@import 'sass/modal';
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: $color-body;
+  margin: 0;
   div {
-    button {
-      background-color: $color-button;
-      margin: 20px 0;
-    }
     input {
       margin-bottom: 20px;
     }

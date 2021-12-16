@@ -23,7 +23,8 @@ export default function Filters({
   abilities,
 }) {
   return (
-    <div>
+    <div className='div-modal'>
+      <p className='filters-paragraph'>Filters</p>
       <label htmlFor='input-search'>
         <input
           type='text'
