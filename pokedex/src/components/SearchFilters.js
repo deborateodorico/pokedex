@@ -29,6 +29,7 @@ export default function SearchFilters({
         name='input-search'
         placeholder='Search filter...'
         onChange={handleSearchChange}
+        className='search-filters'
       />
       <div className='filter-container'>
         {filteredFilters.map((item) => {
