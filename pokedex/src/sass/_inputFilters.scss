@@ -4,45 +4,37 @@
   overflow-y: auto;
   border: 1px solid black;
 }
+
 .input-weight {
   visibility: hidden;
 }
+
 .label-weight {
-  display: flex;
+  display: inline-block;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
 }
+
 .input-height {
   visibility: hidden;
 }
+
 .label-height {
-  display: flex;
+  display: inline-block;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  margin-bottom: 35px;
 }
-.label-height > span {
-  display: inline-block;
-  vertical-align: top;
-  line-height: 2em;
-}
-
-// .label-height > input + span {
-//   visibility: hidden;
-//   color: green;
-//   margin-left: -0.5em;
-//   margin-right: 0.2em;
-// }
 
 .label-height > input + span {
   border-radius: 4px;
   padding: 8px 12px;
   border: 1px solid #99a2b8;
   cursor: pointer;
-  margin: 5px;
   width: 55px;
   height: 32px;
 }
@@ -57,7 +49,6 @@
   padding: 8px 12px;
   border: 1px solid #99a2b8;
   cursor: pointer;
-  margin: 5px;
   width: 55px;
   height: 32px;
 }
@@ -65,4 +56,58 @@
 .label-weight > input:checked + span {
   visibility: visible;
   background-color: rgb(240, 233, 233);
+}
+
+.input-type {
+  visibility: hidden;
+}
+
+.label-type {
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+}
+
+.label-type > input + span {
+  border-radius: 4px;
+  padding: 4px 12px;
+  border: 1px solid #99a2b8;
+  cursor: pointer;
+  max-width: 100%;
+  height: 32px;
+  margin-top: 10px;
+}
+
+.label-type > input:checked + span {
+  visibility: visible;
+  background-color: rgb(240, 233, 233);
+}
+
+.type-paragraph {
+  font-weight: bold;
+  font-size: 16px;
+  width: 36px;
+  height: 24px;
+}
+
+.weight-paragraph {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.height-paragraph {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.search-moves {
+  background: #ffffff;
+  border: 1px solid #d1d7e5;
+  box-sizing: border-box;
+  border-radius: 8px;
+  width: 432px;
+  height: 48px;
 }

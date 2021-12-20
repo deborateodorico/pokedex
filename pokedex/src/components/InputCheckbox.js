@@ -10,7 +10,7 @@ export default function InputCheckbox({
   return (
     <>
       <div className='checkbox-container'>
-        <p>Weights</p>
+        <p className='weight-paragraph'>Weights</p>
         {weightsOrHeights.map((weight) => {
           return (
             <label key={weight} className='label-weight'>
@@ -22,13 +22,13 @@ export default function InputCheckbox({
                 checked={weights.includes(String(weight))}
                 onChange={onCheckboxWeightsChange}
               />
-              <span>{weight}</span>
+              <span className='filter-value'>{weight}</span>
             </label>
           );
         })}
       </div>
       <div>
-        <p>Heights</p>
+        <p className='height-paragraph'>Heights</p>
         {weightsOrHeights.map((height) => {
           return (
             <label key={height} className='label-height'>
