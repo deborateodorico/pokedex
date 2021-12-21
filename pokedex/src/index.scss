@@ -9,6 +9,7 @@
 @import 'sass/inputFilters';
 @import 'sass/inputPokedexParagraph';
 @import 'sass/modal';
+@import 'sass/modalButtons';
 
 * {
   box-sizing: border-box;
@@ -16,9 +17,4 @@
 
 body {
   margin: 0;
-  div {
-    input {
-      margin-bottom: 20px;
-    }
-  }
 }

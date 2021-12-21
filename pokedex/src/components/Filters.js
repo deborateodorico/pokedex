@@ -3,6 +3,7 @@ import InputCheckbox from './InputCheckbox';
 import Types from './Types';
 import Moves from './Moves';
 import Abilities from './Abilities';
+import closer from '../icons/closer.png';
 
 export default function Filters({
   searchInputvalue,
@@ -24,7 +25,13 @@ export default function Filters({
 }) {
   return (
     <div className='div-modal'>
-      <p className='filters-paragraph'>Filters</p>
+      <div className='container-modal-header'>
+        <p className='filters-paragraph'>Filters</p>
+        <button type='submit' onClick={onCloseModal} className='closer-button'>
+          <img src={closer} alt='closer-icon' className='closer-img' />
+        </button>
+      </div>
+
       <label htmlFor='input-search'>
         <input
           type='text'
@@ -51,18 +58,19 @@ export default function Filters({
         selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
       />
-      <button type='submit' onClick={onClearAllFilters}>
-        Reset
+      <button
+        type='submit'
+        onClick={onClearAllFilters}
+        className='clear-button'
+      >
+        Clear filters
       </button>
       <button
-        className='button-search'
+        className='search-button'
         type='submit'
         onClick={onClickApplyButton}
       >
-        Apply
-      </button>
-      <button type='submit' onClick={onCloseModal}>
-        Back
+        Show results
       </button>
     </div>
   );

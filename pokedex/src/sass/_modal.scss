@@ -1,13 +1,14 @@
 .div-modal {
   border-radius: 8px;
-  border: 1px solid #edeef8;
   background-color: #ffffff;
   max-width: 100%;
   font-family: Nunito;
   font-style: normal;
   font-weight: normal;
+  margin-left: 30px;
 }
 .filters-paragraph {
+  display: inline-block;
   width: 67px;
   height: 32px;
   left: 32px;
