@@ -58,20 +58,22 @@ export default function Filters({
         selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
       />
-      <button
-        type='submit'
-        onClick={onClearAllFilters}
-        className='clear-button'
-      >
-        Clear filters
-      </button>
-      <button
-        className='search-button'
-        type='submit'
-        onClick={onClickApplyButton}
-      >
-        Show results
-      </button>
+      <div className='buttons-container'>
+        <button
+          type='submit'
+          onClick={onClearAllFilters}
+          className='clear-button'
+        >
+          Clear filters
+        </button>
+        <button
+          className='search-button'
+          type='submit'
+          onClick={onClickApplyButton}
+        >
+          Show results
+        </button>
+      </div>
     </div>
   );
 }

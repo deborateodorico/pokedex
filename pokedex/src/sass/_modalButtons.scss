@@ -1,4 +1,10 @@
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .clear-button {
+  display: inline-block;
   width: 117px;
   height: 44px;
   left: 115px;
@@ -7,13 +13,14 @@
   color: #3156c6;
   font-family: 'Nunito';
   font-style: normal;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 12px 16px;
 }
 .search-button {
+  display: inline-block;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 12px 16px;
   width: 117px;
