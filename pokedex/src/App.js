@@ -262,7 +262,20 @@ function App(props) {
         </button>
       </div>
 
-      <Modal isOpen={modalIsOpen}>
+      <Modal
+        isOpen={modalIsOpen}
+        style={{
+          content: {
+            maxWidth: 664,
+            width: 'calc(100% - 20px)',
+            height: 718,
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+          },
+        }}
+      >
         <Filters
           modalIsOpen={modalIsOpen}
           search={formData.search}

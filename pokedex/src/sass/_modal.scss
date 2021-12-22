@@ -1,11 +1,14 @@
 .div-modal {
+  display: inline-block;
   border-radius: 8px;
   background-color: #ffffff;
   max-width: 100%;
   font-family: Nunito;
   font-style: normal;
   font-weight: normal;
-  margin-left: 30px;
+  padding-top: 0;
+  vertical-align: middle;
+  text-align: left;
 }
 .filters-paragraph {
   display: inline-block;
