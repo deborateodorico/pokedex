@@ -30,6 +30,7 @@
   display: flex;
   margin-left: auto;
   align-items: center;
+  padding-right: 20px;
 }
 .div-filters-button-container {
   display: flex;
@@ -59,20 +60,6 @@
   display: flex;
 }
 
-.section-paragraph {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: bold;
-  width: 98px;
-  height: 32px;
-  left: 48px;
-  top: 104px;
-  font-size: 24px;
-  line-height: 32px;
-  color: #2b3140;
-  padding-top: 15px 0;
-}
-
 .filters-button {
   display: flex;
   font-family: 'Nunito';
@@ -87,7 +74,7 @@
   top: 8px;
   font-size: 12px;
   padding: 4px 4px;
-  margin: 7px;
+  margin: 7px 15px;
   padding-left: 3px;
   align-items: center;
   justify-content: center;

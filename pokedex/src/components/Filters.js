@@ -6,10 +6,12 @@ import Abilities from './Abilities';
 import closer from '../icons/closer.png';
 
 export default function Filters({
-  searchInputvalue,
-  search,
   selectedWeights,
   selectedHeights,
+  searchMoves,
+  searchAbilities,
+  onSearchMove,
+  onSearchAbilities,
   onCheckboxWeightsChange,
   onCheckboxHeightsChange,
   onTypeChange,
@@ -31,17 +33,6 @@ export default function Filters({
           <img src={closer} alt='closer-icon' className='closer-img' />
         </button>
       </div>
-
-      <label htmlFor='input-search'>
-        <input
-          type='text'
-          className='input-search'
-          name='input-search'
-          value={search}
-          onChange={searchInputvalue}
-          placeholder='Search...'
-        />
-      </label>
       <InputCheckbox
         weights={selectedWeights}
         heights={selectedHeights}
@@ -53,10 +44,17 @@ export default function Filters({
         selectedTypes={selectedTypes}
         onSelectType={onSelectType}
       />
-      <Moves selectedFilters={moves} onCheckboxChange={onCheckboxMovesChange} />
+      <Moves
+        selectedFilters={moves}
+        onCheckboxChange={onCheckboxMovesChange}
+        searchMoves={searchMoves}
+        onSearchMove={onSearchMove}
+      />
       <Abilities
         selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
+        searchAbilities={searchAbilities}
+        onSearchAbilities={onSearchAbilities}
       />
       <div className='buttons-container'>
         <button

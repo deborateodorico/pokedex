@@ -24,6 +24,8 @@ const getUrlParameter = (values, param) => {
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
+    searchMoves: '',
+    searchAbilities: '',
     height: [],
     weight: [],
     type: [],
@@ -117,6 +119,20 @@ function App(props) {
     });
   };
 
+  const searchMoves = (event) => {
+    setFormData({
+      ...formData,
+      search: event.target.value,
+    });
+  };
+
+  const searchAbilities = (event) => {
+    setFormData({
+      ...formData,
+      search: event.target.value,
+    });
+  };
+
   const handleCheckboxFilters = (event, filter) => {
     const checkboxValue = event.target.value;
     if (formData[filter].includes(checkboxValue)) {
@@ -176,6 +192,8 @@ function App(props) {
     setFormData({
       ...formData,
       search: '',
+      searchMoves: '',
+      searchAbilities: '',
       height: [],
       weight: [],
       type: [],
@@ -242,9 +260,21 @@ function App(props) {
           <p className='pokedex-perfil'>Sign in</p>
         </div>
       </div>
-      <b>
-        <p className='section-paragraph'>Pokedex</p>
-      </b>
+      <div className='pokedex-and-search-container'>
+        <b>
+          <p className='section-paragraph'>Pokedex</p>
+        </b>
+        <label htmlFor='input-search'>
+          <input
+            type='text'
+            className='input-search'
+            name='input-search'
+            value={formData.search}
+            onChange={searchInputvalue}
+            placeholder='Search...'
+          />
+        </label>
+      </div>
       <div className='div-filters-button-container'>
         <button
           type='submit'
@@ -273,12 +303,14 @@ function App(props) {
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)',
+            paddingTop: 0,
           },
         }}
       >
         <Filters
           modalIsOpen={modalIsOpen}
-          search={formData.search}
+          searchMoves={formData.searchMoves}
+          searchAbilities={formData.searchAbilities}
           selectedWeights={formData.weight}
           selectedHeights={formData.height}
           selectedTypes={formData.type}
@@ -287,13 +319,14 @@ function App(props) {
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
-          searchInputvalue={searchInputvalue}
           onSelectType={handleClickSelectedTypes}
           onClearAllFilters={handleToClearAllFiltersButton}
           onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
           onCheckboxMovesChange={handleChangeCheckboxMoves}
           onCheckboxAbilitysChange={handleChangeCheckboxAbilitys}
+          onSearchMove={searchMoves}
+          onSearchAbilities={searchAbilities}
         />
       </Modal>
       <Pagination
