@@ -20,6 +20,7 @@ export default function SearchFilters({
         <input
           type='text'
           name='input-search'
+          value={searchInputValue}
           placeholder='Search...'
           onChange={searchChange}
           className='search-filters'

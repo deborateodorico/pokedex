@@ -122,14 +122,14 @@ function App(props) {
   const searchMoves = (event) => {
     setFormData({
       ...formData,
-      search: event.target.value,
+      searchMoves: event.target.value,
     });
   };
 
   const searchAbilities = (event) => {
     setFormData({
       ...formData,
-      search: event.target.value,
+      searchAbilities: event.target.value,
     });
   };
 
