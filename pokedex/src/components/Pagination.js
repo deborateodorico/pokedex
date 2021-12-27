@@ -10,46 +10,54 @@ export default function Pagination({
   onChangePreviousButton,
 }) {
   return (
-    <div className='pagination-container'>
+    <div className='pagination'>
       <select
         name='paginates'
         id='paginates-select'
         value={limit}
         onChange={onLimitChange}
-        className='pagination-select'
+        className='pagination__select'
       >
-        <option value='' className='select-options'>
+        <option value='' className='pagination__select__options'>
           Todos os Pokemons
         </option>
-        <option value='10' className='select-options'>
+        <option value='10' className='pagination__select__options'>
           10
         </option>
-        <option value='25' className='select-options'>
+        <option value='25' className='pagination__select__options'>
           25
         </option>
-        <option value='50' className='select-options'>
+        <option value='50' className='pagination__select__options'>
           50
         </option>
-        <option value='100' className='select-options'>
+        <option value='100' className='pagination__select__options'>
           100
         </option>
       </select>
-      <div className='pages-buttons-container'>
+      <div className='pagination__pages'>
         <button
           type='button'
           onClick={onClickPreviousButton}
           disabled={onChangePreviousButton() || enableOrDisableButtons}
-          className='previous-button'
+          className='pagination__pages__previous-button'
         >
-          <img src={pagination} alt='previous-icon' className='previous-img' />
+          <img
+            src={pagination}
+            alt='previous-icon'
+            className='pagination__pages__previous-button__img'
+          />
         </button>
         <button
           type='button'
           onClick={onClickNextButton}
           disabled={enableOrDisableButtons}
-          className='next-button'
+          className='pagination__pages__next-button'
         >
-          <img src={pagination} alt='next-icon' className='next-img' />
+          <img
+            src={pagination}
+            alt='next-icon'
+            className='pagination__pages__next-button__img'
+          />
         </button>
       </div>
     </div>

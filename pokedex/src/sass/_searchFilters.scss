@@ -1,31 +1,31 @@
-.search-container {
+.search {
   display: inline-block;
   position: relative;
   justify-content: space-between;
+
+  &__name {
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &__filters {
+    display: flex;
+    background: #ffffff;
+    border: 1px solid #d1d7e5;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 450px;
+    height: 48px;
+    margin-bottom: 20px;
+    background-image: url(../icons/lupa.png);
+    background-repeat: no-repeat;
+    background-position: 97% center;
+    padding: 0 12px;
+  }
 }
 
-.filter-name {
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.search-filters {
-  display: flex;
-  background: #ffffff;
-  border: 1px solid #d1d7e5;
-  box-sizing: border-box;
-  border-radius: 8px;
-  width: 450px;
-  height: 48px;
-  margin-bottom: 20px;
-  background-image: url(../icons/lupa.png);
-  background-repeat: no-repeat;
-  background-position: 97% center;
-  padding: 0 12px;
-}
-
-.filter-container {
+.filter {
   display: flex;
   overflow: scroll;
   max-height: 100px;
@@ -34,36 +34,35 @@
   max-width: 664px;
   flex-wrap: wrap;
   margin-bottom: 30px;
-}
 
-.label-search {
-  display: inline-block;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  margin-right: 7px;
-}
+  &__label {
+    display: inline-block;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-right: 7px;
 
-.label-search > input + span {
-  border-radius: 4px;
-  padding: 8px 12px;
-  border: 1px solid #99a2b8;
-  cursor: pointer;
-  max-width: 100%;
-  height: 32px;
-  margin-bottom: 10px;
+    &__input-filtered {
+      visibility: hidden;
+      display: flex;
+      margin: 7px;
+      padding-left: 0;
+      width: 0;
+    }
+    &__value {
+      border-radius: 4px;
+      padding: 8px 12px;
+      border: 1px solid #99a2b8;
+      cursor: pointer;
+      max-width: 100%;
+      height: 32px;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .label-search > input:checked + span {
   visibility: visible;
   background-color: rgb(240, 233, 233);
-}
-
-.input-filtered {
-  visibility: hidden;
-  display: flex;
-  margin: 7px;
-  padding-left: 0;
-  width: 0;
 }

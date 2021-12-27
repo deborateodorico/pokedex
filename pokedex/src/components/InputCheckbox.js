@@ -17,39 +17,43 @@ export default function InputCheckbox({
   });
 
   return (
-    <div className='weight-and-height-container'>
-      <div className='checkbox-section'>
-        <p className='checkbox-paragraph'>Weights</p>
+    <div className='weight-and-height'>
+      <div className='weight-and-height__checkbox'>
+        <p className='weight-and-height__checkbox__paragraph'>Weights</p>
         {weightValue.map((weight) => {
           return (
-            <label key={weight} className='checkbox-label'>
+            <label key={weight} className='weight-and-height__checkbox__label'>
               <input
                 type='checkbox'
                 name='weight'
                 value={weight[0]}
-                className='checkbox-input'
+                className='weight-and-height__checkbox__label__input'
                 checked={weights.includes(String(weight[0]))}
                 onChange={onCheckboxWeightsChange}
               />
-              <span className='filter-value'>{weight[1]}</span>
+              <span className='weight-and-height__checkbox__label__value'>
+                {weight[1]}
+              </span>
             </label>
           );
         })}
       </div>
-      <div className='checkbox-section'>
-        <p className='checkbox-paragraph'>Heights</p>
+      <div className='weight-and-height__checkbox'>
+        <p className='weight-and-height__checkbox__paragraph'>Heights</p>
         {heightValue.map((height) => {
           return (
-            <label key={height} className='checkbox-label'>
+            <label key={height} className='weight-and-height__checkbox__label'>
               <input
                 type='checkbox'
                 name='height'
                 value={height[0]}
-                className='checkbox-input'
+                className='weight-and-height__checkbox__label__input'
                 checked={heights.includes(String(height[0]))}
                 onChange={onCheckboxHeightsChange}
               />
-              <span className='filter-value'>{height[1]}</span>
+              <span className='weight-and-height__checkbox__label__value'>
+                {height[1]}
+              </span>
             </label>
           );
         })}

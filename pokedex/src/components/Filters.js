@@ -26,11 +26,19 @@ export default function Filters({
   abilities,
 }) {
   return (
-    <div className='div-modal'>
-      <div className='filters-header'>
-        <p className='filters-paragraph'>Filters</p>
-        <button type='submit' onClick={onCloseModal} className='closer-button'>
-          <img src={closer} alt='closer-icon' className='closer-img' />
+    <div className='filters'>
+      <div className='filters__header'>
+        <p className='filters__header__paragraph'>Filters</p>
+        <button
+          type='submit'
+          onClick={onCloseModal}
+          className='filters__header__closer-button'
+        >
+          <img
+            src={closer}
+            alt='closer-icon'
+            className='filters__header__closer-button__img'
+          />
         </button>
       </div>
       <InputCheckbox
@@ -56,16 +64,16 @@ export default function Filters({
         searchAbilities={searchAbilities}
         onSearchAbilities={onSearchAbilities}
       />
-      <div className='buttons-container'>
+      <div className='filters__buttons-section'>
         <button
           type='submit'
           onClick={onClearAllFilters}
-          className='clear-button'
+          className='filters__buttons-section__clear-button'
         >
           Clear filters
         </button>
         <button
-          className='search-button'
+          className='filters__buttons-section__search-button'
           type='submit'
           onClick={onClickApplyButton}
         >
