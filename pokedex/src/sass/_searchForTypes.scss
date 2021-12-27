@@ -1,0 +1,42 @@
+.container-types {
+  flex-wrap: wrap;
+  display: inline-block;
+}
+
+.type-paragraph {
+  font-weight: bold;
+  font-size: 16px;
+  width: 36px;
+  height: 24px;
+}
+
+.label-type {
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-bottom: 17px;
+  height: 32px;
+}
+
+.label-type > input + span {
+  border-radius: 4px;
+  padding: 8px 12px;
+  border: 1px solid #99a2b8;
+  cursor: pointer;
+  max-width: 100%;
+  height: 32px;
+  margin-top: 10px;
+}
+
+.label-type > input:checked + span {
+  visibility: visible;
+  background-color: rgb(240, 233, 233);
+}
+
+.input-type {
+  visibility: hidden;
+  appearance: none;
+  margin-right: 2px;
+}

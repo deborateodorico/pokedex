@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
 @import 'sass/variables';
 @import 'sass/pokemon';
-@import 'sass/inputSearch';
 @import '../node_modules/bootstrap/scss/functions';
 @import '../node_modules/bootstrap/scss/variables';
 @import '../node_modules/bootstrap/scss/mixins';
 @import '../node_modules/bootstrap/scss/grid';
-@import 'sass/inputFilters';
-@import 'sass/inputPokedexParagraph';
-@import 'sass/modal';
-@import 'sass/modalButtons';
+@import 'sass/app';
+@import 'sass/searchFilters';
+@import 'sass/searchForTypes';
+@import 'sass/inputCheckbox';
+@import 'sass/filtersModal';
+@import 'sass/pagination';
 
 * {
   box-sizing: border-box;
@@ -18,4 +19,5 @@
 body {
   margin: 0;
   position: relative;
+  font-family: Nunito;
 }

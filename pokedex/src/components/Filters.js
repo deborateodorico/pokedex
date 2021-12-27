@@ -27,7 +27,7 @@ export default function Filters({
 }) {
   return (
     <div className='div-modal'>
-      <div className='container-modal-header'>
+      <div className='filters-header'>
         <p className='filters-paragraph'>Filters</p>
         <button type='submit' onClick={onCloseModal} className='closer-button'>
           <img src={closer} alt='closer-icon' className='closer-img' />

@@ -16,7 +16,7 @@ export default function Pagination({
         id='paginates-select'
         value={limit}
         onChange={onLimitChange}
-        className='paginates-select'
+        className='pagination-select'
       >
         <option value='' className='select-options'>
           Todos os Pokemons

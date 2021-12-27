@@ -242,32 +242,48 @@ function App(props) {
 
   return (
     <div className='app' style={{ paddingTop: '10px' }}>
-      <div className='header-container'>
-        <div className='div-union-icon'>
-          <img src={Union} alt='union-icon' className='union-img' />
-          <p className='pokedex-union'>Pokedex</p>
+      <div className='app__header'>
+        <div className='app__header__union-section'>
+          <img
+            src={Union}
+            alt='union-icon'
+            className='app__header__union-section__img'
+          />
+          <p className='app__header__union-section__paragraph'>Pokedex</p>
         </div>
-        <div className='div-team-icon'>
-          <img src={VectorTeams} alt='teams-icon' className='team-img' />
-          <p className='pokedex-teams'>Teams</p>
+        <div className='app__header__teams-section'>
+          <img
+            src={VectorTeams}
+            alt='teams-icon'
+            className='app__header__teams-section__img'
+          />
+          <p className='app__header__teams-section__paragraph'>Teams</p>
         </div>
-        <div className='div-favorite-icon'>
-          <img src={favorite} alt='heart-icon' className='favorite-img' />
-          <p className='pokedex-heart'>Favorite</p>
+        <div className='app__header__favorite-section'>
+          <img
+            src={favorite}
+            alt='heart-icon'
+            className='app__header__favorite-section__img'
+          />
+          <p className='app__header__favorite-section__paragraph'>Favorite</p>
         </div>
-        <div className='div-user-icon'>
-          <img src={user} alt='perfil-icon' className='user-img' />
-          <p className='pokedex-perfil'>Sign in</p>
+        <div className='app__header__user-section'>
+          <img
+            src={user}
+            alt='perfil-icon'
+            className='app__header__user-section__img'
+          />
+          <p className='app__header__user-section__paragraph'>Sign in</p>
         </div>
       </div>
-      <div className='pokedex-and-search-container'>
+      <div className='app__search'>
         <b>
-          <p className='section-paragraph'>Pokedex</p>
+          <p className='app__search__paragraph'>Pokedex</p>
         </b>
         <label htmlFor='input-search'>
           <input
             type='text'
-            className='input-search'
+            className='app__search__input'
             name='input-search'
             value={formData.search}
             onChange={searchInputvalue}
@@ -275,17 +291,17 @@ function App(props) {
           />
         </label>
       </div>
-      <div className='div-filters-button-container'>
+      <div className='app__filters-section'>
         <button
           type='submit'
           onClick={handleClickFiltersButton}
-          className='filters-button'
+          className='app__filters-section__button'
         >
-          <div className='div-filters-button'>
+          <div>
             <img
               src={VectorFilters}
               alt='filters-icon'
-              className='filters-img'
+              className='app__filters-section__button__img'
             />
           </div>
           Filters

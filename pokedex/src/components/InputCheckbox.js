@@ -17,17 +17,17 @@ export default function InputCheckbox({
   });
 
   return (
-    <div className='checkbox-div'>
-      <div className='checkbox-container'>
-        <p className='weight-paragraph'>Weights</p>
+    <div className='weight-and-height-container'>
+      <div className='checkbox-section'>
+        <p className='checkbox-paragraph'>Weights</p>
         {weightValue.map((weight) => {
           return (
-            <label key={weight} className='label-weight'>
+            <label key={weight} className='checkbox-label'>
               <input
                 type='checkbox'
                 name='weight'
                 value={weight[0]}
-                className='input-weight'
+                className='checkbox-input'
                 checked={weights.includes(String(weight[0]))}
                 onChange={onCheckboxWeightsChange}
               />
@@ -36,20 +36,20 @@ export default function InputCheckbox({
           );
         })}
       </div>
-      <div className='checkbox-height-container'>
-        <p className='height-paragraph'>Heights</p>
+      <div className='checkbox-section'>
+        <p className='checkbox-paragraph'>Heights</p>
         {heightValue.map((height) => {
           return (
-            <label key={height} className='label-height'>
+            <label key={height} className='checkbox-label'>
               <input
                 type='checkbox'
                 name='height'
                 value={height[0]}
-                className='input-height'
+                className='checkbox-input'
                 checked={heights.includes(String(height[0]))}
                 onChange={onCheckboxHeightsChange}
               />
-              <span>{height[1]}</span>
+              <span className='filter-value'>{height[1]}</span>
             </label>
           );
         })}
