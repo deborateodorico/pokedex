@@ -7,11 +7,8 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Pagination from './components/Pagination';
 import Filters from './components/Filters';
-import VectorFilters from './icons/VectorFilters.png';
-import Union from './icons/Union.png';
-import VectorTeams from './icons/VectorTeams.png';
-import user from './icons/user.png';
-import favorite from './icons/favorite.png';
+import vectorFilters from './icons/vectorFilters.png';
+import AppHeader from './components/AppHeader';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -242,70 +239,50 @@ function App(props) {
 
   return (
     <div className='app' style={{ paddingTop: '10px' }}>
-      <div className='app__header'>
-        <div className='app__header__union-section'>
-          <img
-            src={Union}
-            alt='union-icon'
-            className='app__header__union-section__img'
-          />
-          <p className='app__header__union-section__paragraph'>Pokedex</p>
-        </div>
-        <div className='app__header__teams-section'>
-          <img
-            src={VectorTeams}
-            alt='teams-icon'
-            className='app__header__teams-section__img'
-          />
-          <p className='app__header__teams-section__paragraph'>Teams</p>
-        </div>
-        <div className='app__header__favorite-section'>
-          <img
-            src={favorite}
-            alt='heart-icon'
-            className='app__header__favorite-section__img'
-          />
-          <p className='app__header__favorite-section__paragraph'>Favorite</p>
-        </div>
-        <div className='app__header__user-section'>
-          <img
-            src={user}
-            alt='perfil-icon'
-            className='app__header__user-section__img'
-          />
-          <p className='app__header__user-section__paragraph'>Sign in</p>
-        </div>
-      </div>
-      <div className='app__search'>
-        <b>
-          <p className='app__search__paragraph'>Pokedex</p>
-        </b>
-        <label htmlFor='input-search'>
-          <input
-            type='text'
-            className='app__search__input'
-            name='input-search'
-            value={formData.search}
-            onChange={searchInputvalue}
-            placeholder='Search...'
-          />
-        </label>
-      </div>
-      <div className='app__filters-section'>
-        <button
-          type='submit'
-          onClick={handleClickFiltersButton}
-          className='app__filters-section__button'
-        >
-          <div>
-            <img
-              src={VectorFilters}
-              alt='filters-icon'
-              className='app__filters-section__button__img'
+      <AppHeader />
+      <div className='container app-container'>
+        <div className='row gx-2'>
+          <div className='col-12'>
+            <div className='app__search'>
+              <p className='app__search__paragraph'>
+                <b>Pokedex</b>
+              </p>
+
+              <input
+                type='text'
+                className='app__search__input'
+                name='input-search'
+                value={formData.search}
+                onChange={searchInputvalue}
+                placeholder='Search...'
+              />
+            </div>
+            <div className='app__filters-section'>
+              <button
+                type='submit'
+                onClick={handleClickFiltersButton}
+                className='app__filters-section__button'
+              >
+                <div>
+                  <img
+                    src={vectorFilters}
+                    alt='filters-icon'
+                    className='app__filters-section__button__img'
+                  />
+                </div>
+                Filters
+              </button>
+            </div>
+            <Pagination
+              onLimitChange={handleSelectField}
+              limit={formData.limit}
+              onClickPreviousButton={handlePreviousButton}
+              onClickNextButton={handleNextButton}
+              enableOrDisableButtons={pokemonRequestState.isLoading}
+              onChangePreviousButton={handleDisableButton}
             />
           </div>
-          Filters
-        </button>
+        </div>
       </div>
 
       <Modal
@@ -345,14 +322,7 @@ function App(props) {
           onSearchAbilities={searchAbilities}
         />
       </Modal>
-      <Pagination
-        onLimitChange={handleSelectField}
-        limit={formData.limit}
-        onClickPreviousButton={handlePreviousButton}
-        onClickNextButton={handleNextButton}
-        enableOrDisableButtons={pokemonRequestState.isLoading}
-        onChangePreviousButton={handleDisableButton}
-      />
+
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}

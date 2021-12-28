@@ -8,11 +8,11 @@ export default function InputCheckbox({
   onCheckboxWeightsChange,
   onCheckboxHeightsChange,
 }) {
-  let weightValue = Object.keys(weight).map((key) => {
+  const weightValue = Object.keys(weight).map((key) => {
     return [Number(key), weight[key]];
   });
 
-  let heightValue = Object.keys(height).map((key) => {
+  const heightValue = Object.keys(height).map((key) => {
     return [Number(key), height[key]];
   });
 

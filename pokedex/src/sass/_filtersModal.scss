@@ -22,7 +22,7 @@
       top: 20px;
       font-size: 24px;
       line-height: 32px;
-      color: #2b3140;
+      color: var(--black-color);
     }
 
     &__closer-button {
@@ -52,7 +52,7 @@
       left: 115px;
       border: transparent;
       background-color: transparent;
-      color: #3156c6;
+      color: var(--blue-color);
       font-family: 'Nunito';
       font-style: normal;
       justify-content: flex-end;
@@ -70,7 +70,7 @@
       height: 44px;
       left: 115px;
       border-radius: 4px;
-      background: #3156c6;
+      background: var(--blue-color);
       border: transparent;
       color: white;
     }
