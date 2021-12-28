@@ -11,30 +11,18 @@
     }
 
     &__label {
-      display: inline-block;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
+      @extend %checkbox-label;
       margin-bottom: 35px;
       max-width: 100%;
       height: 32px;
       margin-right: 2px;
 
       &__input {
-        visibility: hidden;
-        margin-left: auto;
-        padding-left: 0;
-        width: 0;
+        @extend %checkbox-input;
       }
 
       &__value {
-        border-radius: 4px;
-        padding: 8px 12px;
-        border: 1px solid #99a2b8;
-        cursor: pointer;
-        width: 55px;
-        height: 32px;
+        @extend %checkbox-value;
       }
     }
   }
