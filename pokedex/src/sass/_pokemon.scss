@@ -1,4 +1,5 @@
-.container, .pokemon-list {
+.container,
+.pokemon-list {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
@@ -21,11 +22,10 @@
   border-radius: 8px;
   overflow: hidden;
   background-color: white;
-  color: #2B3140;
+  color: #2b3140;
   flex-grow: 1;
   flex-shrink: 1;
   // flex-basis: calc(16.6% - 12px);
-  margin: 6px;
 
   &__infos {
     padding: 8px 12px 12px;
@@ -36,7 +36,7 @@
       position: absolute;
       width: 14px;
       height: 14px;
-      color: #2B3140;
+      color: #2b3140;
       right: 45px;
       top: 13px;
       bottom: 145px;
@@ -46,7 +46,7 @@
       position: absolute;
       width: 20px;
       height: 18.35;
-      color: #2B3140;
+      color: #2b3140;
       right: 14px;
       top: 11px;
       bottom: 142.65px;
@@ -59,7 +59,7 @@
       margin: 0;
       padding: 0%;
     }
-    
+
     &__name {
       font-size: 16px;
       line-height: 24px;

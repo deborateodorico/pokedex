@@ -1,26 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
 @import 'sass/variables';
 @import 'sass/pokemon';
-@import 'sass/inputSearch';
 @import '../node_modules/bootstrap/scss/functions';
 @import '../node_modules/bootstrap/scss/variables';
 @import '../node_modules/bootstrap/scss/mixins';
 @import '../node_modules/bootstrap/scss/grid';
-@import 'sass/inputFilters';
+@import 'sass/app';
+@import 'sass/searchFilters';
+@import 'sass/searchForTypes';
+@import 'sass/inputCheckbox';
+@import 'sass/filtersModal';
+@import 'sass/pagination';
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: $color-body;
-  div {
-    button {
-      background-color: $color-button;
-      margin: 20px 0;
-    }
-    input {
-      margin-bottom: 20px;
-    }
-  }
+  margin: 0;
+  position: relative;
+  font-family: Nunito;
+}
+
+:root {
+  --black-color: #2b3140;
+  --blue-color: #3156c6;
 }

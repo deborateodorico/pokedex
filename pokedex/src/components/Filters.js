@@ -3,12 +3,15 @@ import InputCheckbox from './InputCheckbox';
 import Types from './Types';
 import Moves from './Moves';
 import Abilities from './Abilities';
+import closer from '../icons/closer.png';
 
 export default function Filters({
-  searchInputvalue,
-  search,
   selectedWeights,
   selectedHeights,
+  searchMoves,
+  searchAbilities,
+  onSearchMove,
+  onSearchAbilities,
   onCheckboxWeightsChange,
   onCheckboxHeightsChange,
   onTypeChange,
@@ -23,17 +26,21 @@ export default function Filters({
   abilities,
 }) {
   return (
-    <div>
-      <label htmlFor='input-search'>
-        <input
-          type='text'
-          className='input-search'
-          name='input-search'
-          value={search}
-          onChange={searchInputvalue}
-          placeholder='Search...'
-        />
-      </label>
+    <div className='filters'>
+      <div className='filters__header'>
+        <p className='filters__header__paragraph'>Filters</p>
+        <button
+          type='submit'
+          onClick={onCloseModal}
+          className='filters__header__closer-button'
+        >
+          <img
+            src={closer}
+            alt='closer-icon'
+            className='filters__header__closer-button__img'
+          />
+        </button>
+      </div>
       <InputCheckbox
         weights={selectedWeights}
         heights={selectedHeights}
@@ -45,24 +52,34 @@ export default function Filters({
         selectedTypes={selectedTypes}
         onSelectType={onSelectType}
       />
-      <Moves selectedFilters={moves} onCheckboxChange={onCheckboxMovesChange} />
+      <Moves
+        selectedFilters={moves}
+        onCheckboxChange={onCheckboxMovesChange}
+        searchMoves={searchMoves}
+        onSearchMove={onSearchMove}
+      />
       <Abilities
         selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
+        searchAbilities={searchAbilities}
+        onSearchAbilities={onSearchAbilities}
       />
-      <button type='submit' onClick={onClearAllFilters}>
-        Reset
-      </button>
-      <button
-        className='button-search'
-        type='submit'
-        onClick={onClickApplyButton}
-      >
-        Apply
-      </button>
-      <button type='submit' onClick={onCloseModal}>
-        Back
-      </button>
+      <div className='filters__buttons-section'>
+        <button
+          type='submit'
+          onClick={onClearAllFilters}
+          className='filters__buttons-section__clear-button'
+        >
+          Clear filters
+        </button>
+        <button
+          className='filters__buttons-section__search-button'
+          type='submit'
+          onClick={onClickApplyButton}
+        >
+          Show results
+        </button>
+      </div>
     </div>
   );
 }

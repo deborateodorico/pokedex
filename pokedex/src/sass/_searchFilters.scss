@@ -1,0 +1,60 @@
+.search {
+  display: inline-block;
+  position: relative;
+  justify-content: space-between;
+
+  &__name {
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &__filters {
+    display: flex;
+    background: #ffffff;
+    border: 1px solid #d1d7e5;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 450px;
+    height: 48px;
+    margin-bottom: 20px;
+    background-image: url(../icons/lupa.png);
+    background-repeat: no-repeat;
+    background-position: 97% center;
+    padding: 0 12px;
+  }
+}
+
+.filter {
+  display: flex;
+  overflow: scroll;
+  max-height: 100px;
+  overflow-y: auto;
+  border: transparent;
+  max-width: 664px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+
+  &__label {
+    @extend %checkbox-label;
+
+    margin-right: 7px;
+
+    &__input-filtered {
+      @extend %checkbox-input;
+      display: flex;
+      margin: 7px;
+    }
+
+    &__value {
+      @extend %checkbox-value;
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.label-search > input:checked + span {
+  visibility: visible;
+  background-color: rgb(240, 233, 233);
+}

@@ -1,31 +1,63 @@
 import React from 'react';
+import weight from './weightDictionary';
+import height from './heightDictionary';
 
-export default function InputCheckbox({weights, heights , onCheckboxWeightsChange, onCheckboxHeightsChange}) {
-  const weightsOrHeights = [1,2,3,4,5];
+export default function InputCheckbox({
+  weights,
+  heights,
+  onCheckboxWeightsChange,
+  onCheckboxHeightsChange,
+}) {
+  const weightValue = Object.keys(weight).map((key) => {
+    return [Number(key), weight[key]];
+  });
+
+  const heightValue = Object.keys(height).map((key) => {
+    return [Number(key), height[key]];
+  });
+
   return (
-    <>
-      <div>
-        <p>Weights</p>
-        {weightsOrHeights.map((weight) => {
-          return(
-            <label key={weight}>
-              {weight}
-              <input type="checkbox" name="weight" value={weight} className="Input-weight" checked={weights.includes(String(weight))} onChange={onCheckboxWeightsChange}/>
+    <div className='weight-and-height'>
+      <div className='weight-and-height__checkbox'>
+        <p className='weight-and-height__checkbox__paragraph'>Weights</p>
+        {weightValue.map((weight) => {
+          return (
+            <label key={weight} className='weight-and-height__checkbox__label'>
+              <input
+                type='checkbox'
+                name='weight'
+                value={weight[0]}
+                className='weight-and-height__checkbox__label__input'
+                checked={weights.includes(String(weight[0]))}
+                onChange={onCheckboxWeightsChange}
+              />
+              <span className='weight-and-height__checkbox__label__value'>
+                {weight[1]}
+              </span>
             </label>
-          )
+          );
         })}
       </div>
-      <div>
-        <p>Heights</p>
-          {weightsOrHeights.map((height) => {
-            return(
-              <label key={height}>
-                {height}
-                <input type="checkbox" name="weight" value={height} className="Input-weight" checked={heights.includes(String(height))} onChange={onCheckboxHeightsChange}/>
-              </label>
-            )
+      <div className='weight-and-height__checkbox'>
+        <p className='weight-and-height__checkbox__paragraph'>Heights</p>
+        {heightValue.map((height) => {
+          return (
+            <label key={height} className='weight-and-height__checkbox__label'>
+              <input
+                type='checkbox'
+                name='height'
+                value={height[0]}
+                className='weight-and-height__checkbox__label__input'
+                checked={heights.includes(String(height[0]))}
+                onChange={onCheckboxHeightsChange}
+              />
+              <span className='weight-and-height__checkbox__label__value'>
+                {height[1]}
+              </span>
+            </label>
+          );
         })}
       </div>
-    </>
-  )
+    </div>
+  );
 }

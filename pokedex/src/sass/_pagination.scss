@@ -1,0 +1,54 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__select {
+    display: flex;
+    border: 3px solid #d6d6d6;
+    max-width: 50px;
+    font-family: 'Nunito';
+    font-style: normal;
+    padding: 4px;
+    border-radius: 4px;
+    align-items: center;
+
+    &__options {
+      background-color: transparent;
+    }
+  }
+  &__pages {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    &__previous-button {
+      background-color: transparent;
+      border: none;
+      align-items: center;
+
+      &__img {
+        display: flex;
+        background-color: transparent;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+      }
+    }
+    &__next-button {
+      background-color: transparent;
+      border: none;
+      transform: rotate(180deg);
+      align-items: center;
+
+      &__img {
+        display: flex;
+        background-color: transparent;
+        max-width: 30px;
+        width: 100%;
+        height: 30px;
+        align-items: center;
+      }
+    }
+  }
+}

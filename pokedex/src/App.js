@@ -7,6 +7,8 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Pagination from './components/Pagination';
 import Filters from './components/Filters';
+import vectorFilters from './icons/vectorFilters.png';
+import AppHeader from './components/AppHeader';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -19,6 +21,8 @@ const getUrlParameter = (values, param) => {
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
+    searchMoves: '',
+    searchAbilities: '',
     height: [],
     weight: [],
     type: [],
@@ -112,6 +116,20 @@ function App(props) {
     });
   };
 
+  const searchMoves = (event) => {
+    setFormData({
+      ...formData,
+      searchMoves: event.target.value,
+    });
+  };
+
+  const searchAbilities = (event) => {
+    setFormData({
+      ...formData,
+      searchAbilities: event.target.value,
+    });
+  };
+
   const handleCheckboxFilters = (event, filter) => {
     const checkboxValue = event.target.value;
     if (formData[filter].includes(checkboxValue)) {
@@ -171,6 +189,8 @@ function App(props) {
     setFormData({
       ...formData,
       search: '',
+      searchMoves: '',
+      searchAbilities: '',
       height: [],
       weight: [],
       type: [],
@@ -218,14 +238,72 @@ function App(props) {
   };
 
   return (
-    <div className='App' style={{ paddingTop: '10px' }}>
-      <button type='submit' onClick={handleClickFiltersButton}>
-        Filters
-      </button>
-      <Modal isOpen={modalIsOpen}>
+    <div className='app' style={{ paddingTop: '10px' }}>
+      <AppHeader />
+      <div className='container app-container'>
+        <div className='row gx-2'>
+          <div className='col-12'>
+            <div className='app__search'>
+              <p className='app__search__paragraph'>
+                <b>Pokedex</b>
+              </p>
+
+              <input
+                type='text'
+                className='app__search__input'
+                name='input-search'
+                value={formData.search}
+                onChange={searchInputvalue}
+                placeholder='Search...'
+              />
+            </div>
+            <div className='app__filters-section'>
+              <button
+                type='submit'
+                onClick={handleClickFiltersButton}
+                className='app__filters-section__button'
+              >
+                <div>
+                  <img
+                    src={vectorFilters}
+                    alt='filters-icon'
+                    className='app__filters-section__button__img'
+                  />
+                </div>
+                Filters
+              </button>
+            </div>
+            <Pagination
+              onLimitChange={handleSelectField}
+              limit={formData.limit}
+              onClickPreviousButton={handlePreviousButton}
+              onClickNextButton={handleNextButton}
+              enableOrDisableButtons={pokemonRequestState.isLoading}
+              onChangePreviousButton={handleDisableButton}
+            />
+          </div>
+        </div>
+      </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        style={{
+          content: {
+            maxWidth: 664,
+            width: 'calc(100% - 20px)',
+            height: 718,
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            paddingTop: 0,
+          },
+        }}
+      >
         <Filters
           modalIsOpen={modalIsOpen}
-          search={formData.search}
+          searchMoves={formData.searchMoves}
+          searchAbilities={formData.searchAbilities}
           selectedWeights={formData.weight}
           selectedHeights={formData.height}
           selectedTypes={formData.type}
@@ -234,23 +312,17 @@ function App(props) {
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
-          searchInputvalue={searchInputvalue}
           onSelectType={handleClickSelectedTypes}
           onClearAllFilters={handleToClearAllFiltersButton}
           onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
           onCheckboxMovesChange={handleChangeCheckboxMoves}
           onCheckboxAbilitysChange={handleChangeCheckboxAbilitys}
+          onSearchMove={searchMoves}
+          onSearchAbilities={searchAbilities}
         />
       </Modal>
-      <Pagination
-        onLimitChange={handleSelectField}
-        limit={formData.limit}
-        onClickPreviousButton={handlePreviousButton}
-        onClickNextButton={handleNextButton}
-        enableOrDisableButtons={pokemonRequestState.isLoading}
-        onChangePreviousButton={handleDisableButton}
-      />
+
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
       {pokemonRequestState.isLoading && <Loading />}

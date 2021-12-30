@@ -6,19 +6,20 @@ export default function SearchForTypes({
   selectedTypes,
 }) {
   return (
-    <div>
+    <div className='types'>
+      <p className='types__paragraph'>Types</p>
       {formData.types.map((type) => {
         return (
-          <label key={type.name}>
-            {type.name}
+          <label key={type.name} className='types__section'>
             <input
               type='checkbox'
               name='type'
               value={type.name}
-              className='Input-types'
+              className='types__section__input'
               checked={selectedTypes.includes(type.name)}
               onChange={onSelectType}
             />
+            <span className='types__section__value'>{type.name}</span>
           </label>
         );
       })}

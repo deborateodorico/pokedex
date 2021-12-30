@@ -15,4 +15,27 @@ $color-body: rgb(248, 248, 248);
 // ===========================================================================================
 
 $paragraph-font-size: 50px;
- 
+
+%checkbox-label {
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+%checkbox-input {
+  visibility: hidden;
+  margin-left: auto;
+  padding-left: 0;
+  width: 0;
+}
+
+%checkbox-value {
+  border-radius: 4px;
+  padding: 8px 12px;
+  border: 1px solid #99a2b8;
+  cursor: pointer;
+  width: 55px;
+  height: 32px;
+}
