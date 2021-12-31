@@ -54,7 +54,7 @@
   }
 }
 
-.label-search > input:checked + span {
+.filter__label > input:checked + span {
   visibility: visible;
   background-color: rgb(240, 233, 233);
 }

@@ -122,6 +122,7 @@
       padding-left: 3px;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
 
       &__img {
         margin-right: 5px;
@@ -132,4 +133,9 @@
 
 .app-container {
   margin-bottom: 10px;
+}
+
+.app__filters-section__button:hover {
+  transform: scale(1.1);
+  transition: all 0.2s;
 }
