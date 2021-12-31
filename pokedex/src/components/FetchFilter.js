@@ -8,7 +8,6 @@ export default function FetchFilter({
   selectedFilters,
   onCheckboxChange,
   filterName,
-  searchInputValue,
   searchChange,
 }) {
   const [formData, setFormData] = useState({
@@ -60,7 +59,6 @@ export default function FetchFilter({
         selectedFilters={selectedFilters}
         onCheckboxChange={onCheckboxChange}
         filterName={filterName}
-        searchInputValue={searchInputValue}
         searchChange={searchChange}
       />
     </div>

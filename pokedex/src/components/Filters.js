@@ -8,8 +8,6 @@ import closer from '../icons/closer.png';
 export default function Filters({
   selectedWeights,
   selectedHeights,
-  searchMoves,
-  searchAbilities,
   onSearchMove,
   onSearchAbilities,
   onCheckboxWeightsChange,
@@ -55,13 +53,11 @@ export default function Filters({
       <Moves
         selectedFilters={moves}
         onCheckboxChange={onCheckboxMovesChange}
-        searchMoves={searchMoves}
         onSearchMove={onSearchMove}
       />
       <Abilities
         selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
-        searchAbilities={searchAbilities}
         onSearchAbilities={onSearchAbilities}
       />
       <div className='filters__buttons-section'>

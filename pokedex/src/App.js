@@ -21,8 +21,6 @@ const getUrlParameter = (values, param) => {
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
-    searchMoves: '',
-    searchAbilities: '',
     height: [],
     weight: [],
     type: [],
@@ -116,20 +114,6 @@ function App(props) {
     });
   };
 
-  const searchMoves = (event) => {
-    setFormData({
-      ...formData,
-      searchMoves: event.target.value,
-    });
-  };
-
-  const searchAbilities = (event) => {
-    setFormData({
-      ...formData,
-      searchAbilities: event.target.value,
-    });
-  };
-
   const handleCheckboxFilters = (event, filter) => {
     const checkboxValue = event.target.value;
     if (formData[filter].includes(checkboxValue)) {
@@ -189,8 +173,6 @@ function App(props) {
     setFormData({
       ...formData,
       search: '',
-      searchMoves: '',
-      searchAbilities: '',
       height: [],
       weight: [],
       type: [],
@@ -302,8 +284,6 @@ function App(props) {
       >
         <Filters
           modalIsOpen={modalIsOpen}
-          searchMoves={formData.searchMoves}
-          searchAbilities={formData.searchAbilities}
           selectedWeights={formData.weight}
           selectedHeights={formData.height}
           selectedTypes={formData.type}
@@ -318,8 +298,6 @@ function App(props) {
           onCloseModal={handleCloseModal}
           onCheckboxMovesChange={handleChangeCheckboxMoves}
           onCheckboxAbilitysChange={handleChangeCheckboxAbilitys}
-          onSearchMove={searchMoves}
-          onSearchAbilities={searchAbilities}
         />
       </Modal>
 

@@ -5,11 +5,20 @@ export default function SearchFilters({
   onCheckboxChange,
   selectedFilters,
   filterName,
-  searchInputValue,
-  searchChange,
 }) {
+  const [formData, setFormData] = useState({
+    search: '',
+  });
+
+  const searchInputvalue = (event) => {
+    setFormData({
+      ...formData,
+      search: event.target.value,
+    });
+  };
+
   const filteredFilters = filters.filter((item) => {
-    const includesSearch = item.name.includes(searchInputValue);
+    const includesSearch = item.name.includes(formData.search);
     return includesSearch;
   });
 
@@ -20,9 +29,9 @@ export default function SearchFilters({
         <input
           type='text'
           name='input-search'
-          value={searchInputValue}
+          value={formData.search}
           placeholder='Search...'
-          onChange={searchChange}
+          onChange={searchInputvalue}
           className='search__filters'
         />
       </div>
