@@ -18,10 +18,9 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-const debouncePromisse = (func, wait) => {
+const debouncePromise = (func, wait) => {
   let timer = null;
   return async function (...args) {
-    console.log(args);
     clearTimeout(timer);
     await new Promise((resolve) => {
       timer = setTimeout(resolve, wait);
@@ -30,9 +29,11 @@ const debouncePromisse = (func, wait) => {
   };
 };
 
-const debouncedFetch = debouncePromisse(fetch, 1000);
+const debouncedFetch = debouncePromise(fetch, 1000);
 
 function App(props) {
+  const [superLoading, setSuperLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     search: '',
     height: [],
@@ -101,35 +102,16 @@ function App(props) {
     }
 
     try {
-      // setPokemonRequestState((prevState) => {
-      //   if (prevState.isLoading === false) {
-      //     return {
-      //       ...prevState,
-      //       error: false,
-      //       isLoading: true,
-      //     };
-      //   } else {
-      //     return prevState;
-      //   }
-      // });
-
-      // setPokemonRequestState({
-      //   ...pokemonRequestState,
-      //   isLoading: true,
-      // });
+      setSuperLoading(true);
       const response = await debouncedFetch(apiPokemonUrl);
-      // console.log('2');
-      // setPokemonRequestState({
-      //   ...pokemonRequestState,
-      //   isLoading: false,
-      // });
+      setSuperLoading(false);
+
       const pokemonData = await response.json();
       setPokemonRequestState({
         ...pokemonRequestState,
         data: pokemonData.results,
       });
     } catch (error) {
-      console.error(error);
       setPokemonRequestState({
         ...pokemonRequestState,
         error: true,
@@ -334,8 +316,9 @@ function App(props) {
 
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
-      {pokemonRequestState.isLoading && <Loading />}
-      {!pokemonRequestState.error && !pokemonRequestState.isLoading && (
+      {superLoading && <Loading />}
+
+      {!pokemonRequestState.error && !superLoading && (
         <Pokedex pokemons={pokemonRequestState.data} />
       )}
     </div>
