@@ -18,6 +18,20 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
+const debouncePromisse = (func, wait) => {
+  let timer = null;
+  return async function (...args) {
+    console.log(args);
+    clearTimeout(timer);
+    await new Promise((resolve) => {
+      timer = setTimeout(resolve, wait);
+    });
+    return func(...args);
+  };
+};
+
+const debouncedFetch = debouncePromisse(fetch, 1000);
+
 function App(props) {
   const [formData, setFormData] = useState({
     search: '',
@@ -45,6 +59,10 @@ function App(props) {
   useEffect(() => {
     fetchApiPokemon();
   }, [formData.limit, formData.offset]);
+
+  useEffect(() => {
+    fetchApiPokemon();
+  }, [formData.search]);
 
   const fetchApiPokemon = async () => {
     const apiWeights = getUrlParameter(formData.weight, 'weight');
@@ -83,22 +101,35 @@ function App(props) {
     }
 
     try {
-      setPokemonRequestState({
-        ...pokemonRequestState,
-        isLoading: true,
-        error: false,
-      });
-      const response = await fetch(apiPokemonUrl);
-      setPokemonRequestState({
-        ...pokemonRequestState,
-        isLoading: false,
-      });
+      // setPokemonRequestState((prevState) => {
+      //   if (prevState.isLoading === false) {
+      //     return {
+      //       ...prevState,
+      //       error: false,
+      //       isLoading: true,
+      //     };
+      //   } else {
+      //     return prevState;
+      //   }
+      // });
+
+      // setPokemonRequestState({
+      //   ...pokemonRequestState,
+      //   isLoading: true,
+      // });
+      const response = await debouncedFetch(apiPokemonUrl);
+      // console.log('2');
+      // setPokemonRequestState({
+      //   ...pokemonRequestState,
+      //   isLoading: false,
+      // });
       const pokemonData = await response.json();
       setPokemonRequestState({
         ...pokemonRequestState,
         data: pokemonData.results,
       });
     } catch (error) {
+      console.error(error);
       setPokemonRequestState({
         ...pokemonRequestState,
         error: true,
