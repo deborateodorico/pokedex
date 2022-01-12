@@ -9,6 +9,7 @@ import Pagination from './components/Pagination';
 import Filters from './components/Filters';
 import vectorFilters from './icons/vectorFilters.png';
 import AppHeader from './components/AppHeader';
+import debounceFetch from './components/debounceFetch';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -18,21 +19,8 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-const debouncePromise = (func, wait) => {
-  let timer = null;
-  return async function (...args) {
-    clearTimeout(timer);
-    await new Promise((resolve) => {
-      timer = setTimeout(resolve, wait);
-    });
-    return func(...args);
-  };
-};
-
-const debouncedFetch = debouncePromise(fetch, 1000);
-
 function App(props) {
-  const [superLoading, setSuperLoading] = useState(false);
+  const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [formData, setFormData] = useState({
     search: '',
@@ -102,9 +90,9 @@ function App(props) {
     }
 
     try {
-      setSuperLoading(true);
-      const response = await debouncedFetch(apiPokemonUrl);
-      setSuperLoading(false);
+      setLoadingPokemonsData(true);
+      const response = await debounceFetch(apiPokemonUrl);
+      setLoadingPokemonsData(false);
 
       const pokemonData = await response.json();
       setPokemonRequestState({
@@ -316,9 +304,9 @@ function App(props) {
 
       {pokemonRequestState.error && <ApiError />}
       {pokemonRequestState.data?.length === 0 && <NoResults />}
-      {superLoading && <Loading />}
+      {loadingPokemonsData && <Loading />}
 
-      {!pokemonRequestState.error && !superLoading && (
+      {!pokemonRequestState.error && !loadingPokemonsData && (
         <Pokedex pokemons={pokemonRequestState.data} />
       )}
     </div>
