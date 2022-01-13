@@ -41,7 +41,7 @@ jobs:
           envkey_REACT_APP_TYPE_API_ADDRESS: ${{ secrets.REACT_APP_TYPE_API_ADDRESS }}
           envkey_REACT_APP_MOVE_API_ADDRESS: ${{ secrets.REACT_APP_MOVE_API_ADDRESS }}
           envkey_REACT_APP_ABILITY_API_ADDRESS: ${{ secrets.REACT_APP_ABILITY_API_ADDRESS }}
-          envkey_PORT: 5555
+          envkey_PORT: 3090
           file_name: pokedex/.env.local
 
       - name: Copy repository contents via scp
