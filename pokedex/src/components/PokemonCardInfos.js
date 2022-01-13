@@ -1,6 +1,6 @@
 import React from 'react';
 import Plus from '../icons/plus.png';
-import Heart from '../icons/Heart.png';
+import Heart from '../icons/heart.png';
 import colors from './colorsDictionary';
 
 export default function PokemonCardInfos({ pokemon }) {
