@@ -53,8 +53,9 @@ jobs:
           message: |
             <b>The test pipeline has failed</b> 🆘
 
-            ${{github.sha}}
-            <i>${{github.event.head_commit.message}}</i>
+            <a href="https://github.com/jhonnymichel/teodorico-academy/actions/runs/${{github.run_id}}">
+              <i>${{github.event.head_commit.message}}</i>
+            </a>
             by 🧑‍💻 ${{github.event.head_commit.author.name}}
 
             Please fix it before continuing!
@@ -68,6 +69,7 @@ jobs:
           message: |
             <b>Build successfull!</b> ✅
 
-            ${{github.sha}}
-            <i>${{github.event.head_commit.message}}</i>
+            <a href="https://github.com/jhonnymichel/teodorico-academy/actions/runs/${{github.run_id}}">
+              <i>${{github.event.head_commit.message}}</i>
+            </a>
             by 🧑‍💻 ${{github.event.head_commit.author.name}}
