@@ -31,11 +31,11 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        working-directory: ./pokedex"
+        working-directory: pokedex
         run: npm install
 
       - name: Build project
-        working-directory: ./pokedex"
+        working-directory: pokedex
         run: npm run build
 
   telegram-notify:
@@ -44,7 +44,7 @@ jobs:
     if: always()
     steps:
       - name: tests failed
-        if: ${{  needs.test.result == 'failure' }}
+        if: ${{  needs.build.result == 'failure' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
@@ -59,7 +59,7 @@ jobs:
 
             Please fix it before continuing!
       - name: testes passed
-        if: ${{  needs.test.result == 'success' }}
+        if: ${{  needs.build.result == 'success' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
