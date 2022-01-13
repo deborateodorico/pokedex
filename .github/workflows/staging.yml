@@ -1,0 +1,100 @@
+name: Staging
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify-before-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: send message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            ⚙️ <b>Deploy #${{ github.run_number }} is starting...</b>
+
+            ${{github.sha}}
+            <a href="https://github.com/jhonnymichel/teodorico-academy/actions/runs/${{github.run_id}}"><i>${{github.event.head_commit.message}}</i></a>
+
+            by 🧑‍💻 ${{github.event.head_commit.author.name}}
+
+  staging-deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }} # will be fired if the trigger event is a push event.
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+      - uses: actions/checkout@v2
+
+      - name: Create env file for cra
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_REACT_APP_POKEMON_API_ADDRESS: ${{ secrets.REACT_APP_POKEMON_API_ADDRESS }}
+          envkey_REACT_APP_TYPE_API_ADDRESS: ${{ secrets.REACT_APP_TYPE_API_ADDRESS }}
+          envkey_REACT_APP_MOVE_API_ADDRESS: ${{ secrets.REACT_APP_MOVE_API_ADDRESS }}
+          envkey_REACT_APP_ABILITY_API_ADDRESS: ${{ secrets.REACT_APP_ABILITY_API_ADDRESS }}
+          envkey_PORT: 5555
+          file_name: pokedex/.env.local
+
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USER }}
+          PORT: 22
+          KEY: ${{ secrets.SSHKEY }}
+        with:
+          rm: true
+          source: "."
+          target: "/var/src/teodorico-academy"
+
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USER }}
+          PORT: 22
+          KEY: ${{ secrets.SSHKEY }}
+          script: sudo service debora restart
+
+  notify-after-deploy:
+    runs-on: ubuntu-latest
+    needs: [staging-deploy]
+    if: always()
+
+    steps:
+      - name: successful deploy
+        if: ${{ github.event_name == 'push' && needs.staging-deploy.result == 'success' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            ✅ <b>Deploy #${{ github.run_number }} is complete</b> and live: http://pokedebs.jhonnymichel.com
+
+            ${{github.sha}}
+            <i>${{github.event.head_commit.message}}</i>
+            by 🧑‍💻 ${{github.event.head_commit.author.name}}
+
+      - name: failure deploy
+        if: ${{ github.event_name == 'push' && needs.staging-deploy.result != 'success' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            ❌ <b>Deploy #${{ github.run_number }} failed!</b>
+
+            ${{github.sha}}
+            <a href="https://github.com/jhonnymichel/teodorico-academy/actions/runs/${{github.run_id}}"><i>${{github.event.head_commit.message}}</i></a>
+            by 🧑‍💻 ${{github.event.head_commit.author.name}}
