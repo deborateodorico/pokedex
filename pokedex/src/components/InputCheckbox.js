@@ -1,6 +1,6 @@
 import React from 'react';
 import weightDictionary from './weightDictionary';
-import height from './heightDictionary';
+import heightDictionary from './heightDictionary';
 import { connect } from 'react-redux';
 import {
   CHANGE_SEARCH_VALUE,
@@ -13,24 +13,25 @@ import {
   CHANGE_WEIGHT_VALUE,
 } from '../actions/actionsTypes';
 
-function InputCheckbox({
-  heights,
-  weight,
-  changeWeight,
-  onCheckboxHeightsChange,
-}) {
+function InputCheckbox({ height, weight, changeHeight, changeWeight }) {
   const weightValue = Object.keys(weightDictionary).map((key) => {
     return [Number(key), weightDictionary[key]];
   });
 
-  const heightValue = Object.keys(height).map((key) => {
-    return [Number(key), height[key]];
+  const heightValue = Object.keys(heightDictionary).map((key) => {
+    return [Number(key), heightDictionary[key]];
   });
 
   const onWeightChange = (e) => {
     const newValue = e.target.value;
 
     changeWeight(newValue);
+  };
+
+  const onHeightChange = (e) => {
+    const newValue = e.target.value;
+
+    changeHeight(newValue);
   };
 
   return (
@@ -60,19 +61,22 @@ function InputCheckbox({
       </div>
       <div className='weight-and-height__checkbox'>
         <p className='weight-and-height__checkbox__paragraph'>Heights</p>
-        {heightValue.map((height) => {
+        {heightValue.map((heightOption) => {
           return (
-            <label key={height} className='weight-and-height__checkbox__label'>
+            <label
+              key={heightOption}
+              className='weight-and-height__checkbox__label'
+            >
               <input
                 type='checkbox'
                 name='height'
-                value={height[0]}
+                value={heightOption[0]}
                 className='weight-and-height__checkbox__label__input'
-                checked={heights.includes(String(height[0]))}
-                onChange={onCheckboxHeightsChange}
+                checked={height.includes(String(heightOption[0]))}
+                onChange={onHeightChange}
               />
               <span className='weight-and-height__checkbox__label__value'>
-                {height[1]}
+                {heightOption[1]}
               </span>
             </label>
           );
@@ -85,6 +89,7 @@ function InputCheckbox({
 function mapStateToProps(state) {
   return {
     weight: state.formData.weight,
+    height: state.formData.height,
   };
 }
 
@@ -92,6 +97,8 @@ function matDispatchToProps(dispatch) {
   return {
     changeWeight: (newValue) =>
       dispatch({ type: CHANGE_WEIGHT_VALUE, payload: { weight: newValue } }),
+    changeHeight: (newValue) =>
+      dispatch({ type: CHANGE_HEIGHT_VALUE, payload: { height: newValue } }),
   };
 }
 

@@ -7,7 +7,7 @@ import closer from '../icons/closer.png';
 
 export default function Filters({
   // selectedWeights,
-  selectedHeights,
+  // selectedHeights,
   onSearchMove,
   onSearchAbilities,
   onCheckboxWeightsChange,
@@ -41,7 +41,7 @@ export default function Filters({
       </div>
       <InputCheckbox
         // weights={selectedWeights}
-        heights={selectedHeights}
+        // heights={selectedHeights}
         onCheckboxWeightsChange={onCheckboxWeightsChange}
         onCheckboxHeightsChange={onCheckboxHeightsChange}
       />

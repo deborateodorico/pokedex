@@ -1,4 +1,4 @@
-const height = {
+const heightDictionary = {
   1: 'Petite',
   2: 'Small',
   3: 'Medium',
@@ -6,4 +6,4 @@ const height = {
   5: 'Super Tall',
 };
 
-export default height;
+export default heightDictionary;
