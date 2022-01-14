@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Pokedex from './components/Pokedex';
 import './index.scss';
@@ -9,8 +10,8 @@ import Pagination from './components/Pagination';
 import Filters from './components/Filters';
 import AppHeader from './components/AppHeader';
 import debounceFetch from './components/debounceFetch';
-import { connect } from 'react-redux';
 import vectorFilters from './icons/vectorFilters.png';
+import { CHANGE_SEARCH_VALUE } from './actions/actionsTypes';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -20,7 +21,7 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-function App({ weight, height, type, move, ability }) {
+function App({ weight, height, type, move, ability, search, changeSearch }) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -52,12 +53,12 @@ function App({ weight, height, type, move, ability }) {
 
   useEffect(() => {
     fetchApiPokemon();
-  }, [formData.search]);
+  }, [search]);
 
   const fetchApiPokemon = async () => {
     const apiWeights = getUrlParameter(weight, 'weight');
     const apiHeigths = getUrlParameter(height, 'height');
-    const apiSearch = `&search=${formData.search}`;
+    const apiSearch = `&search=${search}`;
     const apiTypes = getUrlParameter(type, 'type');
     const apiLimit = `&limit=${formData.limit}`;
     const apiOffset = `&offset=${formData.offset}`;
@@ -71,7 +72,7 @@ function App({ weight, height, type, move, ability }) {
     if (height) {
       apiPokemonUrl += apiHeigths;
     }
-    if (formData.search) {
+    if (search) {
       apiPokemonUrl += apiSearch;
     }
     if (type) {
@@ -109,11 +110,17 @@ function App({ weight, height, type, move, ability }) {
     }
   };
 
-  const searchInputvalue = (event) => {
-    setFormData({
-      ...formData,
-      search: event.target.value,
-    });
+  // const searchInputvalue = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     search: event.target.value,
+  //   });
+  // };
+
+  const onSearchChange = (e) => {
+    const newValue = e.target.value;
+
+    changeSearch(newValue);
   };
 
   const handleCheckboxFilters = (event, filter) => {
@@ -236,8 +243,8 @@ function App({ weight, height, type, move, ability }) {
                 type='text'
                 className='app__search__input'
                 name='input-search'
-                value={formData.search}
-                onChange={searchInputvalue}
+                value={search}
+                onChange={onSearchChange}
                 placeholder='Search...'
               />
             </div>
@@ -321,7 +328,15 @@ function mapStateToProps(state) {
     type: state.formData.type,
     move: state.formData.move,
     ability: state.formData.ability,
+    search: state.formData.search,
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    changeSearch: (newValue) =>
+      dispatch({ type: CHANGE_SEARCH_VALUE, payload: { search: newValue } }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
