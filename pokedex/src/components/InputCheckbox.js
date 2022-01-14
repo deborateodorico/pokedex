@@ -1,5 +1,5 @@
 import React from 'react';
-import weight from './weightDictionary';
+import weightDictionary from './weightDictionary';
 import height from './heightDictionary';
 import { connect } from 'react-redux';
 import {
@@ -15,12 +15,12 @@ import {
 
 function InputCheckbox({
   heights,
-  weight2,
+  weight,
   changeWeight,
   onCheckboxHeightsChange,
 }) {
-  const weightValue = Object.keys(weight).map((key) => {
-    return [Number(key), weight[key]];
+  const weightValue = Object.keys(weightDictionary).map((key) => {
+    return [Number(key), weightDictionary[key]];
   });
 
   const heightValue = Object.keys(height).map((key) => {
@@ -35,22 +35,24 @@ function InputCheckbox({
 
   return (
     <div className='weight-and-height'>
-      <button onClick={() => changeWeight(5)}>ola</button>
       <div className='weight-and-height__checkbox'>
         <p className='weight-and-height__checkbox__paragraph'>Weights</p>
-        {weightValue.map((weight) => {
+        {weightValue.map((weightOption) => {
           return (
-            <label key={weight} className='weight-and-height__checkbox__label'>
+            <label
+              key={weightOption}
+              className='weight-and-height__checkbox__label'
+            >
               <input
                 type='checkbox'
                 name='weight'
-                value={weight[0]}
+                value={weightOption[0]}
                 className='weight-and-height__checkbox__label__input'
-                checked={weight2.includes(String(weight[0]))}
+                checked={weight.includes(String(weightOption[0]))}
                 onChange={onWeightChange}
               />
               <span className='weight-and-height__checkbox__label__value'>
-                {weight[1]}
+                {weightOption[1]}
               </span>
             </label>
           );
@@ -82,7 +84,7 @@ function InputCheckbox({
 
 function mapStateToProps(state) {
   return {
-    weight2: state.formData.weight,
+    weight: state.formData.weight,
   };
 }
 

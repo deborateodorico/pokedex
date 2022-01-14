@@ -20,7 +20,7 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-function App({ weight2 }) {
+function App({ weight }) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -55,7 +55,7 @@ function App({ weight2 }) {
   }, [formData.search]);
 
   const fetchApiPokemon = async () => {
-    const apiWeights = getUrlParameter(weight2, 'weight');
+    const apiWeights = getUrlParameter(weight, 'weight');
     const apiHeigths = getUrlParameter(formData.height, 'height');
     const apiSearch = `&search=${formData.search}`;
     const apiTypes = getUrlParameter(formData.type, 'type');
@@ -65,7 +65,7 @@ function App({ weight2 }) {
     const apiAbilitys = `&ability=${formData.ability}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
-    if (weight2) {
+    if (weight) {
       apiPokemonUrl += apiWeights;
     }
     if (formData.height) {
@@ -316,7 +316,7 @@ function App({ weight2 }) {
 
 function mapStateToProps(state) {
   return {
-    weight2: state.formData.weight,
+    weight: state.formData.weight,
   };
 }
 
