@@ -20,7 +20,7 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-function App({ weight, height2 }) {
+function App({ weight, height, type, move, ability }) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -56,25 +56,25 @@ function App({ weight, height2 }) {
 
   const fetchApiPokemon = async () => {
     const apiWeights = getUrlParameter(weight, 'weight');
-    const apiHeigths = getUrlParameter(height2, 'height');
+    const apiHeigths = getUrlParameter(height, 'height');
     const apiSearch = `&search=${formData.search}`;
-    const apiTypes = getUrlParameter(formData.type, 'type');
+    const apiTypes = getUrlParameter(type, 'type');
     const apiLimit = `&limit=${formData.limit}`;
     const apiOffset = `&offset=${formData.offset}`;
-    const apiMoves = `&move=${formData.move}`;
-    const apiAbilitys = `&ability=${formData.ability}`;
+    const apiMoves = `&move=${move}`;
+    const apiAbilitys = `&ability=${ability}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
     if (weight) {
       apiPokemonUrl += apiWeights;
     }
-    if (height2) {
+    if (height) {
       apiPokemonUrl += apiHeigths;
     }
     if (formData.search) {
       apiPokemonUrl += apiSearch;
     }
-    if (formData.type) {
+    if (type) {
       apiPokemonUrl += apiTypes;
     }
     if (formData.limit) {
@@ -83,10 +83,10 @@ function App({ weight, height2 }) {
     if (formData.offset) {
       apiPokemonUrl += apiOffset;
     }
-    if (formData.move.length) {
+    if (move.length) {
       apiPokemonUrl += apiMoves;
     }
-    if (formData.ability.length) {
+    if (ability.length) {
       apiPokemonUrl += apiAbilitys;
     }
 
@@ -288,9 +288,9 @@ function App({ weight, height2 }) {
           modalIsOpen={modalIsOpen}
           // selectedWeights={formData.weight}
           // selectedHeights={formData.height}
-          selectedTypes={formData.type}
-          moves={formData.move}
-          abilities={formData.ability}
+          // selectedTypes={formData.type}
+          // moves={formData.move}
+          // abilities={formData.ability}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
@@ -317,7 +317,10 @@ function App({ weight, height2 }) {
 function mapStateToProps(state) {
   return {
     weight: state.formData.weight,
-    height2: state.formData.height,
+    height: state.formData.height,
+    type: state.formData.type,
+    move: state.formData.move,
+    ability: state.formData.ability,
   };
 }
 

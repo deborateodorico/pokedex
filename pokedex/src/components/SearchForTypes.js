@@ -1,28 +1,45 @@
 import React from 'react';
+import { CHANGE_TYPE_VALUE } from '../actions/actionsTypes';
+import { connect } from 'react-redux';
 
-export default function SearchForTypes({
-  formData,
-  onSelectType,
-  selectedTypes,
-}) {
+function SearchForTypes({ formData, type, changeType }) {
+  const onTypeChange = (e) => {
+    const newValue = e.target.value;
+
+    changeType(newValue);
+  };
   return (
     <div className='types'>
       <p className='types__paragraph'>Types</p>
-      {formData.types.map((type) => {
+      {formData.types.map((typeOption) => {
         return (
-          <label key={type.name} className='types__section'>
+          <label key={typeOption.name} className='types__section'>
             <input
               type='checkbox'
               name='type'
-              value={type.name}
+              value={typeOption.name}
               className='types__section__input'
-              checked={selectedTypes.includes(type.name)}
-              onChange={onSelectType}
+              checked={type.includes(typeOption.name)}
+              onChange={onTypeChange}
             />
-            <span className='types__section__value'>{type.name}</span>
+            <span className='types__section__value'>{typeOption.name}</span>
           </label>
         );
       })}
     </div>
   );
 }
+function mapStateToProps(state) {
+  return {
+    type: state.formData.type,
+  };
+}
+
+function matDispatchToProps(dispatch) {
+  return {
+    changeType: (newValue) =>
+      dispatch({ type: CHANGE_TYPE_VALUE, payload: { type: newValue } }),
+  };
+}
+
+export default connect(mapStateToProps, matDispatchToProps)(SearchForTypes);
