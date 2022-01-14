@@ -32,11 +32,11 @@ function mapStateToProps(state) {
   };
 }
 
-function matDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     changeMoves: (newValue) =>
       dispatch({ type: CHANGE_MOVE_VALUE, payload: { move: newValue } }),
   };
 }
 
-export default connect(mapStateToProps, matDispatchToProps)(Moves);
+export default connect(mapStateToProps, mapDispatchToProps)(Moves);

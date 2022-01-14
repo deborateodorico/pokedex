@@ -35,11 +35,11 @@ function mapStateToProps(state) {
   };
 }
 
-function matDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     changeType: (newValue) =>
       dispatch({ type: CHANGE_TYPE_VALUE, payload: { type: newValue } }),
   };
 }
 
-export default connect(mapStateToProps, matDispatchToProps)(SearchForTypes);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForTypes);

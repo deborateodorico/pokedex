@@ -90,7 +90,7 @@ function mapStateToProps(state) {
   };
 }
 
-function matDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     changeWeight: (newValue) =>
       dispatch({ type: CHANGE_WEIGHT_VALUE, payload: { weight: newValue } }),
@@ -99,4 +99,4 @@ function matDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, matDispatchToProps)(InputCheckbox);
+export default connect(mapStateToProps, mapDispatchToProps)(InputCheckbox);

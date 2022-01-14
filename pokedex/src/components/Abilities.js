@@ -32,11 +32,11 @@ function mapStateToProps(state) {
   };
 }
 
-function matDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     changeAbility: (newValue) =>
       dispatch({ type: CHANGE_ABILITY_VALUE, payload: { ability: newValue } }),
   };
 }
 
-export default connect(mapStateToProps, matDispatchToProps)(Abilities);
+export default connect(mapStateToProps, mapDispatchToProps)(Abilities);
