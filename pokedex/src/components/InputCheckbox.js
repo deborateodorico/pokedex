@@ -1,11 +1,22 @@
 import React from 'react';
 import weight from './weightDictionary';
 import height from './heightDictionary';
+import { connect } from 'react-redux';
+import {
+  CHANGE_SEARCH_VALUE,
+  CHANGE_LIMIT_VALUE,
+  CHANGE_OFFSET_VALUE,
+  CHANGE_ABILITY_VALUE,
+  CHANGE_HEIGHT_VALUE,
+  CHANGE_MOVE_VALUE,
+  CHANGE_TYPE_VALUE,
+  CHANGE_WEIGHT_VALUE,
+} from '../actions/actionsTypes';
 
-export default function InputCheckbox({
-  weights,
+function InputCheckbox({
   heights,
-  onCheckboxWeightsChange,
+  weight2,
+  changeWeight,
   onCheckboxHeightsChange,
 }) {
   const weightValue = Object.keys(weight).map((key) => {
@@ -16,8 +27,15 @@ export default function InputCheckbox({
     return [Number(key), height[key]];
   });
 
+  const onWeightChange = (e) => {
+    const newValue = e.target.value;
+
+    changeWeight(newValue);
+  };
+
   return (
     <div className='weight-and-height'>
+      <button onClick={() => changeWeight(5)}>ola</button>
       <div className='weight-and-height__checkbox'>
         <p className='weight-and-height__checkbox__paragraph'>Weights</p>
         {weightValue.map((weight) => {
@@ -28,8 +46,8 @@ export default function InputCheckbox({
                 name='weight'
                 value={weight[0]}
                 className='weight-and-height__checkbox__label__input'
-                checked={weights.includes(String(weight[0]))}
-                onChange={onCheckboxWeightsChange}
+                checked={weight2.includes(String(weight[0]))}
+                onChange={onWeightChange}
               />
               <span className='weight-and-height__checkbox__label__value'>
                 {weight[1]}
@@ -61,3 +79,18 @@ export default function InputCheckbox({
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    weight2: state.formData.weight,
+  };
+}
+
+function matDispatchToProps(dispatch) {
+  return {
+    changeWeight: (newValue) =>
+      dispatch({ type: CHANGE_WEIGHT_VALUE, payload: { weight: newValue } }),
+  };
+}
+
+export default connect(mapStateToProps, matDispatchToProps)(InputCheckbox);

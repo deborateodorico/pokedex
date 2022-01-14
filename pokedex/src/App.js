@@ -7,9 +7,10 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Pagination from './components/Pagination';
 import Filters from './components/Filters';
-import vectorFilters from './icons/vectorFilters.png';
 import AppHeader from './components/AppHeader';
 import debounceFetch from './components/debounceFetch';
+import { connect } from 'react-redux';
+import vectorFilters from './icons/vectorFilters.png';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -19,7 +20,7 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-function App(props) {
+function App({ weight2 }) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -54,7 +55,7 @@ function App(props) {
   }, [formData.search]);
 
   const fetchApiPokemon = async () => {
-    const apiWeights = getUrlParameter(formData.weight, 'weight');
+    const apiWeights = getUrlParameter(weight2, 'weight');
     const apiHeigths = getUrlParameter(formData.height, 'height');
     const apiSearch = `&search=${formData.search}`;
     const apiTypes = getUrlParameter(formData.type, 'type');
@@ -64,7 +65,7 @@ function App(props) {
     const apiAbilitys = `&ability=${formData.ability}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
-    if (formData.weight) {
+    if (weight2) {
       apiPokemonUrl += apiWeights;
     }
     if (formData.height) {
@@ -285,7 +286,7 @@ function App(props) {
       >
         <Filters
           modalIsOpen={modalIsOpen}
-          selectedWeights={formData.weight}
+          // selectedWeights={formData.weight}
           selectedHeights={formData.height}
           selectedTypes={formData.type}
           moves={formData.move}
@@ -313,4 +314,10 @@ function App(props) {
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    weight2: state.formData.weight,
+  };
+}
+
+export default connect(mapStateToProps)(App);

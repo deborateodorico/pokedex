@@ -1,5 +1,5 @@
 import React from 'react';
-import union from '../icons/union.png';
+import union from '../icons/Union.png';
 import vectorTeams from '../icons/vectorTeams.png';
 import user from '../icons/user.png';
 import favorite from '../icons/favorite.png';
