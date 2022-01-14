@@ -1,24 +1,42 @@
 import React from 'react';
 import FetchFilter from './FetchFilter';
+import { connect } from 'react-redux';
+import { CHANGE_MOVE_VALUE } from '../actions/actionsTypes';
 
-export default function Moves({
-  selectedFilters,
-  onCheckboxChange,
-
-  onSearchMove,
-}) {
+function Moves({ changeMoves, onSearchMove, move }) {
   const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADDRESS;
   const paragraphName = 'Moves';
+
+  const onMoveChange = (e) => {
+    const newValue = e.target.value;
+
+    changeMoves(newValue);
+  };
 
   return (
     <div>
       <FetchFilter
         apiFilter={apiMoveUrl}
-        selectedFilters={selectedFilters}
-        onCheckboxChange={onCheckboxChange}
+        selectedFilters={move}
+        onCheckboxChange={onMoveChange}
         filterName={paragraphName}
         searchChange={onSearchMove}
       />
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    move: state.formData.move,
+  };
+}
+
+function matDispatchToProps(dispatch) {
+  return {
+    changeMoves: (newValue) =>
+      dispatch({ type: CHANGE_MOVE_VALUE, payload: { move: newValue } }),
+  };
+}
+
+export default connect(mapStateToProps, matDispatchToProps)(Moves);

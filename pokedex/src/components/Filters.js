@@ -47,16 +47,16 @@ export default function Filters({
       />
       <Types
         onTypeChange={onTypeChange}
-        selectedTypes={selectedTypes}
+        // selectedTypes={selectedTypes}
         onSelectType={onSelectType}
       />
       <Moves
-        selectedFilters={moves}
+        // selectedFilters={moves}
         onCheckboxChange={onCheckboxMovesChange}
         onSearchMove={onSearchMove}
       />
       <Abilities
-        selectedFilters={abilities}
+        // selectedFilters={abilities}
         onCheckboxChange={onCheckboxAbilitysChange}
         onSearchAbilities={onSearchAbilities}
       />
