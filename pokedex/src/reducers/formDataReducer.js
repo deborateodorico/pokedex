@@ -1,12 +1,14 @@
 import {
   CHANGE_SEARCH_VALUE,
   CHANGE_LIMIT_VALUE,
-  CHANGE_OFFSET_VALUE,
+  INCREMENT_OFFSET_VALUE,
+  DECREMENT_OFFSET_VALUE,
   CHANGE_ABILITY_VALUE,
   CHANGE_HEIGHT_VALUE,
   CHANGE_MOVE_VALUE,
   CHANGE_TYPE_VALUE,
   CHANGE_WEIGHT_VALUE,
+  CLEAR_ALL_FILTERS,
 } from '../actions/actionsTypes';
 
 export const initialState = {
@@ -32,10 +34,15 @@ export const formDataReducer = (state = initialState, { type, payload }) => {
         ...state,
         limit: payload.limit,
       };
-    case CHANGE_OFFSET_VALUE:
+    case INCREMENT_OFFSET_VALUE:
       return {
         ...state,
-        offset: state.offset + payload.offset,
+        offset: state.offset + state.limit,
+      };
+    case DECREMENT_OFFSET_VALUE:
+      return {
+        ...state,
+        offset: state.offset - state.limit,
       };
     case CHANGE_ABILITY_VALUE:
       if (state.ability.includes(payload.ability)) {
@@ -97,6 +104,16 @@ export const formDataReducer = (state = initialState, { type, payload }) => {
           type: [...state.type, payload.type],
         };
       }
+    case CLEAR_ALL_FILTERS:
+      return {
+        ...state,
+        search: '',
+        height: [],
+        weight: [],
+        type: [],
+        move: [],
+        ability: [],
+      };
     default:
       return state;
   }

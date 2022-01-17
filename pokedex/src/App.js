@@ -21,7 +21,17 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-function App({ weight, height, type, move, ability, search, changeSearch }) {
+function App({
+  weight,
+  height,
+  type,
+  move,
+  ability,
+  search,
+  changeSearch,
+  limit,
+  offset,
+}) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -49,7 +59,7 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
 
   useEffect(() => {
     fetchApiPokemon();
-  }, [formData.limit, formData.offset]);
+  }, [limit, offset]);
 
   useEffect(() => {
     fetchApiPokemon();
@@ -60,8 +70,8 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
     const apiHeigths = getUrlParameter(height, 'height');
     const apiSearch = `&search=${search}`;
     const apiTypes = getUrlParameter(type, 'type');
-    const apiLimit = `&limit=${formData.limit}`;
-    const apiOffset = `&offset=${formData.offset}`;
+    const apiLimit = `&limit=${limit}`;
+    const apiOffset = `&offset=${offset}`;
     const apiMoves = `&move=${move}`;
     const apiAbilitys = `&ability=${ability}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
@@ -78,10 +88,10 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
     if (type) {
       apiPokemonUrl += apiTypes;
     }
-    if (formData.limit) {
+    if (limit) {
       apiPokemonUrl += apiLimit;
     }
-    if (formData.offset) {
+    if (offset) {
       apiPokemonUrl += apiOffset;
     }
     if (move.length) {
@@ -109,13 +119,6 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
       });
     }
   };
-
-  // const searchInputvalue = (event) => {
-  //   setFormData({
-  //     ...formData,
-  //     search: event.target.value,
-  //   });
-  // };
 
   const onSearchChange = (e) => {
     const newValue = e.target.value;
@@ -190,31 +193,6 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
     });
   };
 
-  const handleSelectField = (event) => {
-    const newLimitValue = event.target.value;
-    setFormData({
-      ...formData,
-      limit: newLimitValue,
-    });
-  };
-  const handleDisableButton = () => {
-    return !formData.offset;
-  };
-
-  const handlePreviousButton = () => {
-    setFormData({
-      ...formData,
-      offset: formData.offset - formData.limit,
-    });
-  };
-
-  const handleNextButton = () => {
-    setFormData({
-      ...formData,
-      offset: formData.offset + formData.limit,
-    });
-  };
-
   const handleClickFiltersButton = () => {
     setModalIsOpen(true);
   };
@@ -265,12 +243,7 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
               </button>
             </div>
             <Pagination
-              onLimitChange={handleSelectField}
-              limit={formData.limit}
-              onClickPreviousButton={handlePreviousButton}
-              onClickNextButton={handleNextButton}
               enableOrDisableButtons={pokemonRequestState.isLoading}
-              onChangePreviousButton={handleDisableButton}
             />
           </div>
         </div>
@@ -293,11 +266,6 @@ function App({ weight, height, type, move, ability, search, changeSearch }) {
       >
         <Filters
           modalIsOpen={modalIsOpen}
-          // selectedWeights={formData.weight}
-          // selectedHeights={formData.height}
-          // selectedTypes={formData.type}
-          // moves={formData.move}
-          // abilities={formData.ability}
           onCheckboxWeightsChange={handleChangeCheckboxWeights}
           onCheckboxHeightsChange={handleChangeCheckboxHeights}
           onTypeChange={handleTypeChange}
@@ -329,6 +297,8 @@ function mapStateToProps(state) {
     move: state.formData.move,
     ability: state.formData.ability,
     search: state.formData.search,
+    limit: state.formData.limit,
+    offset: state.formData.offset,
   };
 }
 

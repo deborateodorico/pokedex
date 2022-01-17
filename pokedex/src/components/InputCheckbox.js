@@ -3,9 +3,6 @@ import weightDictionary from './weightDictionary';
 import heightDictionary from './heightDictionary';
 import { connect } from 'react-redux';
 import {
-  CHANGE_SEARCH_VALUE,
-  CHANGE_LIMIT_VALUE,
-  CHANGE_OFFSET_VALUE,
   CHANGE_HEIGHT_VALUE,
   CHANGE_WEIGHT_VALUE,
 } from '../actions/actionsTypes';

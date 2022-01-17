@@ -1,14 +1,43 @@
 import React from 'react';
 import pagination from '../icons/pagination.png';
+import { connect } from 'react-redux';
+import {
+  INCREMENT_OFFSET_VALUE,
+  DECREMENT_OFFSET_VALUE,
+  CHANGE_LIMIT_VALUE,
+} from '../actions/actionsTypes';
 
-export default function Pagination({
-  onLimitChange,
-  limit,
-  onClickPreviousButton,
-  onClickNextButton,
+function Pagination({
   enableOrDisableButtons,
-  onChangePreviousButton,
+  limit,
+  changeLimit,
+  incrementOffset,
+  decrementOffset,
+  offset,
 }) {
+  const onLimitChange = (e) => {
+    const newValue = e.target.value;
+
+    changeLimit(newValue);
+  };
+
+  const onOffsetIncrement = (e) => {
+    const newValue = e.target.value;
+
+    incrementOffset(newValue);
+  };
+
+  const onOffsetDecrement = (e) => {
+    console.log('!');
+    const newValue = e.target.value;
+
+    decrementOffset(newValue);
+  };
+
+  const handleDisableButton = () => {
+    return !offset;
+  };
+
   return (
     <div className='pagination'>
       <select
@@ -37,8 +66,8 @@ export default function Pagination({
       <div className='pagination__pages'>
         <button
           type='button'
-          onClick={onClickPreviousButton}
-          disabled={onChangePreviousButton() || enableOrDisableButtons}
+          onClick={onOffsetDecrement}
+          disabled={handleDisableButton() || enableOrDisableButtons}
           className='pagination__pages__previous-button'
         >
           <img
@@ -49,7 +78,7 @@ export default function Pagination({
         </button>
         <button
           type='button'
-          onClick={onClickNextButton}
+          onClick={onOffsetIncrement}
           disabled={enableOrDisableButtons}
           className='pagination__pages__next-button'
         >
@@ -63,3 +92,28 @@ export default function Pagination({
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    offset: state.formData.offset,
+    limit: state.formData.limit,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLimit: (newValue) =>
+      dispatch({ type: CHANGE_LIMIT_VALUE, payload: { limit: newValue } }),
+
+    incrementOffset: (newValue) =>
+      dispatch({ type: INCREMENT_OFFSET_VALUE, payload: { offset: newValue } }),
+
+    decrementOffset: (newValue) =>
+      dispatch({
+        type: DECREMENT_OFFSET_VALUE,
+        payload: { offset: newValue },
+      }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
