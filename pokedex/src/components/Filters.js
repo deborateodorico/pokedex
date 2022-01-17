@@ -7,19 +7,7 @@ import closer from '../icons/closer.png';
 import { connect } from 'react-redux';
 import { CLEAR_ALL_FILTERS } from '../actions/actionsTypes';
 
-function Filters({
-  onSearchMove,
-  onSearchAbilities,
-  onCheckboxWeightsChange,
-  onCheckboxHeightsChange,
-  onTypeChange,
-  clearAllFilters,
-  onSelectType,
-  onClickApplyButton,
-  onCloseModal,
-  onCheckboxMovesChange,
-  onCheckboxAbilitysChange,
-}) {
+function Filters({ clearAllFilters, onClickApplyButton, onCloseModal }) {
   return (
     <div className='filters'>
       <div className='filters__header'>
@@ -36,19 +24,10 @@ function Filters({
           />
         </button>
       </div>
-      <InputCheckbox
-        onCheckboxWeightsChange={onCheckboxWeightsChange}
-        onCheckboxHeightsChange={onCheckboxHeightsChange}
-      />
-      <Types onTypeChange={onTypeChange} onSelectType={onSelectType} />
-      <Moves
-        onCheckboxChange={onCheckboxMovesChange}
-        onSearchMove={onSearchMove}
-      />
-      <Abilities
-        onCheckboxChange={onCheckboxAbilitysChange}
-        onSearchAbilities={onSearchAbilities}
-      />
+      <InputCheckbox />
+      <Types />
+      <Moves />
+      <Abilities />
       <div className='filters__buttons-section'>
         <button
           type='submit'

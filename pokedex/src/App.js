@@ -34,17 +34,6 @@ function App({
 }) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
-  const [formData, setFormData] = useState({
-    search: '',
-    height: [],
-    weight: [],
-    type: [],
-    limit: 10,
-    offset: 0,
-    move: [],
-    ability: [],
-  });
-
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
     isLoading: false,
@@ -126,71 +115,8 @@ function App({
     changeSearch(newValue);
   };
 
-  const handleCheckboxFilters = (event, filter) => {
-    const checkboxValue = event.target.value;
-    if (formData[filter].includes(checkboxValue)) {
-      setFormData((prevState) => {
-        const removeCheckboxValue = checkboxValue;
-        const indexFromValueToRemove =
-          formData[filter].indexOf(removeCheckboxValue);
-
-        prevState[filter].splice(indexFromValueToRemove, 1);
-
-        return {
-          ...prevState,
-          [filter]: prevState[filter],
-        };
-      });
-    } else {
-      setFormData((prevState) => {
-        return {
-          ...prevState,
-          [filter]: [...prevState[filter], event.target.value],
-        };
-      });
-    }
-  };
-
-  const handleChangeCheckboxHeights = (event) => {
-    handleCheckboxFilters(event, 'height');
-  };
-
-  const handleChangeCheckboxWeights = (event) => {
-    handleCheckboxFilters(event, 'weight');
-  };
-
-  const handleTypeChange = (newTypes) => {
-    setFormData({
-      ...formData,
-      type: newTypes,
-    });
-  };
-
-  const handleClickSelectedTypes = (event) => {
-    handleCheckboxFilters(event, 'type');
-  };
-
-  const handleChangeCheckboxMoves = (event) => {
-    handleCheckboxFilters(event, 'move');
-  };
-
-  const handleChangeCheckboxAbilitys = (event) => {
-    handleCheckboxFilters(event, 'ability');
-  };
   const hadleSubmitButton = () => {
     fetchApiPokemon();
-  };
-
-  const handleToClearAllFiltersButton = () => {
-    setFormData({
-      ...formData,
-      search: '',
-      height: [],
-      weight: [],
-      type: [],
-      move: [],
-      ability: [],
-    });
   };
 
   const handleClickFiltersButton = () => {
@@ -266,15 +192,8 @@ function App({
       >
         <Filters
           modalIsOpen={modalIsOpen}
-          onCheckboxWeightsChange={handleChangeCheckboxWeights}
-          onCheckboxHeightsChange={handleChangeCheckboxHeights}
-          onTypeChange={handleTypeChange}
-          onSelectType={handleClickSelectedTypes}
-          onClearAllFilters={handleToClearAllFiltersButton}
           onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
-          onCheckboxMovesChange={handleChangeCheckboxMoves}
-          onCheckboxAbilitysChange={handleChangeCheckboxAbilitys}
         />
       </Modal>
 
