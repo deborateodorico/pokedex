@@ -1,0 +1,76 @@
+name: tests
+on:
+  push:
+    branches:
+      - "*" # matches every branch that doesn't contain a '/'
+      - "*/*" # matches every branch containing a single '/'
+      - "**" # matches every branch
+      - "!main" # excludes main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 4
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        working-directory: pokedex
+        run: npm install
+
+      - name: Build project
+        working-directory: pokedex
+        run: npm run build
+
+  telegram-notify:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: always()
+    steps:
+      - name: tests failed
+        if: ${{  needs.build.result == 'failure' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            <b>The test pipeline has failed</b> 🆘
+
+            ${{github.sha}}
+            <a href="https://github.com/jhonnymichel/teodorico-academy/actions/runs/${{github.run_id}}"><i>${{github.event.head_commit.message}}</i></a>
+
+            by 🧑‍💻 ${{github.event.head_commit.author.name}}
+
+            Please fix it before continuing!
+      - name: testes passed
+        if: ${{  needs.build.result == 'success' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            <b>Build successfull!</b> ✅
+
+            ${{github.sha}}
+            <a href="https://github.com/jhonnymichel/teodorico-academy/actions/runs/${{github.run_id}}"><i>${{github.event.head_commit.message}}</i></a>
+
+            by 🧑‍💻 ${{github.event.head_commit.author.name}}
