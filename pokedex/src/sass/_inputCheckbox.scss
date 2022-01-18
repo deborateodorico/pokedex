@@ -1,6 +1,9 @@
 .weight-and-height {
   display: flex;
   justify-content: start;
+  @include media-breakpoint-down(sm) {
+    border-bottom: 1px dashed #d1d7e5;
+  }
 
   &__checkbox {
     display: inline-block;
@@ -30,5 +33,5 @@
 
 .weight-and-height__checkbox__label > input:checked + span {
   visibility: visible;
-  background-color: rgb(240, 233, 233);
+  background-color: #edeef8;
 }

@@ -28,7 +28,6 @@ function Pagination({
   };
 
   const onOffsetDecrement = (e) => {
-    console.log('!');
     const newValue = e.target.value;
 
     decrementOffset(newValue);
@@ -50,17 +49,17 @@ function Pagination({
         <option value='' className='pagination__select__options'>
           Todos os Pokemons
         </option>
-        <option value='10' className='pagination__select__options'>
-          10
+        <option value='12' className='pagination__select__options'>
+          12
         </option>
-        <option value='25' className='pagination__select__options'>
-          25
+        <option value='22' className='pagination__select__options'>
+          24
         </option>
-        <option value='50' className='pagination__select__options'>
-          50
+        <option value='48' className='pagination__select__options'>
+          48
         </option>
-        <option value='100' className='pagination__select__options'>
-          100
+        <option value='96' className='pagination__select__options'>
+          96
         </option>
       </select>
       <div className='pagination__pages'>

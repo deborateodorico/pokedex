@@ -42,6 +42,10 @@ function App({
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  // const [closeOnOverlayClick, setCloseOnOverlayClick] = useState(true);
+
+  // const [closeOnEsc, setCloseOnEsc] = useState(true);
+
   useEffect(() => {
     fetchApiPokemon();
   }, []);
@@ -177,6 +181,9 @@ function App({
 
       <Modal
         isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
         style={{
           content: {
             maxWidth: 664,

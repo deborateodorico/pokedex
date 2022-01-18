@@ -16,7 +16,7 @@ export const initialState = {
   height: [],
   weight: [],
   type: [],
-  limit: 10,
+  limit: 12,
   offset: 0,
   move: [],
   ability: [],

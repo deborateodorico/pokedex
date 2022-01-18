@@ -1,6 +1,9 @@
 .types {
   flex-wrap: wrap;
   display: inline-block;
+  @include media-breakpoint-down(sm) {
+    border-bottom: 1px dashed #d1d7e5;
+  }
 
   &__paragraph {
     font-weight: bold;
