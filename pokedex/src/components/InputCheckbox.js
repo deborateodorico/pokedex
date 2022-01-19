@@ -1,38 +1,53 @@
 import React from 'react';
-import weight from './weightDictionary';
-import height from './heightDictionary';
+import weightDictionary from './weightDictionary';
+import heightDictionary from './heightDictionary';
+import { connect } from 'react-redux';
+import {
+  CHANGE_HEIGHT_VALUE,
+  CHANGE_WEIGHT_VALUE,
+} from '../actions/actionsTypes';
 
-export default function InputCheckbox({
-  weights,
-  heights,
-  onCheckboxWeightsChange,
-  onCheckboxHeightsChange,
-}) {
-  const weightValue = Object.keys(weight).map((key) => {
-    return [Number(key), weight[key]];
+function InputCheckbox({ height, weight, changeHeight, changeWeight }) {
+  const weightValue = Object.keys(weightDictionary).map((key) => {
+    return [Number(key), weightDictionary[key]];
   });
 
-  const heightValue = Object.keys(height).map((key) => {
-    return [Number(key), height[key]];
+  const heightValue = Object.keys(heightDictionary).map((key) => {
+    return [Number(key), heightDictionary[key]];
   });
+
+  const onWeightChange = (e) => {
+    const newValue = e.target.value;
+
+    changeWeight(newValue);
+  };
+
+  const onHeightChange = (e) => {
+    const newValue = e.target.value;
+
+    changeHeight(newValue);
+  };
 
   return (
     <div className='weight-and-height'>
       <div className='weight-and-height__checkbox'>
         <p className='weight-and-height__checkbox__paragraph'>Weights</p>
-        {weightValue.map((weight) => {
+        {weightValue.map((weightOption) => {
           return (
-            <label key={weight} className='weight-and-height__checkbox__label'>
+            <label
+              key={weightOption}
+              className='weight-and-height__checkbox__label'
+            >
               <input
                 type='checkbox'
                 name='weight'
-                value={weight[0]}
+                value={weightOption[0]}
                 className='weight-and-height__checkbox__label__input'
-                checked={weights.includes(String(weight[0]))}
-                onChange={onCheckboxWeightsChange}
+                checked={weight.includes(String(weightOption[0]))}
+                onChange={onWeightChange}
               />
               <span className='weight-and-height__checkbox__label__value'>
-                {weight[1]}
+                {weightOption[1]}
               </span>
             </label>
           );
@@ -40,19 +55,22 @@ export default function InputCheckbox({
       </div>
       <div className='weight-and-height__checkbox'>
         <p className='weight-and-height__checkbox__paragraph'>Heights</p>
-        {heightValue.map((height) => {
+        {heightValue.map((heightOption) => {
           return (
-            <label key={height} className='weight-and-height__checkbox__label'>
+            <label
+              key={heightOption}
+              className='weight-and-height__checkbox__label'
+            >
               <input
                 type='checkbox'
                 name='height'
-                value={height[0]}
+                value={heightOption[0]}
                 className='weight-and-height__checkbox__label__input'
-                checked={heights.includes(String(height[0]))}
-                onChange={onCheckboxHeightsChange}
+                checked={height.includes(String(heightOption[0]))}
+                onChange={onHeightChange}
               />
               <span className='weight-and-height__checkbox__label__value'>
-                {height[1]}
+                {heightOption[1]}
               </span>
             </label>
           );
@@ -61,3 +79,21 @@ export default function InputCheckbox({
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    weight: state.formData.weight,
+    height: state.formData.height,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeWeight: (newValue) =>
+      dispatch({ type: CHANGE_WEIGHT_VALUE, payload: { weight: newValue } }),
+    changeHeight: (newValue) =>
+      dispatch({ type: CHANGE_HEIGHT_VALUE, payload: { height: newValue } }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputCheckbox);

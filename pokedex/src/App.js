@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Pokedex from './components/Pokedex';
 import './index.scss';
@@ -7,9 +8,10 @@ import ApiError from './components/ApiError';
 import NoResults from './components/NoResults';
 import Pagination from './components/Pagination';
 import Filters from './components/Filters';
-import vectorFilters from './icons/vectorFilters.png';
 import AppHeader from './components/AppHeader';
 import debounceFetch from './components/debounceFetch';
+import vectorFilters from './icons/vectorFilters.png';
+import { CHANGE_SEARCH_VALUE } from './actions/actionsTypes';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -19,19 +21,18 @@ const getUrlParameter = (values, param) => {
   return queryParams;
 };
 
-function App(props) {
+function App({
+  weight,
+  height,
+  type,
+  move,
+  ability,
+  search,
+  changeSearch,
+  limit,
+  offset,
+}) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
-
-  const [formData, setFormData] = useState({
-    search: '',
-    height: [],
-    weight: [],
-    type: [],
-    limit: 10,
-    offset: 0,
-    move: [],
-    ability: [],
-  });
 
   const [pokemonRequestState, setPokemonRequestState] = useState({
     data: null,
@@ -47,45 +48,41 @@ function App(props) {
 
   useEffect(() => {
     fetchApiPokemon();
-  }, [formData.limit, formData.offset]);
-
-  useEffect(() => {
-    fetchApiPokemon();
-  }, [formData.search]);
+  }, [limit, offset, search]);
 
   const fetchApiPokemon = async () => {
-    const apiWeights = getUrlParameter(formData.weight, 'weight');
-    const apiHeigths = getUrlParameter(formData.height, 'height');
-    const apiSearch = `&search=${formData.search}`;
-    const apiTypes = getUrlParameter(formData.type, 'type');
-    const apiLimit = `&limit=${formData.limit}`;
-    const apiOffset = `&offset=${formData.offset}`;
-    const apiMoves = `&move=${formData.move}`;
-    const apiAbilitys = `&ability=${formData.ability}`;
+    const apiWeights = getUrlParameter(weight, 'weight');
+    const apiHeigths = getUrlParameter(height, 'height');
+    const apiSearch = `&search=${search}`;
+    const apiTypes = getUrlParameter(type, 'type');
+    const apiLimit = `&limit=${limit}`;
+    const apiOffset = `&offset=${offset}`;
+    const apiMoves = `&move=${move}`;
+    const apiAbilitys = `&ability=${ability}`;
     let apiPokemonUrl = process.env.REACT_APP_POKEMON_API_ADDRESS;
 
-    if (formData.weight) {
+    if (weight) {
       apiPokemonUrl += apiWeights;
     }
-    if (formData.height) {
+    if (height) {
       apiPokemonUrl += apiHeigths;
     }
-    if (formData.search) {
+    if (search) {
       apiPokemonUrl += apiSearch;
     }
-    if (formData.type) {
+    if (type) {
       apiPokemonUrl += apiTypes;
     }
-    if (formData.limit) {
+    if (limit) {
       apiPokemonUrl += apiLimit;
     }
-    if (formData.offset) {
+    if (offset) {
       apiPokemonUrl += apiOffset;
     }
-    if (formData.move.length) {
+    if (move.length) {
       apiPokemonUrl += apiMoves;
     }
-    if (formData.ability.length) {
+    if (ability.length) {
       apiPokemonUrl += apiAbilitys;
     }
 
@@ -108,103 +105,14 @@ function App(props) {
     }
   };
 
-  const searchInputvalue = (event) => {
-    setFormData({
-      ...formData,
-      search: event.target.value,
-    });
+  const onSearchChange = (e) => {
+    const newValue = e.target.value;
+
+    changeSearch(newValue);
   };
 
-  const handleCheckboxFilters = (event, filter) => {
-    const checkboxValue = event.target.value;
-    if (formData[filter].includes(checkboxValue)) {
-      setFormData((prevState) => {
-        const removeCheckboxValue = checkboxValue;
-        const indexFromValueToRemove =
-          formData[filter].indexOf(removeCheckboxValue);
-
-        prevState[filter].splice(indexFromValueToRemove, 1);
-
-        return {
-          ...prevState,
-          [filter]: prevState[filter],
-        };
-      });
-    } else {
-      setFormData((prevState) => {
-        return {
-          ...prevState,
-          [filter]: [...prevState[filter], event.target.value],
-        };
-      });
-    }
-  };
-
-  const handleChangeCheckboxHeights = (event) => {
-    handleCheckboxFilters(event, 'height');
-  };
-
-  const handleChangeCheckboxWeights = (event) => {
-    handleCheckboxFilters(event, 'weight');
-  };
-
-  const handleTypeChange = (newTypes) => {
-    setFormData({
-      ...formData,
-      type: newTypes,
-    });
-  };
-
-  const handleClickSelectedTypes = (event) => {
-    handleCheckboxFilters(event, 'type');
-  };
-
-  const handleChangeCheckboxMoves = (event) => {
-    handleCheckboxFilters(event, 'move');
-  };
-
-  const handleChangeCheckboxAbilitys = (event) => {
-    handleCheckboxFilters(event, 'ability');
-  };
   const hadleSubmitButton = () => {
     fetchApiPokemon();
-  };
-
-  const handleToClearAllFiltersButton = () => {
-    setFormData({
-      ...formData,
-      search: '',
-      height: [],
-      weight: [],
-      type: [],
-      move: [],
-      ability: [],
-    });
-  };
-
-  const handleSelectField = (event) => {
-    const newLimitValue = event.target.value;
-    setFormData({
-      ...formData,
-      limit: newLimitValue,
-    });
-  };
-  const handleDisableButton = () => {
-    return !formData.offset;
-  };
-
-  const handlePreviousButton = () => {
-    setFormData({
-      ...formData,
-      offset: formData.offset - formData.limit,
-    });
-  };
-
-  const handleNextButton = () => {
-    setFormData({
-      ...formData,
-      offset: formData.offset + formData.limit,
-    });
   };
 
   const handleClickFiltersButton = () => {
@@ -235,8 +143,8 @@ function App(props) {
                 type='text'
                 className='app__search__input'
                 name='input-search'
-                value={formData.search}
-                onChange={searchInputvalue}
+                value={search}
+                onChange={onSearchChange}
                 placeholder='Search...'
               />
             </div>
@@ -257,12 +165,7 @@ function App(props) {
               </button>
             </div>
             <Pagination
-              onLimitChange={handleSelectField}
-              limit={formData.limit}
-              onClickPreviousButton={handlePreviousButton}
-              onClickNextButton={handleNextButton}
               enableOrDisableButtons={pokemonRequestState.isLoading}
-              onChangePreviousButton={handleDisableButton}
             />
           </div>
         </div>
@@ -285,20 +188,8 @@ function App(props) {
       >
         <Filters
           modalIsOpen={modalIsOpen}
-          selectedWeights={formData.weight}
-          selectedHeights={formData.height}
-          selectedTypes={formData.type}
-          moves={formData.move}
-          abilities={formData.ability}
-          onCheckboxWeightsChange={handleChangeCheckboxWeights}
-          onCheckboxHeightsChange={handleChangeCheckboxHeights}
-          onTypeChange={handleTypeChange}
-          onSelectType={handleClickSelectedTypes}
-          onClearAllFilters={handleToClearAllFiltersButton}
           onClickApplyButton={handleClickApplyButton}
           onCloseModal={handleCloseModal}
-          onCheckboxMovesChange={handleChangeCheckboxMoves}
-          onCheckboxAbilitysChange={handleChangeCheckboxAbilitys}
         />
       </Modal>
 
@@ -313,4 +204,17 @@ function App(props) {
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    ...state.formData,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeSearch: (newValue) =>
+      dispatch({ type: CHANGE_SEARCH_VALUE, payload: { search: newValue } }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

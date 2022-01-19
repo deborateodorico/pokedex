@@ -1,4 +1,4 @@
-const weight = {
+const weightDictionary = {
   1: 'Very Light',
   2: 'Light',
   3: 'Medium',
@@ -6,4 +6,4 @@ const weight = {
   5: 'Super Heavy',
 };
 
-export default weight;
+export default weightDictionary;

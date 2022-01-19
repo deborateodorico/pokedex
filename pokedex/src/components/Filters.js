@@ -4,25 +4,10 @@ import Types from './Types';
 import Moves from './Moves';
 import Abilities from './Abilities';
 import closer from '../icons/closer.png';
+import { connect } from 'react-redux';
+import { CLEAR_ALL_FILTERS } from '../actions/actionsTypes';
 
-export default function Filters({
-  selectedWeights,
-  selectedHeights,
-  onSearchMove,
-  onSearchAbilities,
-  onCheckboxWeightsChange,
-  onCheckboxHeightsChange,
-  onTypeChange,
-  selectedTypes,
-  onSelectType,
-  onClearAllFilters,
-  onClickApplyButton,
-  onCloseModal,
-  moves,
-  onCheckboxMovesChange,
-  onCheckboxAbilitysChange,
-  abilities,
-}) {
+function Filters({ clearAllFilters, onClickApplyButton, onCloseModal }) {
   return (
     <div className='filters'>
       <div className='filters__header'>
@@ -39,31 +24,14 @@ export default function Filters({
           />
         </button>
       </div>
-      <InputCheckbox
-        weights={selectedWeights}
-        heights={selectedHeights}
-        onCheckboxWeightsChange={onCheckboxWeightsChange}
-        onCheckboxHeightsChange={onCheckboxHeightsChange}
-      />
-      <Types
-        onTypeChange={onTypeChange}
-        selectedTypes={selectedTypes}
-        onSelectType={onSelectType}
-      />
-      <Moves
-        selectedFilters={moves}
-        onCheckboxChange={onCheckboxMovesChange}
-        onSearchMove={onSearchMove}
-      />
-      <Abilities
-        selectedFilters={abilities}
-        onCheckboxChange={onCheckboxAbilitysChange}
-        onSearchAbilities={onSearchAbilities}
-      />
+      <InputCheckbox />
+      <Types />
+      <Moves />
+      <Abilities />
       <div className='filters__buttons-section'>
         <button
           type='submit'
-          onClick={onClearAllFilters}
+          onClick={clearAllFilters}
           className='filters__buttons-section__clear-button'
         >
           Clear filters
@@ -79,3 +47,14 @@ export default function Filters({
     </div>
   );
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    clearAllFilters: () =>
+      dispatch({
+        type: CLEAR_ALL_FILTERS,
+      }),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Filters);
