@@ -52,11 +52,7 @@ function App({
 
   useEffect(() => {
     fetchApiPokemon();
-  }, [limit, offset]);
-
-  useEffect(() => {
-    fetchApiPokemon();
-  }, [search]);
+  }, [limit, offset, search]);
 
   const fetchApiPokemon = async () => {
     const apiWeights = getUrlParameter(weight, 'weight');
@@ -217,14 +213,7 @@ function App({
 
 function mapStateToProps(state) {
   return {
-    weight: state.formData.weight,
-    height: state.formData.height,
-    type: state.formData.type,
-    move: state.formData.move,
-    ability: state.formData.ability,
-    search: state.formData.search,
-    limit: state.formData.limit,
-    offset: state.formData.offset,
+    ...state.formData,
   };
 }
 

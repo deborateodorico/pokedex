@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import {
   INCREMENT_OFFSET_VALUE,
   DECREMENT_OFFSET_VALUE,
-  CHANGE_LIMIT_VALUE,
 } from '../actions/actionsTypes';
+import { limit } from '../actions/index';
 
 function Pagination({
   enableOrDisableButtons,
@@ -19,18 +19,6 @@ function Pagination({
     const newValue = e.target.value;
 
     changeLimit(newValue);
-  };
-
-  const onOffsetIncrement = (e) => {
-    const newValue = e.target.value;
-
-    incrementOffset(newValue);
-  };
-
-  const onOffsetDecrement = (e) => {
-    const newValue = e.target.value;
-
-    decrementOffset(newValue);
   };
 
   const handleDisableButton = () => {
@@ -52,7 +40,7 @@ function Pagination({
         <option value='12' className='pagination__select__options'>
           12
         </option>
-        <option value='22' className='pagination__select__options'>
+        <option value='24' className='pagination__select__options'>
           24
         </option>
         <option value='48' className='pagination__select__options'>
@@ -65,7 +53,7 @@ function Pagination({
       <div className='pagination__pages'>
         <button
           type='button'
-          onClick={onOffsetDecrement}
+          onClick={decrementOffset}
           disabled={handleDisableButton() || enableOrDisableButtons}
           className='pagination__pages__previous-button'
         >
@@ -77,7 +65,7 @@ function Pagination({
         </button>
         <button
           type='button'
-          onClick={onOffsetIncrement}
+          onClick={incrementOffset}
           disabled={enableOrDisableButtons}
           className='pagination__pages__next-button'
         >
@@ -101,16 +89,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLimit: (newValue) =>
-      dispatch({ type: CHANGE_LIMIT_VALUE, payload: { limit: newValue } }),
+    changeLimit: (newValue) => dispatch(limit(newValue)),
 
-    incrementOffset: (newValue) =>
-      dispatch({ type: INCREMENT_OFFSET_VALUE, payload: { offset: newValue } }),
+    incrementOffset: () => dispatch({ type: INCREMENT_OFFSET_VALUE }),
 
-    decrementOffset: (newValue) =>
+    decrementOffset: () =>
       dispatch({
         type: DECREMENT_OFFSET_VALUE,
-        payload: { offset: newValue },
       }),
   };
 }

@@ -1,21 +1,12 @@
 import {
-  CLICK_UPDATE_VALUE,
   CHANGE_SEARCH_VALUE,
   CHANGE_LIMIT_VALUE,
-  CHANGE_OFFSET_VALUE,
   CHANGE_ABILITY_VALUE,
   CHANGE_HEIGHT_VALUE,
   CHANGE_MOVE_VALUE,
   CHANGE_TYPE_VALUE,
   CHANGE_WEIGHT_VALUE,
 } from './actionsTypes';
-
-export const clickButton = (value) => ({
-  type: CLICK_UPDATE_VALUE,
-  payload: {
-    newValue: value,
-  },
-});
 
 export const search = (value) => ({
   type: CHANGE_SEARCH_VALUE,
@@ -31,12 +22,12 @@ export const limit = (value) => ({
   },
 });
 
-export const offset = (value) => ({
-  type: CHANGE_OFFSET_VALUE,
-  payload: {
-    offset: value,
-  },
-});
+// export const offset = (value) => ({
+//   type: CHANGE_OFFSET_VALUE,
+//   payload: {
+//     offset: value,
+//   },
+// });
 
 export const ability = (value) => ({
   type: CHANGE_ABILITY_VALUE,
