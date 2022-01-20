@@ -1,7 +1,7 @@
 import React from 'react';
 import FetchFilter from './FetchFilter';
 import { connect } from 'react-redux';
-import { CHANGE_MOVE_VALUE } from '../actions/actionsTypes';
+import { move } from '../actions/index';
 
 function Moves({ changeMoves, onSearchMove, move }) {
   const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADDRESS;
@@ -34,8 +34,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeMoves: (newValue) =>
-      dispatch({ type: CHANGE_MOVE_VALUE, payload: { move: newValue } }),
+    changeMoves: (newValue) => dispatch(move(newValue)),
   };
 }
 
