@@ -1,10 +1,10 @@
 import React from 'react';
+import loading from '../icons/loading.png';
 
 function Loading() {
   return (
-    <div>
-      <img src="https://c.tenor.com/0WkmuOC_W00AAAAj/waving-pikachu.gif" alt="Loading"/>
-      <p>Loading ...</p>
+    <div className='loading'>
+      <img src={loading} alt='Loading' />
     </div>
   );
 }
