@@ -1,6 +1,6 @@
 import React from 'react';
-import { CHANGE_TYPE_VALUE } from '../actions/actionsTypes';
 import { connect } from 'react-redux';
+import { type } from '../actions/index';
 
 function SearchForTypes({ formData, type, changeType }) {
   const onTypeChange = (e) => {
@@ -37,8 +37,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeType: (newValue) =>
-      dispatch({ type: CHANGE_TYPE_VALUE, payload: { type: newValue } }),
+    changeType: (newValue) => dispatch(type(newValue)),
   };
 }
 
