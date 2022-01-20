@@ -4,3 +4,15 @@
   align-items: center;
   margin-top: 300px;
 }
+.loading.is-animating {
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
