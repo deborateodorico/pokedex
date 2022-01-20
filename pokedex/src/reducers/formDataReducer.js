@@ -37,7 +37,7 @@ export const formDataReducer = (state = initialState, { type, payload }) => {
     case INCREMENT_OFFSET_VALUE:
       return {
         ...state,
-        offset: state.offset + state.limit,
+        offset: Number(state.offset) + Number(state.limit),
       };
     case DECREMENT_OFFSET_VALUE:
       return {
