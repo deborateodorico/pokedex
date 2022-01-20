@@ -82,6 +82,11 @@
       margin-top: 20px;
       margin-bottom: 20px;
       display: flex;
+      @include media-breakpoint-down(sm) {
+        max-width: 89px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+      }
     }
   }
 
