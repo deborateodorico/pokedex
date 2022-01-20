@@ -3,7 +3,7 @@ import loading from '../icons/loading.png';
 
 function Loading() {
   return (
-    <div className='loading'>
+    <div className='loading is-animating'>
       <img src={loading} alt='Loading' />
     </div>
   );
