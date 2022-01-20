@@ -1,7 +1,7 @@
 import React from 'react';
 import FetchFilter from './FetchFilter';
 import { connect } from 'react-redux';
-import { CHANGE_ABILITY_VALUE } from '../actions/actionsTypes';
+import { ability } from '../actions/index';
 
 function Abilities({ onSearchAbilities, ability, changeAbility }) {
   const apiAbilityUrl = process.env.REACT_APP_ABILITY_API_ADDRESS;
@@ -34,8 +34,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeAbility: (newValue) =>
-      dispatch({ type: CHANGE_ABILITY_VALUE, payload: { ability: newValue } }),
+    changeAbility: (newValue) => dispatch(ability(newValue)),
   };
 }
 
