@@ -130,7 +130,8 @@ function App({
 
   return (
     <div className='app' style={{ paddingTop: '10px' }}>
-      <AppHeader />
+      {!modalIsOpen && <AppHeader />}
+
       <div className='container app-container'>
         <div className='row gx-2'>
           <div className='col-12'>
