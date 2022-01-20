@@ -2,10 +2,7 @@ import React from 'react';
 import weightDictionary from './weightDictionary';
 import heightDictionary from './heightDictionary';
 import { connect } from 'react-redux';
-import {
-  CHANGE_HEIGHT_VALUE,
-  CHANGE_WEIGHT_VALUE,
-} from '../actions/actionsTypes';
+import { weight, height } from '../actions/index';
 
 function InputCheckbox({ height, weight, changeHeight, changeWeight }) {
   const weightValue = Object.keys(weightDictionary).map((key) => {
@@ -89,10 +86,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeWeight: (newValue) =>
-      dispatch({ type: CHANGE_WEIGHT_VALUE, payload: { weight: newValue } }),
-    changeHeight: (newValue) =>
-      dispatch({ type: CHANGE_HEIGHT_VALUE, payload: { height: newValue } }),
+    changeWeight: (newValue) => dispatch(weight(newValue)),
+    changeHeight: (newValue) => dispatch(height(newValue)),
   };
 }
 
