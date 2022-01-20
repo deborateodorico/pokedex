@@ -11,7 +11,7 @@ import Filters from './components/Filters';
 import AppHeader from './components/AppHeader';
 import debounceFetch from './components/debounceFetch';
 import vectorFilters from './icons/vectorFilters.png';
-import { CHANGE_SEARCH_VALUE } from './actions/actionsTypes';
+import { search } from './actions/index';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -219,8 +219,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeSearch: (newValue) =>
-      dispatch({ type: CHANGE_SEARCH_VALUE, payload: { search: newValue } }),
+    changeSearch: (newValue) => dispatch(search(newValue)),
   };
 }
 
