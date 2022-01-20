@@ -22,13 +22,6 @@ export const limit = (value) => ({
   },
 });
 
-// export const offset = (value) => ({
-//   type: CHANGE_OFFSET_VALUE,
-//   payload: {
-//     offset: value,
-//   },
-// });
-
 export const ability = (value) => ({
   type: CHANGE_ABILITY_VALUE,
   payload: {
