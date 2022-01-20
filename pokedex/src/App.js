@@ -42,10 +42,6 @@ function App({
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  // const [closeOnOverlayClick, setCloseOnOverlayClick] = useState(true);
-
-  // const [closeOnEsc, setCloseOnEsc] = useState(true);
-
   useEffect(() => {
     fetchApiPokemon();
   }, []);
