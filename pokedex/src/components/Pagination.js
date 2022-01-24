@@ -5,12 +5,12 @@ import {
   INCREMENT_OFFSET_VALUE,
   DECREMENT_OFFSET_VALUE,
 } from '../actions/actionsTypes';
-import { limit } from '../actions/index';
+import { changeLimit } from '../actions/index';
 
 function Pagination({
   enableOrDisableButtons,
   limit,
-  changeLimit,
+  actions,
   incrementOffset,
   decrementOffset,
   offset,
@@ -18,7 +18,7 @@ function Pagination({
   const onLimitChange = (e) => {
     const newValue = e.target.value;
 
-    changeLimit(newValue);
+    actions.changeLimit(newValue);
   };
 
   const handleDisableButton = () => {
@@ -53,7 +53,7 @@ function Pagination({
       <div className='pagination__pages'>
         <button
           type='button'
-          onClick={decrementOffset}
+          onClick={actions.decrementOffset}
           disabled={handleDisableButton() || enableOrDisableButtons}
           className='pagination__pages__previous-button'
         >
@@ -65,7 +65,7 @@ function Pagination({
         </button>
         <button
           type='button'
-          onClick={incrementOffset}
+          onClick={actions.incrementOffset}
           disabled={enableOrDisableButtons}
           className='pagination__pages__next-button'
         >
@@ -89,14 +89,16 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLimit: (newValue) => dispatch(limit(newValue)),
+    actions: {
+      changeLimit: (newValue) => dispatch(changeLimit(newValue)),
 
-    incrementOffset: () => dispatch({ type: INCREMENT_OFFSET_VALUE }),
+      incrementOffset: () => dispatch({ type: INCREMENT_OFFSET_VALUE }),
 
-    decrementOffset: () =>
-      dispatch({
-        type: DECREMENT_OFFSET_VALUE,
-      }),
+      decrementOffset: () =>
+        dispatch({
+          type: DECREMENT_OFFSET_VALUE,
+        }),
+    },
   };
 }
 
