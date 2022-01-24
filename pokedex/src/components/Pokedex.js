@@ -4,7 +4,7 @@ import PokemonCard from './PokemonCard';
 export default function Pokedex({ pokemons }) {
   return (
     <div className='container pokemon-list'>
-      <div className='row gy-4 gx-4'>
+      <div className='row g-3 g-lg-4 g-xl-3 g-xxl-4'>
         {pokemons?.map((pokemon) => {
           return (
             <div key={pokemon.id} className='col-lg-2 col-md-3 col-6'>
