@@ -10,8 +10,10 @@
   flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
-
   padding: 0 32px 85px 32px;
+  @include media-breakpoint-down(sm) {
+    padding: 0 16px 85px 16px;
+  }
 }
 
 .pokemon {
@@ -71,6 +73,9 @@
       text-transform: capitalize;
       justify-content: center;
       text-align: center;
+      @include media-breakpoint-down(sm) {
+        font-size: 12px;
+      }
     }
 
     &__img {
@@ -104,6 +109,9 @@
       padding: 0 3px;
       text-transform: capitalize;
       margin-right: 4px;
+      @include media-breakpoint-down(sm) {
+        font-size: 8px;
+      }
     }
   }
   .pokemon__infos__wrapper {
