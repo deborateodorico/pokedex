@@ -2,9 +2,9 @@ import React from 'react';
 import weightDictionary from './weightDictionary';
 import heightDictionary from './heightDictionary';
 import { connect } from 'react-redux';
-import { weight, height } from '../actions/index';
+import { changeWeight, changeHeight } from '../actions/index';
 
-function InputCheckbox({ height, weight, changeHeight, changeWeight }) {
+function InputCheckbox({ height, weight, actions }) {
   const weightValue = Object.keys(weightDictionary).map((key) => {
     return [Number(key), weightDictionary[key]];
   });
@@ -16,13 +16,13 @@ function InputCheckbox({ height, weight, changeHeight, changeWeight }) {
   const onWeightChange = (e) => {
     const newValue = e.target.value;
 
-    changeWeight(newValue);
+    actions.changeWeight(newValue);
   };
 
   const onHeightChange = (e) => {
     const newValue = e.target.value;
 
-    changeHeight(newValue);
+    actions.changeHeight(newValue);
   };
 
   return (
@@ -86,8 +86,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeWeight: (newValue) => dispatch(weight(newValue)),
-    changeHeight: (newValue) => dispatch(height(newValue)),
+    actions: {
+      changeWeight: (newValue) => dispatch(changeWeight(newValue)),
+      changeHeight: (newValue) => dispatch(changeHeight(newValue)),
+    },
   };
 }
 
