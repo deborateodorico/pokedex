@@ -1,16 +1,16 @@
 import React from 'react';
 import FetchFilter from './FetchFilter';
 import { connect } from 'react-redux';
-import { move } from '../actions/index';
+import { changeMove } from '../actions/index';
 
-function Moves({ changeMoves, onSearchMove, move }) {
+function Moves({ actions, onSearchMove, move }) {
   const apiMoveUrl = process.env.REACT_APP_MOVE_API_ADDRESS;
   const paragraphName = 'Moves';
 
   const onMoveChange = (e) => {
     const newValue = e.target.value;
 
-    changeMoves(newValue);
+    actions.changeMoves(newValue);
   };
 
   return (
@@ -34,7 +34,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeMoves: (newValue) => dispatch(move(newValue)),
+    actions: {
+      changeMoves: (newValue) => dispatch(changeMove(newValue)),
+    },
   };
 }
 
