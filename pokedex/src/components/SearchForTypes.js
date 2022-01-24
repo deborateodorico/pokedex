@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { type } from '../actions/index';
+import { changeType } from '../actions/index';
 
-function SearchForTypes({ formData, type, changeType }) {
+function SearchForTypes({ formData, type, actions }) {
   const onTypeChange = (e) => {
     const newValue = e.target.value;
 
-    changeType(newValue);
+    actions.changeType(newValue);
   };
   return (
     <div className='types'>
@@ -37,7 +37,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeType: (newValue) => dispatch(type(newValue)),
+    actions: {
+      changeType: (newValue) => dispatch(changeType(newValue)),
+    },
   };
 }
 
