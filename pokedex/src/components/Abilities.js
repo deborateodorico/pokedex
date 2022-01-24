@@ -1,16 +1,16 @@
 import React from 'react';
 import FetchFilter from './FetchFilter';
 import { connect } from 'react-redux';
-import { ability } from '../actions/index';
+import { changeAbility } from '../actions/index';
 
-function Abilities({ onSearchAbilities, ability, changeAbility }) {
+function Abilities({ onSearchAbilities, ability, actions }) {
   const apiAbilityUrl = process.env.REACT_APP_ABILITY_API_ADDRESS;
   const paragraphName = 'Abilities';
 
   const onAbilityChange = (e) => {
     const newValue = e.target.value;
 
-    changeAbility(newValue);
+    actions.changeAbility(newValue);
   };
 
   return (
@@ -34,7 +34,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeAbility: (newValue) => dispatch(ability(newValue)),
+    actions: {
+      changeAbility: (newValue) => dispatch(changeAbility(newValue)),
+    },
   };
 }
 
