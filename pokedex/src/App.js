@@ -11,7 +11,7 @@ import Filters from './components/Filters';
 import AppHeader from './components/AppHeader';
 import debounceFetch from './components/debounceFetch';
 import vectorFilters from './icons/vectorFilters.png';
-import { search } from './actions/index';
+import { changeSearch } from './actions/index';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -28,7 +28,7 @@ function App({
   move,
   ability,
   search,
-  changeSearch,
+  actions,
   limit,
   offset,
 }) {
@@ -108,7 +108,7 @@ function App({
   const onSearchChange = (e) => {
     const newValue = e.target.value;
 
-    changeSearch(newValue);
+    actions.changeSearch(newValue);
   };
 
   const hadleSubmitButton = () => {
@@ -216,7 +216,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeSearch: (newValue) => dispatch(search(newValue)),
+    actions: {
+      changeSearch: (newValue) => dispatch(changeSearch(newValue)),
+    },
   };
 }
 
