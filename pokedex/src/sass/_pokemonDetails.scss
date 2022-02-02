@@ -4,7 +4,7 @@ body {
   margin: 0px;
 }
 
-.banana {
+.details-page {
   .app__header {
     @include media-breakpoint-down(sm) {
       visibility: hidden;
