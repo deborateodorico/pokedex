@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import AppHeader from './AppHeader';
 import Loading from './Loading';
 import ApiError from './ApiError';
@@ -33,6 +34,8 @@ export default function PokemonDetails() {
     error: false,
   });
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   let apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
 
   const fetchApiPageDetails = async () => {
@@ -61,6 +64,14 @@ export default function PokemonDetails() {
         isLoading: false,
       });
     }
+  };
+
+  const handleClickFiltersButton = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
   };
 
   const type = pokemonDetailRequest.types[0]
@@ -142,9 +153,23 @@ export default function PokemonDetails() {
                 >
                   {pokemonDetailRequest.abilities.map((ability, index) => {
                     if (pokemonDetailRequest.abilities.length - 1 === index)
-                      return `${ability.ability.name}.`;
+                      return (
+                        <span
+                          onClick={handleClickFiltersButton}
+                          className='details-container__informations__filters__abilities__paragraph-value__click-modal'
+                        >
+                          {ability.ability.name}.
+                        </span>
+                      );
                     else {
-                      return `${ability.ability.name}, `;
+                      return (
+                        <span
+                          onClick={handleClickFiltersButton}
+                          className='details-container__informations__filters__abilities__paragraph-value__click-modal'
+                        >
+                          {ability.ability.name},{' '}
+                        </span>
+                      );
                     }
                   })}
                 </p>
@@ -206,6 +231,13 @@ export default function PokemonDetails() {
           </div>
         </div>
       )}
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+      />
 
       <footer className='footer-container'>
         <div className='footer-container__footer-left'>

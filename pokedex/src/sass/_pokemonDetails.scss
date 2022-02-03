@@ -221,6 +221,10 @@ body {
           font-weight: 900;
           font-size: 14px;
           line-height: 20px;
+
+          &__click-modal {
+            cursor: pointer;
+          }
         }
       }
     }
