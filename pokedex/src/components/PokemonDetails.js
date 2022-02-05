@@ -5,6 +5,7 @@ import AppHeader from './AppHeader';
 import Loading from './Loading';
 import ApiError from './ApiError';
 import colors from './colorsDictionary';
+import ModalDetails from './ModalDetails';
 import favorite from '../icons/favorite.png';
 import pagination from '../icons/pagination.png';
 import barraFooter from '../icons/barraFooter.png';
@@ -36,15 +37,19 @@ export default function PokemonDetails() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [clickedAbility, setClikedAbility] = useState({
+    name: '',
+    url: '',
+  });
+
   let apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
 
   const fetchApiPageDetails = async () => {
     try {
       setLoadingDetails(true);
-      console.log(loadingDetails);
       const response = await fetch(apiPokemonDetails);
       setLoadingDetails(false);
-      console.log(loadingDetails);
+
       const pokemonData = await response.json();
       setPokemonDetailRequest({
         ...pokemonDetailRequest,
@@ -66,8 +71,13 @@ export default function PokemonDetails() {
     }
   };
 
-  const handleClickFiltersButton = () => {
+  const handleClickAbility = (abilityName, abilityUrl) => {
     setModalIsOpen(true);
+    setClikedAbility({
+      ...clickedAbility,
+      name: abilityName,
+      url: abilityUrl,
+    });
   };
 
   const handleCloseModal = () => {
@@ -152,10 +162,16 @@ export default function PokemonDetails() {
                   className='details-container__informations__filters__abilities__paragraph-value'
                 >
                   {pokemonDetailRequest.abilities.map((ability, index) => {
+                    console.log(ability.ability.url);
                     if (pokemonDetailRequest.abilities.length - 1 === index)
                       return (
                         <span
-                          onClick={handleClickFiltersButton}
+                          onClick={() =>
+                            handleClickAbility(
+                              ability.ability.name,
+                              ability.ability.url
+                            )
+                          }
                           className='details-container__informations__filters__abilities__paragraph-value__click-modal'
                         >
                           {ability.ability.name}.
@@ -164,7 +180,12 @@ export default function PokemonDetails() {
                     else {
                       return (
                         <span
-                          onClick={handleClickFiltersButton}
+                          onClick={() =>
+                            handleClickAbility(
+                              ability.ability.name,
+                              ability.ability.url
+                            )
+                          }
                           className='details-container__informations__filters__abilities__paragraph-value__click-modal'
                         >
                           {ability.ability.name},{' '}
@@ -237,8 +258,26 @@ export default function PokemonDetails() {
         onRequestClose={handleCloseModal}
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
-      />
-
+        style={{
+          content: {
+            maxWidth: 664,
+            width: 'calc(100% - 20px)',
+            height: 272,
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: 0,
+            borderRadius: 8,
+          },
+        }}
+      >
+        <ModalDetails
+          onCloseModal={handleCloseModal}
+          ability={clickedAbility.name}
+          url={clickedAbility.url}
+        />
+      </Modal>
       <footer className='footer-container'>
         <div className='footer-container__footer-left'>
           <button className='footer-container__footer-left__button'>

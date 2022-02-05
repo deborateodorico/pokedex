@@ -194,6 +194,7 @@ body {
           font-size: 14px;
           line-height: 20px;
           text-align: center;
+          color: var(--blue-color);
         }
       }
 
@@ -221,6 +222,8 @@ body {
           font-weight: 900;
           font-size: 14px;
           line-height: 20px;
+          color: var(--blue-color);
+          text-transform: capitalize;
 
           &__click-modal {
             cursor: pointer;
