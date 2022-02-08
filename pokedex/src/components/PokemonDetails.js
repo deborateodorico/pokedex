@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 import AppHeader from './AppHeader';
 import Loading from './Loading';
 import ApiError from './ApiError';
@@ -10,7 +11,7 @@ import favorite from '../icons/favorite.png';
 import pagination from '../icons/pagination.png';
 import barraFooter from '../icons/barraFooter.png';
 
-export default function PokemonDetails() {
+function PokemonDetails({ name }) {
   const params = useParams();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function PokemonDetails() {
   }, []);
 
   const [pokemonDetailRequest, setPokemonDetailRequest] = useState({
-    name: '',
+    // name: '',
     id: 0,
     picture: '',
     types: [],
@@ -38,7 +39,7 @@ export default function PokemonDetails() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [clickedAbility, setClikedAbility] = useState({
-    name: '',
+    AbilityName: '',
     url: '',
   });
 
@@ -53,7 +54,7 @@ export default function PokemonDetails() {
       const pokemonData = await response.json();
       setPokemonDetailRequest({
         ...pokemonDetailRequest,
-        name: pokemonData.name,
+        // name: pokemonData.name,
         id: pokemonData.id,
         picture: pokemonData.sprites.other['official-artwork'].front_default,
         types: pokemonData.types,
@@ -75,7 +76,7 @@ export default function PokemonDetails() {
     setModalIsOpen(true);
     setClikedAbility({
       ...clickedAbility,
-      name: abilityName,
+      AbilityName: abilityName,
       url: abilityUrl,
     });
   };
@@ -119,7 +120,7 @@ export default function PokemonDetails() {
             <div className='details-container__informations__details'>
               <div className='details-container__informations__details__name-area'>
                 <h1 className='details-container__informations__details__name-area__name'>
-                  {pokemonDetailRequest.name}
+                  {name}
                 </h1>
                 <p className='details-container__informations__details__name-area__id'>
                   #{('0000' + pokemonDetailRequest.id).slice(-4)}
@@ -274,7 +275,7 @@ export default function PokemonDetails() {
       >
         <ModalDetails
           onCloseModal={handleCloseModal}
-          ability={clickedAbility.name}
+          ability={clickedAbility.AbilityName}
           url={clickedAbility.url}
         />
       </Modal>
@@ -322,3 +323,19 @@ export default function PokemonDetails() {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    name: state.pokemonInfo.name,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      // changeAbility: (newValue) => dispatch(changeAbility(newValue)),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonDetails);
