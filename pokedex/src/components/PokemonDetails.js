@@ -27,10 +27,8 @@ export default function PokemonDetails() {
     stats: [],
   });
 
-  const [loadingDetails, setLoadingDetails] = useState(true);
-
-  const [detailsState, setDetailsState] = useState({
-    isLoading: false,
+  const [fetchDetailsStatus, setFetchDetailsStatus] = useState({
+    isLoading: true,
     error: false,
   });
 
@@ -45,9 +43,9 @@ export default function PokemonDetails() {
 
   const fetchApiPageDetails = async () => {
     try {
-      setLoadingDetails(true);
+      setFetchDetailsStatus({ isLoading: true });
       const response = await fetch(apiPokemonDetails);
-      setLoadingDetails(false);
+      setFetchDetailsStatus({ isLoading: false });
 
       const pokemonData = await response.json();
       setPokemonDetailRequest({
@@ -62,8 +60,8 @@ export default function PokemonDetails() {
         stats: pokemonData.stats,
       });
     } catch (error) {
-      setDetailsState({
-        ...detailsState,
+      setFetchDetailsStatus({
+        ...fetchDetailsStatus,
         error: true,
         isLoading: false,
       });
@@ -86,7 +84,7 @@ export default function PokemonDetails() {
   return (
     <div className='details-page'>
       <AppHeader />
-      {!loadingDetails && (
+      {!fetchDetailsStatus.isLoading && (
         <div className='details-container'>
           <PokemonPictureContainer
             picture={pokemonDetailRequest.picture}
@@ -131,8 +129,8 @@ export default function PokemonDetails() {
         />
       </Modal>
       <PokemonFooterContainer />
-      {detailsState.error && <ApiError />}
-      {loadingDetails && <Loading />}
+      {fetchDetailsStatus.error && <ApiError />}
+      {fetchDetailsStatus.isLoading && <Loading />}
     </div>
   );
 }
