@@ -4,11 +4,14 @@ import Modal from 'react-modal';
 import AppHeader from './AppHeader';
 import Loading from './Loading';
 import ApiError from './ApiError';
-import colors from './colorsDictionary';
+// import colors from './colorsDictionary';
 import ModalDetails from './ModalDetails';
-import favorite from '../icons/favorite.png';
-import pagination from '../icons/pagination.png';
-import barraFooter from '../icons/barraFooter.png';
+// import favorite from '../icons/favorite.png';
+// import pagination from '../icons/pagination.png';
+// import barraFooter from '../icons/barraFooter.png';
+import PokemonPictureContainer from './PokemonPictureContainer';
+import PokemonInformationContainer from './PokemonInformationContainer';
+import PokemonFooterContainer from './PokemonFooterContainer';
 
 export default function PokemonDetails() {
   const params = useParams();
@@ -84,16 +87,20 @@ export default function PokemonDetails() {
     setModalIsOpen(false);
   };
 
-  const type = pokemonDetailRequest.types[0]
-    ? pokemonDetailRequest.types[0].type.name
-    : 'normal';
+  // const type = pokemonDetailRequest.types[0]
+  //   ? pokemonDetailRequest.types[0].type.name
+  //   : 'normal';
 
   return (
     <div className='details-page'>
       <AppHeader />
       {!loadingDetails && (
         <div className='details-container'>
-          <div
+          <PokemonPictureContainer
+            picture={pokemonDetailRequest.picture}
+            types={pokemonDetailRequest.types}
+          />
+          {/* <div
             className='details-container__pokemon'
             style={{
               background: colors[type].background,
@@ -114,8 +121,18 @@ export default function PokemonDetails() {
                 className='details-container__pokemon__favorite-area__icon'
               />
             </div>
-          </div>
-          <div className='details-container__informations'>
+          </div> */}
+          <PokemonInformationContainer
+            id={pokemonDetailRequest.id}
+            name={pokemonDetailRequest.name}
+            height={pokemonDetailRequest.height}
+            weight={pokemonDetailRequest.weight}
+            abilities={pokemonDetailRequest.abilities}
+            types={pokemonDetailRequest.types}
+            stats={pokemonDetailRequest.stats}
+            onClickAbility={handleClickAbility}
+          />
+          {/* <div className='details-container__informations'>
             <div className='details-container__informations__details'>
               <div className='details-container__informations__details__name-area'>
                 <h1 className='details-container__informations__details__name-area__name'>
@@ -249,7 +266,7 @@ export default function PokemonDetails() {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -278,7 +295,8 @@ export default function PokemonDetails() {
           url={clickedAbility.url}
         />
       </Modal>
-      <footer className='footer-container'>
+      <PokemonFooterContainer />
+      {/* <footer className='footer-container'>
         <div className='footer-container__footer-left'>
           <button className='footer-container__footer-left__button'>
             <img
@@ -316,7 +334,7 @@ export default function PokemonDetails() {
             />
           </button>
         </div>
-      </footer>
+      </footer> */}
       {detailsState.error && <ApiError />}
       {loadingDetails && <Loading />}
     </div>
