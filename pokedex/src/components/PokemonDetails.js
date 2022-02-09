@@ -10,7 +10,7 @@ import ModalDetails from './ModalDetails';
 // import pagination from '../icons/pagination.png';
 // import barraFooter from '../icons/barraFooter.png';
 import PokemonPictureContainer from './PokemonPictureContainer';
-import PokemonInformationContainer from './PokemonInformationContainer';
+import PokemonInformationContainer from './detailsPageInfo/PokemonInformationContainer';
 import PokemonFooterContainer from './PokemonFooterContainer';
 
 export default function PokemonDetails() {
