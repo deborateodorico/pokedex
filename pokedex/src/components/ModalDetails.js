@@ -17,9 +17,7 @@ function ModalDetails({ onCloseModal, ability, url }) {
     const data = await response.json();
 
     const item = data.effect_entries.find((item) => {
-      if (item.language.name === 'en') {
-        return item.effect;
-      }
+      return item.language.name === 'en';
     });
 
     setAbilityDescription({

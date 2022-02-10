@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function PokemonCard({ pokemon }) {
   return (
-    <Link to={`/pokemon/${pokemon.name}`}>
+    <Link to={`/pokemon/${pokemon.name}`} className='link-name'>
       <div
         className='pokemon'
         style={{ border: colors[pokemon.type[0]].borderPokemon }}
