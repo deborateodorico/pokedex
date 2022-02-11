@@ -9,16 +9,18 @@ import ModalDetails from './ModalDetails';
 import PokemonPictureContainer from './PokemonPictureContainer';
 import PokemonInformationContainer from './detailsPageInfo/PokemonInformationContainer';
 import PokemonFooterContainer from './PokemonFooterContainer';
+import { addPokemon } from '../actions/index';
 
-function PokemonDetails({ name }) {
+function PokemonDetails({ name, state, actions }) {
   const params = useParams();
+  const pokemon = state.pokemonInfo.pokemons[params.name];
 
   useEffect(() => {
     fetchApiPageDetails();
   }, []);
 
   const [pokemonDetailRequest, setPokemonDetailRequest] = useState({
-    // name: '',
+    name: '',
     id: 0,
     picture: '',
     types: [],
@@ -49,9 +51,8 @@ function PokemonDetails({ name }) {
       setFetchDetailsStatus({ isLoading: false });
 
       const pokemonData = await response.json();
-      setPokemonDetailRequest({
-        ...pokemonDetailRequest,
-        // name: pokemonData.name,
+      actions.addPokemonActions({
+        name: pokemonData.name,
         id: pokemonData.id,
         picture: pokemonData.sprites.other['official-artwork'].front_default,
         types: pokemonData.types,
@@ -137,15 +138,13 @@ function PokemonDetails({ name }) {
 }
 
 function mapStateToProps(state) {
-  return {
-    name: state.pokemonInfo.name,
-  };
+  return { state };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      // changeAbility: (newValue) => dispatch(changeAbility(newValue)),
+      addPokemonActions: (newValue) => dispatch(addPokemon(newValue)),
     },
   };
 }
