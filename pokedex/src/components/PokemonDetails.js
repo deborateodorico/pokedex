@@ -11,24 +11,14 @@ import PokemonInformationContainer from './detailsPageInfo/PokemonInformationCon
 import PokemonFooterContainer from './PokemonFooterContainer';
 import { addPokemon } from '../actions/index';
 
-function PokemonDetails({ name, state, actions }) {
+function PokemonDetails({ pokemons, actions }) {
   const params = useParams();
-  const pokemon = state.pokemonInfo.pokemons[params.name];
+  const pokemon = pokemons[params.name];
+  console.log(pokemon);
 
   useEffect(() => {
     fetchApiPageDetails();
   }, []);
-
-  const [pokemonDetailRequest, setPokemonDetailRequest] = useState({
-    name: '',
-    id: 0,
-    picture: '',
-    types: [],
-    abilities: [],
-    height: 0,
-    weight: 0,
-    stats: [],
-  });
 
   const [fetchDetailsStatus, setFetchDetailsStatus] = useState({
     isLoading: true,
@@ -48,7 +38,6 @@ function PokemonDetails({ name, state, actions }) {
     try {
       setFetchDetailsStatus({ isLoading: true });
       const response = await fetch(apiPokemonDetails);
-      setFetchDetailsStatus({ isLoading: false });
 
       const pokemonData = await response.json();
       actions.addPokemonActions({
@@ -61,6 +50,8 @@ function PokemonDetails({ name, state, actions }) {
         weight: pokemonData.weight,
         stats: pokemonData.stats,
       });
+
+      setFetchDetailsStatus({ isLoading: false });
     } catch (error) {
       setFetchDetailsStatus({
         ...fetchDetailsStatus,
@@ -89,17 +80,17 @@ function PokemonDetails({ name, state, actions }) {
       {!fetchDetailsStatus.isLoading && (
         <div className='details-container'>
           <PokemonPictureContainer
-            picture={pokemonDetailRequest.picture}
-            types={pokemonDetailRequest.types}
+            picture={pokemon.picture}
+            types={pokemon.types}
           />
           <PokemonInformationContainer
-            id={pokemonDetailRequest.id}
-            name={pokemonDetailRequest.name}
-            height={pokemonDetailRequest.height}
-            weight={pokemonDetailRequest.weight}
-            abilities={pokemonDetailRequest.abilities}
-            types={pokemonDetailRequest.types}
-            stats={pokemonDetailRequest.stats}
+            id={pokemon.id}
+            name={pokemon.name}
+            height={pokemon.height}
+            weight={pokemon.weight}
+            abilities={pokemon.abilities}
+            types={pokemon.types}
+            stats={pokemon.stats}
             onClickAbility={handleClickAbility}
           />
         </div>
@@ -138,7 +129,7 @@ function PokemonDetails({ name, state, actions }) {
 }
 
 function mapStateToProps(state) {
-  return { state };
+  return { pokemons: state.pokemonInfo.pokemons };
 }
 
 function mapDispatchToProps(dispatch) {
