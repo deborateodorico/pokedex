@@ -14,6 +14,7 @@ import { addPokemon } from '../actions/index';
 function PokemonDetails({ pokemons, actions }) {
   const params = useParams();
   const pokemon = pokemons[params.name];
+  console.log(pokemon);
 
   useEffect(() => {
     fetchApiPageDetails();
@@ -27,7 +28,7 @@ function PokemonDetails({ pokemons, actions }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [clickedAbility, setClikedAbility] = useState({
-    AbilityName: '',
+    name: '',
     url: '',
   });
 
@@ -64,7 +65,7 @@ function PokemonDetails({ pokemons, actions }) {
     setModalIsOpen(true);
     setClikedAbility({
       ...clickedAbility,
-      AbilityName: abilityName,
+      name: abilityName,
       url: abilityUrl,
     });
   };
@@ -116,7 +117,7 @@ function PokemonDetails({ pokemons, actions }) {
       >
         <ModalDetails
           onCloseModal={handleCloseModal}
-          ability={clickedAbility.AbilityName}
+          ability={clickedAbility.name}
           url={clickedAbility.url}
         />
       </Modal>
@@ -128,7 +129,7 @@ function PokemonDetails({ pokemons, actions }) {
 }
 
 function mapStateToProps(state) {
-  return { pokemons: state.pokemonInfo.pokemons };
+  return { pokemons: state.pokemons };
 }
 
 function mapDispatchToProps(dispatch) {
