@@ -14,7 +14,6 @@ import { addPokemon } from '../actions/index';
 function PokemonDetails({ pokemons, actions }) {
   const params = useParams();
   const pokemon = pokemons[params.name];
-  console.log(pokemon);
 
   useEffect(() => {
     fetchApiPageDetails();
