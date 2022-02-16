@@ -9,7 +9,6 @@ function Abilities({ onSearchAbilities, ability, actions }) {
 
   const onAbilityChange = (e) => {
     const newValue = e.target.value;
-
     actions.changeAbility(newValue);
   };
 

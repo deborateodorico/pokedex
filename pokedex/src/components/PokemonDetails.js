@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 import AppHeader from './AppHeader';
 import Loading from './Loading';
 import ApiError from './ApiError';
@@ -8,24 +9,16 @@ import ModalDetails from './ModalDetails';
 import PokemonPictureContainer from './PokemonPictureContainer';
 import PokemonInformationContainer from './detailsPageInfo/PokemonInformationContainer';
 import PokemonFooterContainer from './PokemonFooterContainer';
+import { addPokemon } from '../actions/index';
 
-export default function PokemonDetails() {
+function PokemonDetails({ pokemons, actions }) {
   const params = useParams();
+  const pokemon = pokemons[params.name];
+  console.log(pokemon);
 
   useEffect(() => {
     fetchApiPageDetails();
   }, []);
-
-  const [pokemonDetailRequest, setPokemonDetailRequest] = useState({
-    name: '',
-    id: 0,
-    picture: '',
-    types: [],
-    abilities: [],
-    height: 0,
-    weight: 0,
-    stats: [],
-  });
 
   const [fetchDetailsStatus, setFetchDetailsStatus] = useState({
     isLoading: true,
@@ -45,11 +38,9 @@ export default function PokemonDetails() {
     try {
       setFetchDetailsStatus({ isLoading: true });
       const response = await fetch(apiPokemonDetails);
-      setFetchDetailsStatus({ isLoading: false });
 
       const pokemonData = await response.json();
-      setPokemonDetailRequest({
-        ...pokemonDetailRequest,
+      actions.addPokemonActions({
         name: pokemonData.name,
         id: pokemonData.id,
         picture: pokemonData.sprites.other['official-artwork'].front_default,
@@ -59,6 +50,8 @@ export default function PokemonDetails() {
         weight: pokemonData.weight,
         stats: pokemonData.stats,
       });
+
+      setFetchDetailsStatus({ isLoading: false });
     } catch (error) {
       setFetchDetailsStatus({
         ...fetchDetailsStatus,
@@ -87,17 +80,17 @@ export default function PokemonDetails() {
       {!fetchDetailsStatus.isLoading && (
         <div className='details-container'>
           <PokemonPictureContainer
-            picture={pokemonDetailRequest.picture}
-            types={pokemonDetailRequest.types}
+            picture={pokemon.picture}
+            types={pokemon.types}
           />
           <PokemonInformationContainer
-            id={pokemonDetailRequest.id}
-            name={pokemonDetailRequest.name}
-            height={pokemonDetailRequest.height}
-            weight={pokemonDetailRequest.weight}
-            abilities={pokemonDetailRequest.abilities}
-            types={pokemonDetailRequest.types}
-            stats={pokemonDetailRequest.stats}
+            id={pokemon.id}
+            name={pokemon.name}
+            height={pokemon.height}
+            weight={pokemon.weight}
+            abilities={pokemon.abilities}
+            types={pokemon.types}
+            stats={pokemon.stats}
             onClickAbility={handleClickAbility}
           />
         </div>
@@ -134,3 +127,17 @@ export default function PokemonDetails() {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return { pokemons: state.pokemons };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      addPokemonActions: (newValue) => dispatch(addPokemon(newValue)),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonDetails);

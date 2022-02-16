@@ -8,6 +8,8 @@ import {
   CHANGE_WEIGHT_VALUE,
 } from './actionsTypes';
 
+import { ADD_POKEMON } from './actionsTypes';
+
 export const changeSearch = (value) => ({
   type: CHANGE_SEARCH_VALUE,
   payload: {
@@ -55,4 +57,9 @@ export const changeType = (value) => ({
   payload: {
     type: value,
   },
+});
+
+export const addPokemon = (pokemon) => ({
+  type: ADD_POKEMON,
+  payload: pokemon,
 });
