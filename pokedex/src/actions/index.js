@@ -66,7 +66,9 @@ export const addPokemon = (pokemon) => ({
   payload: pokemon,
 });
 
-export const addPokemonList = (data) => ({
-  type: ADD_POKEMON_LIST,
-  payload: data,
-});
+export const addPokemonList = (data) => {
+  return {
+    type: ADD_POKEMON_LIST,
+    payload: data,
+  };
+};
