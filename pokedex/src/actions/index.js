@@ -10,6 +10,8 @@ import {
 
 import { ADD_POKEMON } from './actionsTypes';
 
+import { ADD_POKEMON_LIST } from './actionsTypes';
+
 export const changeSearch = (value) => ({
   type: CHANGE_SEARCH_VALUE,
   payload: {
@@ -63,3 +65,10 @@ export const addPokemon = (pokemon) => ({
   type: ADD_POKEMON,
   payload: pokemon,
 });
+
+export const addPokemonList = (data) => {
+  return {
+    type: ADD_POKEMON_LIST,
+    payload: data,
+  };
+};
