@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { formDataReducer } from './formDataReducer';
-import { pokemonInfoReducer } from './pokemonInfoReducer';
+import { pokemonsReducer } from './pokemonsReducer';
 
 export const Reducers = combineReducers({
   formData: formDataReducer,
-  pokemonInfo: pokemonInfoReducer,
+  pokemons: pokemonsReducer,
 });
