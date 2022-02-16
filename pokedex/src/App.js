@@ -11,7 +11,7 @@ import Filters from './components/Filters';
 import AppHeader from './components/AppHeader';
 import debounceFetch from './components/debounceFetch';
 import vectorFilters from './icons/vectorFilters.png';
-import { changeSearch } from './actions/index';
+import { changeSearch, addPokemonList } from './actions/index';
 
 const getUrlParameter = (values, param) => {
   let queryParams = '';
@@ -31,11 +31,11 @@ function App({
   actions,
   limit,
   offset,
+  pokemonsList,
 }) {
   const [loadingPokemonsData, setLoadingPokemonsData] = useState(false);
 
   const [pokemonRequestState, setPokemonRequestState] = useState({
-    data: null,
     isLoading: false,
     error: false,
   });
@@ -92,10 +92,8 @@ function App({
       setLoadingPokemonsData(false);
 
       const pokemonData = await response.json();
-      setPokemonRequestState({
-        ...pokemonRequestState,
-        data: pokemonData.results,
-      });
+
+      actions.addPokemons(pokemonData.results);
     } catch (error) {
       setPokemonRequestState({
         ...pokemonRequestState,
@@ -131,7 +129,6 @@ function App({
   return (
     <div className='app' style={{ paddingTop: '10px' }}>
       {!modalIsOpen && <AppHeader />}
-
       <div className='container app-container'>
         <div className='row gx-2'>
           <div className='col-12'>
@@ -171,7 +168,6 @@ function App({
           </div>
         </div>
       </div>
-
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}
@@ -196,13 +192,11 @@ function App({
           onCloseModal={handleCloseModal}
         />
       </Modal>
-
       {pokemonRequestState.error && <ApiError />}
-      {pokemonRequestState.data?.length === 0 && <NoResults />}
+      {pokemonsList?.length === 0 && <NoResults />}
       {loadingPokemonsData && <Loading />}
-
       {!pokemonRequestState.error && !loadingPokemonsData && (
-        <Pokedex pokemons={pokemonRequestState.data} />
+        <Pokedex pokemons={pokemonsList} />
       )}
     </div>
   );
@@ -211,6 +205,7 @@ function App({
 function mapStateToProps(state) {
   return {
     ...state.formData,
+    pokemonsList: state.pokemonsList,
   };
 }
 
@@ -218,6 +213,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       changeSearch: (newValue) => dispatch(changeSearch(newValue)),
+      addPokemons: (newValue) => dispatch(addPokemonList(newValue)),
     },
   };
 }
