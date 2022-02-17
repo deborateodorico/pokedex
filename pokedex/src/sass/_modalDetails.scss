@@ -34,6 +34,7 @@
       background-color: transparent;
       border: none;
       padding: 0;
+      cursor: pointer;
     }
   }
 
@@ -75,6 +76,7 @@
       @extend %font-value;
       font-size: 14px;
       line-height: 20px;
+      cursor: pointer;
     }
   }
 }
