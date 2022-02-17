@@ -1,3 +1,7 @@
+.link-without-underline {
+  text-decoration: none;
+}
+
 .app {
   background-color: #ffffff;
   margin: 0 auto;
@@ -34,6 +38,8 @@
     &__union-section {
       display: flex;
       margin-right: 15px;
+      text-decoration: none;
+      cursor: pointer;
       @include media-breakpoint-down(sm) {
         border-bottom: 2px solid var(--blue-color);
         margin: 0;
