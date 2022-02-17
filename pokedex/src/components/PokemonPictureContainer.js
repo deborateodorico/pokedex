@@ -1,6 +1,7 @@
 import React from 'react';
 import favorite from '../icons/favorite.png';
 import colors from './colorsDictionary';
+import pagination from '../icons/pagination.png';
 
 function PokemonPictureContainer({ types, picture }) {
   const type = types[0] ? types[0].type.name : 'normal';
@@ -17,15 +18,25 @@ function PokemonPictureContainer({ types, picture }) {
         alt='pokemon'
         className='details-container__pokemon__img'
       />
+
       <div className='details-container__pokemon__favorite-area'>
-        <button className='details-container__pokemon__favorite-area__add-button'>
-          + Add to team
-        </button>
-        <img
-          src={favorite}
-          alt='favorite'
-          className='details-container__pokemon__favorite-area__icon'
-        />
+        <div className='details-container__pokemon__favorite-area__previous-page'>
+          <img
+            src={pagination}
+            alt='previous-page'
+            className='details-container__pokemon__favorite-area__previous-page__icon'
+          />
+        </div>
+        <div className='details-container__pokemon__favorite-area__button-area'>
+          <button className='details-container__pokemon__favorite-area__button-area__add-button'>
+            + Add to team
+          </button>
+          <img
+            src={favorite}
+            alt='favorite'
+            className='details-container__pokemon__favorite-area__button-area__icon'
+          />
+        </div>
       </div>
     </div>
   );
