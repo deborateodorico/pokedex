@@ -34,13 +34,11 @@
 
     &__img {
       max-width: 90%;
-      // max-height: 45%;
       align-items: center;
       justify-content: center;
       margin-bottom: 100px;
       @include media-breakpoint-down(sm) {
         z-index: 1;
-        // min-height: 90%;
         margin-bottom: auto;
         margin-top: 50px;
       }
