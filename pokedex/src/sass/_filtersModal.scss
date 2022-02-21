@@ -10,9 +10,16 @@
   vertical-align: middle;
   text-align: left;
 
+  @include media-breakpoint-down(sm) {
+    padding-bottom: 45px;
+  }
+
   &__header {
     display: flex;
     justify-content: space-around;
+    @include media-breakpoint-down(sm) {
+      padding-top: 30px;
+    }
 
     &__paragraph {
       display: inline-block;
@@ -49,7 +56,7 @@
       width: 100%;
       position: fixed;
       left: 0;
-      padding: 10px 14px;
+      padding: 10px 14px 35px 14px;
       background-color: #ffffff;
       border-radius: 16px 16px 0 0;
       z-index: 9999;

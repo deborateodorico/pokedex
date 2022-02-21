@@ -3,19 +3,22 @@ import union from '../icons/union.png';
 import vectorTeams from '../icons/vectorTeams.png';
 import user from '../icons/user.png';
 import favorite from '../icons/favorite.png';
+import { Link } from 'react-router-dom';
 
 export default function AppHeader() {
   return (
     <div className='app__header'>
       <div className='container'>
-        <div className='app__header__union-section'>
-          <img
-            src={union}
-            alt='union-icon'
-            className='app__header__union-section__img'
-          />
-          <p className='app__header__union-section__paragraph'>Pokedex</p>
-        </div>
+        <Link to='/' className='link-without-underline'>
+          <div className='app__header__union-section'>
+            <img
+              src={union}
+              alt='union-icon'
+              className='app__header__union-section__img'
+            />
+            <p className='app__header__union-section__paragraph'>Pokedex</p>
+          </div>
+        </Link>
         <div className='app__header__teams-section'>
           <img
             src={vectorTeams}

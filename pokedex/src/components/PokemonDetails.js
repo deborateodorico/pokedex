@@ -104,13 +104,10 @@ function PokemonDetails({ pokemons, actions }) {
           content: {
             maxWidth: 664,
             width: 'calc(100% - 20px)',
-            height: 272,
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
+            position: 'relative',
             padding: 0,
             borderRadius: 8,
+            inset: 0,
           },
         }}
       >
