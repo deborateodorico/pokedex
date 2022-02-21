@@ -22,7 +22,6 @@
     align-items: center;
     max-width: 50%;
     min-width: 40%;
-    height: 100vh;
     margin: 0;
     flex: 1 0 40%;
     width: 50%;
@@ -113,6 +112,7 @@
     padding-left: 15px;
     padding-right: 30px;
     flex: 1 0 60%;
+    overflow: scroll;
     @include media-breakpoint-down(sm) {
       background-color: white;
       border-radius: 16px 16px 0px 0px;
