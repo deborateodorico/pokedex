@@ -1,5 +1,14 @@
 .details-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  min-height: 100%;
+  @include media-breakpoint-down(sm) {
+    overflow: scroll;
+  }
   .app__header {
+    flex-shrink: 0;
     @include media-breakpoint-down(sm) {
       visibility: hidden;
     }
@@ -11,6 +20,10 @@
   background-color: white;
   color: #2b3140;
   height: 100%;
+  flex: 1 1 0%;
+  width: 100%;
+  display: flex;
+  align-self: center;
   @include media-breakpoint-down(sm) {
     width: 100%;
     flex-direction: column;
@@ -22,6 +35,7 @@
     align-items: center;
     max-width: 50%;
     min-width: 40%;
+    height: 100vh;
     margin: 0;
     flex: 1 0 40%;
     width: 50%;
@@ -109,16 +123,18 @@
   &__informations {
     display: inline-block;
     width: 60%;
+    height: 100%;
     padding-left: 15px;
     padding-right: 30px;
     flex: 1 0 60%;
-    overflow: scroll;
+    overflow-y: auto;
     @include media-breakpoint-down(sm) {
       background-color: white;
       border-radius: 16px 16px 0px 0px;
       transform: translateY(-33px);
       max-width: 100%;
       width: 100%;
+      overflow-y: visible;
     }
 
     &__details {
@@ -312,9 +328,9 @@
     &__teams {
       padding-left: 15px;
       margin-top: 50px;
-      margin-bottom: 100px;
+      padding-bottom: 100px;
       @include media-breakpoint-down(sm) {
-        margin-bottom: 100px;
+        padding-bottom: 100px;
       }
 
       &__title {
@@ -355,6 +371,7 @@
   border: 1px solid #edeef8;
   border-radius: 16px 16px 0px 0px;
   padding-right: auto;
+  flex-shrink: 0;
 
   &__footer-left {
     display: flex;
