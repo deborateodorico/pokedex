@@ -9,9 +9,9 @@ function DetailsInfoType({ types, id }) {
           <p
             key={id}
             className='details-container__informations__types__paragraph'
-            style={{ border: colors[type.type.name].borderPokemon }}
+            style={{ border: colors[type.name].borderPokemon }}
           >
-            {type.type.name}
+            {type.name}
           </p>
         );
       })}
