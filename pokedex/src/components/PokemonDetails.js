@@ -28,7 +28,7 @@ function PokemonDetails({ pokemons, actions }) {
 
   const [clickedAbility, setClikedAbility] = useState({
     name: '',
-    url: '',
+    id: '',
   });
 
   let apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
@@ -39,15 +39,37 @@ function PokemonDetails({ pokemons, actions }) {
       const response = await fetch(apiPokemonDetails);
 
       const pokemonData = await response.json();
+      console.log(pokemonData);
       actions.addPokemonActions({
-        name: pokemonData.name,
-        id: pokemonData.id,
-        picture: pokemonData.sprites.other['official-artwork'].front_default,
-        types: pokemonData.types,
-        abilities: pokemonData.abilities,
-        height: pokemonData.height,
-        weight: pokemonData.weight,
-        stats: pokemonData.stats,
+        name: pokemonData.pokemon.name,
+        id: pokemonData.pokemon.id,
+        picture: pokemonData.pokemon.pictureUrl,
+        types: pokemonData.pokemon.types,
+        abilities: pokemonData.pokemon.abilities,
+        height: pokemonData.pokemon.height,
+        weight: pokemonData.pokemon.weight,
+        stats: [
+          {
+            name: 'Attack',
+            value: pokemonData.pokemon.attack,
+          },
+          {
+            name: 'Defense',
+            value: pokemonData.pokemon.defense,
+          },
+          {
+            name: 'Special-Attack',
+            value: pokemonData.pokemon.specialAttack,
+          },
+          {
+            name: 'Special-Defense',
+            value: pokemonData.pokemon.specialDefense,
+          },
+          {
+            name: 'Speed',
+            value: pokemonData.pokemon.speed,
+          },
+        ],
       });
 
       setFetchDetailsStatus({ isLoading: false });
@@ -60,12 +82,12 @@ function PokemonDetails({ pokemons, actions }) {
     }
   };
 
-  const handleClickAbility = (abilityName, abilityUrl) => {
+  const handleClickAbility = (abilityName, abilityId) => {
     setModalIsOpen(true);
     setClikedAbility({
       ...clickedAbility,
       name: abilityName,
-      url: abilityUrl,
+      id: abilityId,
     });
   };
 
@@ -114,7 +136,7 @@ function PokemonDetails({ pokemons, actions }) {
         <ModalDetails
           onCloseModal={handleCloseModal}
           ability={clickedAbility.name}
-          url={clickedAbility.url}
+          id={clickedAbility.id}
         />
       </Modal>
       <PokemonFooterContainer />
