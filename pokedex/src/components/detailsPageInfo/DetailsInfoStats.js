@@ -11,12 +11,12 @@ function DetailsInfoStats({ stats, id }) {
               key={id}
               className='details-container__informations__stats__name'
             >
-              {stat.stat.name}
+              {stat.name}
             </p>
             <div className='details-container__informations__stats__value'>
               <div
                 className='details-container__informations__stats__progressbar'
-                style={{ width: `${(100 * stat.base_stat) / 255}%` }}
+                style={{ width: `${(100 * stat.value) / 255}%` }}
               ></div>
             </div>
           </>
