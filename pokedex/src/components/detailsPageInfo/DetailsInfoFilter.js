@@ -31,23 +31,19 @@ function DetailsInfoFilter({ height, weight, id, abilities, onClickAbility }) {
             if (abilities.length - 1 === index)
               return (
                 <span
-                  onClick={() =>
-                    onClickAbility(ability.ability.name, ability.ability.url)
-                  }
+                  onClick={() => onClickAbility(ability.name, ability.id)}
                   className='details-container__informations__filters__abilities__paragraph-value__click-modal'
                 >
-                  {ability.ability.name}.
+                  {ability.name}.
                 </span>
               );
             else {
               return (
                 <span
-                  onClick={() =>
-                    onClickAbility(ability.ability.name, ability.ability.url)
-                  }
+                  onClick={() => onClickAbility(ability.name, ability.id)}
                   className='details-container__informations__filters__abilities__paragraph-value__click-modal'
                 >
-                  {ability.ability.name},{' '}
+                  {ability.name},{' '}
                 </span>
               );
             }
