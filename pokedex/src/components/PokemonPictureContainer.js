@@ -5,7 +5,7 @@ import colors from './colorsDictionary';
 import pagination from '../icons/pagination.png';
 
 function PokemonPictureContainer({ types, picture }) {
-  const type = types[0] ? types[0].type.name : 'normal';
+  const type = types[0] ? types[0].name : 'normal';
 
   return (
     <div
