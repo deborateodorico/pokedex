@@ -4,6 +4,7 @@ import DetailsInfoFilter from './DetailsInfoFilter';
 import DetailsInfoType from './DetailsInfoType';
 import DetailsInfoStats from './DetailsInfoStats';
 import DetailsInfoTeams from './DetailsInfoTeams';
+import DetailsInfoAbout from './DetailsInfoAbout';
 
 function PokemonInformationContainer({
   name,
@@ -13,11 +14,13 @@ function PokemonInformationContainer({
   stats,
   abilities,
   types,
+  about,
   onClickAbility,
 }) {
   return (
     <div className='details-container__informations'>
       <DetailsInfoName id={id} name={name} />
+      <DetailsInfoAbout about={about} />
       <DetailsInfoFilter
         height={height}
         weight={weight}
