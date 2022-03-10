@@ -49,6 +49,7 @@ function PokemonDetails({ pokemons, actions }) {
         height: pokemonData.pokemon.height,
         weight: pokemonData.pokemon.weight,
         about: pokemonData.pokemon.flavorText,
+        evolutions: pokemonData.pokemon.evolutionChain,
         stats: [
           {
             name: 'Attack',
@@ -123,6 +124,7 @@ function PokemonDetails({ pokemons, actions }) {
             stats={pokemon.stats}
             onClickAbility={handleClickAbility}
             about={pokemon.about}
+            evolutions={pokemon.evolutions}
           />
         </div>
       )}
