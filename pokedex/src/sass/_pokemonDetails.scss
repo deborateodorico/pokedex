@@ -15,6 +15,27 @@
   }
 }
 
+.details-about {
+  padding: 15px 0 0 15px;
+  &__paragraph {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2b3140;
+
+    &__text {
+      font-family: Nunito;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #4f586e;
+    }
+  }
+}
+
 .details-container {
   display: flex;
   background-color: white;
@@ -158,6 +179,10 @@
           color: #6e7a96;
           padding: 0 0 0 15px;
           margin-top: auto;
+        }
+
+        &__about {
+          display: block;
         }
       }
 
@@ -361,7 +386,7 @@
   bottom: 0;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 0px;
   max-width: 100%;
@@ -372,16 +397,19 @@
   border-radius: 16px 16px 0px 0px;
   padding-right: auto;
   flex-shrink: 0;
+  text-decoration: none;
 
   &__footer-left {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    text-decoration: none;
     &__button {
       background-color: transparent;
       border: none;
       justify-content: center;
+      cursor: pointer;
 
       &__img {
         width: 35px;
@@ -395,6 +423,7 @@
         line-height: 12px;
         color: #6e7a96;
         margin-bottom: auto;
+        text-decoration: none;
       }
       &__name {
         font-size: 14px;
@@ -402,6 +431,8 @@
         color: #2b3140;
         font-weight: bold;
         margin-top: auto;
+        text-transform: capitalize;
+        text-decoration: none;
       }
     }
   }
@@ -433,6 +464,7 @@
         margin-left: auto;
         color: #6e7a96;
         margin-bottom: auto;
+        text-decoration: none;
       }
       &__name {
         font-size: 14px;
@@ -440,6 +472,8 @@
         color: #2b3140;
         font-weight: bold;
         margin-top: auto;
+        text-transform: capitalize;
+        text-decoration: none;
       }
     }
 
@@ -448,6 +482,7 @@
       border: none;
       justify-content: center;
       transform: rotate(180deg);
+      cursor: pointer;
 
       &__img {
         width: 35px;
@@ -456,4 +491,8 @@
       }
     }
   }
+}
+
+.link-footer {
+  text-decoration: none;
 }
