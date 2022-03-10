@@ -17,7 +17,7 @@ function PokemonDetails({ pokemons, actions }) {
 
   useEffect(() => {
     fetchApiPageDetails();
-  }, []);
+  }, [params.name]);
 
   const [fetchDetailsStatus, setFetchDetailsStatus] = useState({
     isLoading: true,
@@ -31,23 +31,24 @@ function PokemonDetails({ pokemons, actions }) {
     id: '',
   });
 
-  let apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
-
   const fetchApiPageDetails = async () => {
+    const apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
+
     try {
       setFetchDetailsStatus({ isLoading: true });
       const response = await fetch(apiPokemonDetails);
 
       const pokemonData = await response.json();
-      console.log(pokemonData);
+
       actions.addPokemonActions({
         name: pokemonData.pokemon.name,
         id: pokemonData.pokemon.id,
-        picture: pokemonData.pokemon.pictureUrl,
+        pictureUrl: pokemonData.pokemon.pictureUrl,
         types: pokemonData.pokemon.types,
         abilities: pokemonData.pokemon.abilities,
         height: pokemonData.pokemon.height,
         weight: pokemonData.pokemon.weight,
+        about: pokemonData.pokemon.flavorText,
         stats: [
           {
             name: 'Attack',
@@ -70,6 +71,14 @@ function PokemonDetails({ pokemons, actions }) {
             value: pokemonData.pokemon.speed,
           },
         ],
+        nextPokemon: {
+          name: pokemonData.nextPokemon.name,
+          id: pokemonData.nextPokemon.id,
+        },
+        prevPokemon: {
+          name: pokemonData.prevPokemon.name,
+          id: pokemonData.prevPokemon.id,
+        },
       });
 
       setFetchDetailsStatus({ isLoading: false });
@@ -98,10 +107,10 @@ function PokemonDetails({ pokemons, actions }) {
   return (
     <div className='details-page'>
       <AppHeader />
-      {!fetchDetailsStatus.isLoading && (
+      {!fetchDetailsStatus.isLoading && pokemon && (
         <div className='details-container'>
           <PokemonPictureContainer
-            picture={pokemon.picture}
+            picture={pokemon.pictureUrl}
             types={pokemon.types}
           />
           <PokemonInformationContainer
@@ -113,6 +122,7 @@ function PokemonDetails({ pokemons, actions }) {
             types={pokemon.types}
             stats={pokemon.stats}
             onClickAbility={handleClickAbility}
+            about={pokemon.about}
           />
         </div>
       )}
@@ -139,7 +149,13 @@ function PokemonDetails({ pokemons, actions }) {
           id={clickedAbility.id}
         />
       </Modal>
-      <PokemonFooterContainer />
+      {!fetchDetailsStatus.isLoading && pokemon && (
+        <PokemonFooterContainer
+          prevPokemon={pokemon.prevPokemon}
+          nextPokemon={pokemon.nextPokemon}
+        />
+      )}
+
       {fetchDetailsStatus.error && <ApiError />}
       {fetchDetailsStatus.isLoading && <Loading />}
     </div>
