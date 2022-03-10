@@ -36,6 +36,39 @@
   }
 }
 
+.details-evolutions__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__img {
+    padding: 10px;
+    border-radius: 100px;
+    border: 1px solid #edeef8;
+    height: 100px;
+    width: 100px;
+    margin: 20px 20px 0px 20px;
+  }
+
+  &__id {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    text-align: center;
+    color: #6e7a96;
+  }
+
+  &__name {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    color: #2b3140;
+    text-transform: capitalize;
+  }
+}
+
 .details-container {
   display: flex;
   background-color: white;
@@ -495,4 +528,23 @@
 
 .link-footer {
   text-decoration: none;
+}
+
+.details-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow-img {
+  width: 16px;
+  height: 0px;
+  border: 1px solid #d1d7e5;
+}
+
+.arrow-ball {
+  height: 4px;
+  width: 4px;
+  border: 1px solid #d1d7e5;
+  border-radius: 4px;
 }
