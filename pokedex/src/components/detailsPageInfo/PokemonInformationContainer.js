@@ -16,6 +16,7 @@ function PokemonInformationContainer({
   types,
   about,
   onClickAbility,
+  evolutions,
 }) {
   return (
     <div className='details-container__informations'>
@@ -30,7 +31,7 @@ function PokemonInformationContainer({
       />
       <p className='details-container__informations__type'>Type</p>
       <DetailsInfoType types={types} id={id} />
-      <DetailsInfoStats id={id} stats={stats} />
+      <DetailsInfoStats id={id} stats={stats} evolutions={evolutions} />
       <DetailsInfoTeams />
     </div>
   );
