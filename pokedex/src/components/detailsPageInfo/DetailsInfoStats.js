@@ -25,7 +25,12 @@ function DetailsInfoStats({ stats, id, evolutions }) {
           );
         })}
       </div>
-      <DetailsInfoEvolutions evolutions={evolutions} />
+      <div>
+        <h3 className='paragraph'>Evolutions</h3>
+        <div className='details-evolutions__container'>
+          <DetailsInfoEvolutions evolutions={evolutions} />
+        </div>
+      </div>
     </div>
   );
 }
