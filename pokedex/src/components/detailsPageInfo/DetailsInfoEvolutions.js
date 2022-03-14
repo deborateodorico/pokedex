@@ -1,5 +1,4 @@
 import React from 'react';
-import seta from '../../icons/seta.svg';
 
 export default function DetailsInfoEvolutions({ evolutions }) {
   const evolution = () => {
@@ -25,7 +24,9 @@ export default function DetailsInfoEvolutions({ evolutions }) {
   };
 
   const evolutionRecursao = () => {
-    let newEvolution = evolutions[1];
+    const todasAsPossiveisEvolucoes = [...evolutions];
+    todasAsPossiveisEvolucoes.shift();
+
     if (evolutions.length > 1) {
       return (
         <div className='details-evolutions__container'>
@@ -42,10 +43,16 @@ export default function DetailsInfoEvolutions({ evolutions }) {
               {evolutions[0].name}
             </p>
           </div>
-          <div className='arrow-img'></div>
-          <div className='arrow-ball'></div>
+          <div className='arrow-container'>
+            <div className='arrow-img'></div>
+            <div className='arrow-ball'></div>
+          </div>
 
-          <DetailsInfoEvolutions evolutions={newEvolution} />
+          <div>
+            {todasAsPossiveisEvolucoes.map((evolucao) => (
+              <DetailsInfoEvolutions evolutions={evolucao} />
+            ))}
+          </div>
         </div>
       );
     }
