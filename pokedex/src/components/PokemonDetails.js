@@ -37,7 +37,6 @@ function PokemonDetails({ pokemons, actions }) {
     try {
       setFetchDetailsStatus({ isLoading: true });
       const response = await fetch(apiPokemonDetails);
-
       const pokemonData = await response.json();
 
       actions.addPokemonActions({
@@ -77,8 +76,8 @@ function PokemonDetails({ pokemons, actions }) {
           id: pokemonData.nextPokemon.id,
         },
         prevPokemon: {
-          name: pokemonData.prevPokemon.name,
-          id: pokemonData.prevPokemon.id,
+          name: pokemonData.prevPokemon ? pokemonData.prevPokemon.name : '',
+          id: pokemonData.prevPokemon ? pokemonData.prevPokemon.id : '',
         },
       });
 
