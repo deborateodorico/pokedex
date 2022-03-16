@@ -126,14 +126,9 @@ function App({
     hadleSubmitButton();
   };
 
-  const element = <h1 className='greeting'>Hello, world!</h1>;
-  const ElementComponent = () => <h2>Hey!</h2>;
-
   return (
     <div className='app' style={{ paddingTop: '10px' }}>
       {!modalIsOpen && <AppHeader />}
-      {element}
-      <ElementComponent />
       <div className='container app-container'>
         <div className='row gx-2'>
           <div className='col-12'>
