@@ -1,5 +1,31 @@
 .link-without-underline {
   text-decoration: none;
+
+  &:visited {
+    text-decoration: none;
+  }
+  p {
+    color: var(--blue-color);
+    border-bottom: 2px solid var(--blue-color);
+  }
+  @include media-breakpoint-down(sm) {
+    border-bottom: 2px solid var(--blue-color);
+    margin: 0;
+  }
+  svg * {
+    fill: var(--blue-color);
+  }
+}
+
+.iconClass {
+  text-decoration: none;
+  &:visited {
+    text-decoration: none;
+    color: var(--black-color);
+  }
+}
+.userClass {
+  display: flex;
 }
 
 .app {
@@ -41,7 +67,7 @@
       text-decoration: none;
       cursor: pointer;
       @include media-breakpoint-down(sm) {
-        border-bottom: 2px solid var(--blue-color);
+        // border-bottom: 2px solid var(--blue-color);
         margin: 0;
       }
 
@@ -50,8 +76,8 @@
       }
 
       &__paragraph {
-        color: var(--blue-color);
-        border-bottom: 2px solid var(--blue-color);
+        // color: var(--blue-color);
+        // border-bottom: 2px solid var(--blue-color);
         margin-bottom: 7px;
         justify-content: center;
         @include media-breakpoint-down(sm) {
@@ -103,6 +129,7 @@
       margin-left: auto;
       padding-right: 20px;
       align-items: center;
+      text-decoration: none;
       @include media-breakpoint-down(sm) {
         margin: 0;
       }
@@ -113,6 +140,8 @@
 
       &__paragraph {
         display: flex;
+
+        text-decoration: none;
         @include media-breakpoint-down(sm) {
           display: none;
         }
@@ -204,4 +233,12 @@
 .app__filters-section__button:hover {
   transform: scale(1.1);
   transition: all 0.2s;
+}
+
+.sign-in {
+  text-decoration: none;
+  display: flex;
+  color: var(--black-color);
+  justify-content: center;
+  align-items: center;
 }
