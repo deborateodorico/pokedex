@@ -127,7 +127,7 @@ function App({
   };
 
   return (
-    <div className='app' style={{ paddingTop: '10px' }}>
+    <div className='app'>
       {!modalIsOpen && <AppHeader />}
       <div className='container app-container'>
         <div className='row gx-2'>
