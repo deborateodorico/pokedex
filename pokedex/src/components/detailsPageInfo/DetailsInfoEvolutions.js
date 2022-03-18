@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function DetailsInfoEvolutions({ evolutions }) {
-  const evolution = () => {
+  const RenderEvolution = () => {
     if (evolutions.length === 1) {
       return (
         <div className='details-evolutions__container'>
@@ -23,9 +23,9 @@ export default function DetailsInfoEvolutions({ evolutions }) {
     }
   };
 
-  const evolutionRecursao = () => {
-    const todasAsPossiveisEvolucoes = [...evolutions];
-    todasAsPossiveisEvolucoes.shift();
+  const renderEvolutionRecursion = () => {
+    const allPossibleEvolutions = [...evolutions];
+    allPossibleEvolutions.shift();
 
     if (evolutions.length > 1) {
       return (
@@ -49,7 +49,7 @@ export default function DetailsInfoEvolutions({ evolutions }) {
           </div>
 
           <div>
-            {todasAsPossiveisEvolucoes.map((evolucao) => (
+            {allPossibleEvolutions.map((evolucao) => (
               <DetailsInfoEvolutions evolutions={evolucao} />
             ))}
           </div>
@@ -59,8 +59,8 @@ export default function DetailsInfoEvolutions({ evolutions }) {
   };
   return (
     <>
-      {evolution()}
-      {evolutionRecursao()}
+      {RenderEvolution()}
+      {renderEvolutionRecursion()}
     </>
   );
 }
