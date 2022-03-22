@@ -17,7 +17,7 @@ function PokemonDetails({ pokemons, actions }) {
 
   useEffect(() => {
     fetchApiPageDetails();
-  }, []);
+  }, [params.name]);
 
   const [fetchDetailsStatus, setFetchDetailsStatus] = useState({
     isLoading: true,
@@ -28,26 +28,57 @@ function PokemonDetails({ pokemons, actions }) {
 
   const [clickedAbility, setClikedAbility] = useState({
     name: '',
-    url: '',
+    id: '',
   });
 
-  let apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
-
   const fetchApiPageDetails = async () => {
+    const apiPokemonDetails = `${process.env.REACT_APP_DETAILS_PAGE_ADDRESS}/${params.name}`;
+
     try {
       setFetchDetailsStatus({ isLoading: true });
       const response = await fetch(apiPokemonDetails);
-
       const pokemonData = await response.json();
+
       actions.addPokemonActions({
-        name: pokemonData.name,
-        id: pokemonData.id,
-        picture: pokemonData.sprites.other['official-artwork'].front_default,
-        types: pokemonData.types,
-        abilities: pokemonData.abilities,
-        height: pokemonData.height,
-        weight: pokemonData.weight,
-        stats: pokemonData.stats,
+        name: pokemonData.pokemon.name,
+        id: pokemonData.pokemon.id,
+        pictureUrl: pokemonData.pokemon.pictureUrl,
+        types: pokemonData.pokemon.types,
+        abilities: pokemonData.pokemon.abilities,
+        height: pokemonData.pokemon.height,
+        weight: pokemonData.pokemon.weight,
+        about: pokemonData.pokemon.flavorText,
+        evolutions: pokemonData.pokemon.evolutionChain,
+        stats: [
+          {
+            name: 'Attack',
+            value: pokemonData.pokemon.attack,
+          },
+          {
+            name: 'Defense',
+            value: pokemonData.pokemon.defense,
+          },
+          {
+            name: 'Special-Attack',
+            value: pokemonData.pokemon.specialAttack,
+          },
+          {
+            name: 'Special-Defense',
+            value: pokemonData.pokemon.specialDefense,
+          },
+          {
+            name: 'Speed',
+            value: pokemonData.pokemon.speed,
+          },
+        ],
+        nextPokemon: {
+          name: pokemonData.nextPokemon.name,
+          id: pokemonData.nextPokemon.id,
+        },
+        prevPokemon: {
+          name: pokemonData.prevPokemon ? pokemonData.prevPokemon.name : '',
+          id: pokemonData.prevPokemon ? pokemonData.prevPokemon.id : '',
+        },
       });
 
       setFetchDetailsStatus({ isLoading: false });
@@ -60,12 +91,12 @@ function PokemonDetails({ pokemons, actions }) {
     }
   };
 
-  const handleClickAbility = (abilityName, abilityUrl) => {
+  const handleClickAbility = (abilityName, abilityId) => {
     setModalIsOpen(true);
     setClikedAbility({
       ...clickedAbility,
       name: abilityName,
-      url: abilityUrl,
+      id: abilityId,
     });
   };
 
@@ -76,10 +107,10 @@ function PokemonDetails({ pokemons, actions }) {
   return (
     <div className='details-page'>
       <AppHeader />
-      {!fetchDetailsStatus.isLoading && (
+      {!fetchDetailsStatus.isLoading && pokemon && (
         <div className='details-container'>
           <PokemonPictureContainer
-            picture={pokemon.picture}
+            picture={pokemon.pictureUrl}
             types={pokemon.types}
           />
           <PokemonInformationContainer
@@ -91,6 +122,8 @@ function PokemonDetails({ pokemons, actions }) {
             types={pokemon.types}
             stats={pokemon.stats}
             onClickAbility={handleClickAbility}
+            about={pokemon.about}
+            evolutions={pokemon.evolutions}
           />
         </div>
       )}
@@ -114,10 +147,16 @@ function PokemonDetails({ pokemons, actions }) {
         <ModalDetails
           onCloseModal={handleCloseModal}
           ability={clickedAbility.name}
-          url={clickedAbility.url}
+          id={clickedAbility.id}
         />
       </Modal>
-      <PokemonFooterContainer />
+      {!fetchDetailsStatus.isLoading && pokemon && (
+        <PokemonFooterContainer
+          prevPokemon={pokemon.prevPokemon}
+          nextPokemon={pokemon.nextPokemon}
+        />
+      )}
+
       {fetchDetailsStatus.error && <ApiError />}
       {fetchDetailsStatus.isLoading && <Loading />}
     </div>
