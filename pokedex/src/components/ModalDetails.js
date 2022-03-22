@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import closer from '../icons/closer.png';
 
 function ModalDetails({ onCloseModal, ability, id }) {
-  const urlAddress = `https://pokeapi.co/api/v2/ability/${id}/`;
+  const urlAddress = `${process.env.REACT_APP_DETAILS_ABILITY_ADDRESS}/${id}`;
 
   useEffect(() => {
     fetchUrlModal();
