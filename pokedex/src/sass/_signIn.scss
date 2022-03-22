@@ -1,0 +1,112 @@
+.sign-in-container {
+  &__form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: calc(100vh - 53px);
+
+    &__form {
+      flex-wrap: wrap;
+      max-width: 432px;
+      position: relative;
+      margin-top: 14%;
+      @include media-breakpoint-down(sm) {
+        padding: 0 16px 0 16px;
+        margin-top: 20%;
+      }
+
+      &__title {
+        @extend %font-value;
+        font-size: 24px;
+        text-align: center;
+        color: #2b3140;
+      }
+
+      &__img-area {
+        display: flex;
+        justify-content: flex-end;
+
+        &__img {
+          max-width: 80px;
+          height: 80px;
+          z-index: 1;
+          position: absolute;
+          top: 15px;
+        }
+      }
+
+      &__input-area {
+        flex-wrap: wrap;
+        flex-flow: column wrap;
+        height: 100%;
+
+        &__input {
+          @extend %font-value;
+          width: 100%;
+          height: 48px;
+          max-width: 432px;
+          background: #ffffff;
+          border: 1px solid #d1d7e5;
+          box-sizing: border-box;
+          border-radius: 8px;
+          font-size: 14px;
+          color: #6e7a96;
+          margin-bottom: 24px;
+          padding-left: 16px;
+        }
+      }
+      &__paragraph-container {
+        height: 20px;
+        margin-bottom: 20px;
+
+        &__paragraph {
+          @extend %font-value;
+          font-size: 14px;
+          line-height: 20px;
+          color: #3156c6;
+        }
+      }
+
+      &__button-area {
+        flex-flow: column wrap;
+        height: 100%;
+
+        &__sign-in-button {
+          @extend %font-value;
+          width: 100%;
+          max-width: 432px;
+          height: 44px;
+          padding: 12px 16px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          background: #3156c6;
+          border-radius: 4px;
+          border: transparent;
+          color: #ffffff;
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        &__sign-up-button {
+          @extend %font-value;
+          width: 100%;
+          max-width: 432px;
+          height: 44px;
+          padding: 12px 16px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          font-size: 14px;
+          line-height: 20px;
+          text-align: center;
+          color: #3156c6;
+          background: transparent;
+          border: transparent;
+        }
+      }
+    }
+  }
+}

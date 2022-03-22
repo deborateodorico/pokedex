@@ -5,6 +5,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { Store } from './store/index';
 import PokemonDetails from './components/PokemonDetails';
+import SigniN from './components/SignIn';
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
@@ -13,6 +14,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' exact element={<App />} />
         <Route path='/pokemon/:name' element={<PokemonDetails />} />
+        <Route path='/sign-in' element={<SigniN />} />
       </Routes>
     </BrowserRouter>
   </Provider>,
