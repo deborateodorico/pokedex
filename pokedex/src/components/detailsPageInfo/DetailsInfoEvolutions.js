@@ -17,7 +17,7 @@ const ShowEvolutions = ({ name, id, picture }) => {
 };
 
 export default function DetailsInfoEvolutions({ evolutions }) {
-  const RenderEvolution = () => {
+  const renderEvolution = () => {
     if (evolutions.length === 1) {
       return (
         <div className='details-evolutions__container'>
@@ -59,7 +59,7 @@ export default function DetailsInfoEvolutions({ evolutions }) {
   };
   return (
     <>
-      {RenderEvolution()}
+      {renderEvolution()}
       {renderEvolutionRecursion()}
     </>
   );
