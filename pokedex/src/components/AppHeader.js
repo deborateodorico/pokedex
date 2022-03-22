@@ -1,24 +1,28 @@
 import React from 'react';
-import union from '../icons/union.png';
 import vectorTeams from '../icons/vectorTeams.png';
-import user from '../icons/user.png';
 import favorite from '../icons/favorite.png';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { ReactComponent as Union2 } from '../icons/union2.svg';
+import { ReactComponent as User2 } from '../icons/user2.svg';
 
 export default function AppHeader() {
+  let activeClassName = 'link-without-underline';
   return (
     <div className='app__header'>
       <div className='container'>
-        <Link to='/' className='link-without-underline'>
+        <NavLink
+          to='/'
+          className={({ isActive }) => {
+            const defaultClass = 'iconClass';
+            const activeClass = isActive ? activeClassName : '';
+            return `${defaultClass} ${activeClass}`;
+          }}
+        >
           <div className='app__header__union-section'>
-            <img
-              src={union}
-              alt='union-icon'
-              className='app__header__union-section__img'
-            />
+            <Union2 className='app__header__union-section__img' />
             <p className='app__header__union-section__paragraph'>Pokedex</p>
           </div>
-        </Link>
+        </NavLink>
         <div className='app__header__teams-section'>
           <img
             src={vectorTeams}
@@ -36,12 +40,18 @@ export default function AppHeader() {
           <p className='app__header__favorite-section__paragraph'>Favorite</p>
         </div>
         <div className='app__header__user-section'>
-          <img
-            src={user}
-            alt='perfil-icon'
-            className='app__header__user-section__img'
-          />
-          <p className='app__header__user-section__paragraph'>Sign in</p>
+          <NavLink
+            to='/sign-in'
+            className={({ isActive }) => {
+              const defaultClass = 'iconClass';
+              const activeClass = isActive ? activeClassName : '';
+
+              return `${defaultClass} ${activeClass} userClass`;
+            }}
+          >
+            <User2 className='app__header__user-section__img' />
+            <p className='app__header__user-section__paragraph'>Sign in</p>
+          </NavLink>
         </div>
       </div>
     </div>
