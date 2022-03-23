@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { Store } from './store/index';
 import PokemonDetails from './components/PokemonDetails';
 import SigniN from './components/SignIn';
+import './components/authentication';
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
