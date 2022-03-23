@@ -22,7 +22,6 @@ const createAccount = (name, email, password) => {
 const getUser = () => {
   fetch('http://pokedex.jhonnymichel.com/profile', {
     method: 'GET',
-    mode: 'cors',
     headers: {
       Authorization: `Bearer ${Cookies.get('token')}`,
     },
