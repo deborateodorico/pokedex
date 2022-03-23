@@ -3,11 +3,8 @@ import Cookies from 'js-cookie';
 const createAccount = (name, email, password) => {
   fetch('http://pokedex.jhonnymichel.com/signup', {
     method: 'POST',
-    mode: 'cors',
-    referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
       name,
@@ -39,11 +36,8 @@ const getUser = () => {
 const signIn = (email, password) => {
   fetch('http://pokedex.jhonnymichel.com/signin', {
     method: 'POST',
-    mode: 'cors',
-    referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
       email,
@@ -60,8 +54,6 @@ const signIn = (email, password) => {
 const signOut = () => {
   fetch('http://pokedex.jhonnymichel.com/signout', {
     method: 'POST',
-    mode: 'cors',
-    referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${Cookies.get('token')}`,
